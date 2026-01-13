@@ -13,7 +13,7 @@ const VirtualFS: Record<string, { type: 'file' | 'dir'; content?: string; childr
   '/home': { type: 'dir', children: ['sourish'] },
   '/home/sourish': { type: 'dir', children: ['projects', 'cv.txt', 'readme.md', 'identity.json', '.ssh', '.bashrc'] },
   '/home/sourish/projects': { type: 'dir', children: ['face-mesh-x', 'infra-core', 'quant-vault'] },
-  '/home/sourish/readme.md': { type: 'file', content: '# Welcome\nThis is a simulated Linux environment showcasing my MLOps capability.' },
+  '/home/sourish/readme.md': { type: 'file', content: '# Welcome\nThis is a specialized Linux environment showcasing my MLOps capability.' },
   '/home/sourish/cv.txt': { type: 'file', content: 'Sourish Dey - MLOps & Cloud Engineer\nLocation: Bhubaneswar, Odisha\nContact: sourish713321@gmail.com' },
   '/home/sourish/identity.json': { type: 'file', content: '{\n  "name": "Sourish Dey",\n  "role": "Engineer",\n  "specialty": "Distributed Systems",\n  "status": "Innovating"\n}' },
   '/home/sourish/.bashrc': { type: 'file', content: 'alias k="kubectl"\nalias ll="ls -la"\nexport PS1="\\u@\\h:\\w\\$ "' },
@@ -404,7 +404,7 @@ const Terminal: React.FC = () => {
           </div>
           <h2 className="text-4xl font-heading font-bold text-slate-900 dark:text-white">Command Center</h2>
           <p className="mt-4 text-slate-500 dark:text-slate-400 text-sm max-w-lg mx-auto leading-relaxed">
-            An interactive Linux shell simulation allowing you to audit my infrastructure logs and file systems.
+            An interactive Linux shell allowing you to audit my infrastructure logs and file systems.
           </p>
         </motion.div>
 
