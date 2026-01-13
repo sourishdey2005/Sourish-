@@ -326,9 +326,61 @@ export const SKILLS = {
 };
 
 export const CERTIFICATIONS: Certification[] = [
-  { provider: "Google Cloud & Terraform", items: ["GCP Professional Cloud Architect", "HashiCorp Certified: Terraform Associate"] },
-  { provider: "AWS & Docker", items: ["AWS Certified Solutions Architect", "Docker Certified Associate"] },
-  { provider: "IBM & Deep Learning", items: ["Deep Learning Specialization", "AI Enterprise Workflow"] }
+  {
+    provider: "Google Cloud & Terraform",
+    items: [
+      "Google Cloud Cybersecurity Certificate",
+      "Build Infrastructure with Terraform",
+      "Manage Kubernetes in Google Cloud",
+      "Cloud Computing Foundations",
+      "Generative AI Certificate"
+    ]
+  },
+  {
+    provider: "AWS & Docker",
+    items: [
+      "AWS Machine Learning Foundations",
+      "AWS Cloud Essentials",
+      "Basic DevSecOps in AWS",
+      "Basic Docker Training"
+    ]
+  },
+  {
+    provider: "Linux Foundation & Kubernetes",
+    items: [
+      "LFS158: Introduction to Kubernetes",
+      "LFS167: Introduction to Jenkins",
+      "LFS151: Cloud Infrastructure Technologies",
+      "LFD110: Introduction to RISC-V"
+    ]
+  },
+  {
+    provider: "IBM & Deep Learning",
+    items: [
+      "Deep Learning with TensorFlow",
+      "Accelerating Deep Learning with GPUs",
+      "Machine Learning with Python",
+      "Introduction to Quantum Computing",
+      "Containers, Kubernetes, and OpenShift"
+    ]
+  },
+  {
+    provider: "Microsoft & Data Analysis",
+    items: [
+      "Career Essentials in Data Analysis",
+      "Career Essentials in Generative AI",
+      "Analyzing and Visualizing Data with Power BI"
+    ]
+  },
+  {
+    provider: "freeCodeCamp & Python",
+    items: [
+      "Machine Learning with Python",
+      "Data Analysis with Python",
+      "Data Visualization",
+      "Scientific Computing with Python"
+    ]
+  }
 ];
 
 export const PUBLICATIONS: Publication[] = [

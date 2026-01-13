@@ -9,7 +9,7 @@ import Skills from './components/Skills';
 import SystemSimulation from './components/SystemSimulation';
 import Publications from './components/Publications';
 import Contact from './components/Contact';
-import { Award, GraduationCap, CheckCircle2, Book, Calendar as CalendarIcon, Star } from 'lucide-react';
+import { Award, GraduationCap, CheckCircle2, Book, Calendar as CalendarIcon, Star, ExternalLink } from 'lucide-react';
 import { CERTIFICATIONS, EDUCATION_DATA } from './constants';
 import { motion } from 'framer-motion';
 
@@ -121,22 +121,37 @@ const App: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
-                    className="p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all group"
+                    className="p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all group overflow-hidden relative"
                   >
-                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-sm font-black text-indigo-600 uppercase tracking-widest">{cert.provider}</h3>
+                    {/* Background Icon */}
+                    <Award className="absolute -right-4 -bottom-4 w-24 h-24 text-indigo-500/5 rotate-12" />
+
+                    <div className="flex items-center justify-between mb-6 relative z-10">
+                      <div className="flex items-center gap-3">
+                         <div className="w-2 h-8 bg-indigo-600 rounded-full" />
+                         <h3 className="text-sm font-black text-indigo-600 uppercase tracking-widest">{cert.provider}</h3>
+                      </div>
                       <Star size={16} className="text-amber-500 fill-amber-500 group-hover:scale-125 transition-transform" />
                     </div>
-                    <ul className="space-y-4">
+                    
+                    <ul className="space-y-3 relative z-10">
                       {cert.items.map(item => (
-                        <li key={item} className="text-slate-700 dark:text-slate-300 flex items-center text-sm font-medium">
-                          <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mr-4 group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                            <CheckCircle2 size={16} />
+                        <li key={item} className="text-slate-700 dark:text-slate-300 flex items-start text-sm font-medium group/item">
+                          <div className="w-6 h-6 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mr-3 mt-0.5 group-hover/item:bg-indigo-600 group-hover/item:text-white transition-all flex-shrink-0">
+                            <CheckCircle2 size={12} />
                           </div>
-                          {item}
+                          <span className="group-hover/item:text-indigo-600 dark:group-hover/item:text-indigo-400 transition-colors">
+                            {item}
+                          </span>
                         </li>
                       ))}
                     </ul>
+
+                    <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex justify-end">
+                      <button className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5 hover:text-indigo-600 transition-colors">
+                        Verify Credentials <ExternalLink size={10} />
+                      </button>
+                    </div>
                   </motion.div>
                 ))}
               </div>
