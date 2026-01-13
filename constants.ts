@@ -139,41 +139,182 @@ export const EXPERIENCES: Experience[] = [
 export const PROJECTS: Project[] = [
   {
     title: "ICICI vs SBI Stock Analysis",
-    description: "Quantitative comparison and predictive modeling of top Indian banking stocks.",
-    achievements: ["92% accuracy in short-term trend prediction", "Automated data ingestion from Yahoo Finance API"],
-    stack: ["Python", "Pandas", "Scikit-learn", "Plotly"],
+    description: "Econometric & Time-Series Comparison (2011–2021) using over a decade of NIFTY data.",
+    achievements: [
+      "Performed econometric modeling and ESG score analysis.",
+      "Analyzed digital banking transformations and trading strategy implications."
+    ],
+    stack: ["Python", "Econometrics", "Pandas", "Plotly"],
     domain: "Finance",
     chartData: [
       { name: 'Accuracy', value: 92 },
-      { name: 'Precision', value: 89 },
-      { name: 'Recall', value: 85 }
+      { name: 'Recall', value: 88 },
+      { name: 'Sharpe', value: 75 }
     ]
   },
   {
-    // Fix: Remove 'role' property which is not present in 'Project' interface
-    title: "Uber Ride Analytics Platform",
-    description: "End-to-end data engineering pipeline to analyze ride-sharing patterns.",
-    achievements: ["Processed 1M+ records with sub-second query time", "Visualized high-density traffic clusters"],
-    stack: ["GCP", "Mage AI", "BigQuery", "Looker"],
+    title: "F1 Historical Data Analysis",
+    description: "Interactive EDA of 70+ years of Formula 1 history (1950–2023) analyzing race trends and driver performance.",
+    achievements: [
+      "Analyzed trends with interactive charts for races, titles, and points.",
+      "Evaluated driver consistency and peak performance with statistical boxplots."
+    ],
+    stack: ["Python", "Plotly", "Seaborn", "Pandas"],
     domain: "ML",
     chartData: [
-      { name: 'Throughput', value: 98 },
-      { name: 'Latency', value: 12 },
-      { name: 'Coverage', value: 95 }
+      { name: 'Consistency', value: 85 },
+      { name: 'Growth', value: 94 },
+      { name: 'Impact', value: 89 }
     ]
   },
   {
     title: "UiPath AWS Automation Suite",
-    description: "Enterprise-grade automation for multi-region AWS resource management.",
-    achievements: ["Reduced manual infra setup time by 80%", "Implemented cost-optimization alerts"],
-    stack: ["AWS", "UiPath", "Terraform", "Python"],
-    domain: "Cloud"
+    description: "End-to-end automation for enterprise-grade management of EC2 and S3 resources.",
+    achievements: [
+      "Automated EC2 provisioning, reducing setup time by 70%.",
+      "Streamlined S3 file operations with automated access control and error handling."
+    ],
+    stack: ["UiPath", "AWS", "RPA", "Terraform"],
+    domain: "Cloud",
+    chartData: [
+      { name: 'Efficiency', value: 98 },
+      { name: 'Speed', value: 95 },
+      { name: 'Reliability', value: 99 }
+    ]
+  },
+  {
+    title: "Uber Ride Analytics Platform",
+    description: "ML-powered operational analytics featuring 50+ unique EDAs to optimize pricing and predict churn.",
+    achievements: [
+      "Analyzed 148,000+ bookings to uncover dense traffic and demand patterns.",
+      "Developed high-precision models for revenue optimization and customer retention."
+    ],
+    stack: ["Python", "Machine Learning", "StatsModels", "Pandas"],
+    domain: "ML",
+    chartData: [
+      { name: 'Churn Acc', value: 91 },
+      { name: 'Price Opt', value: 84 },
+      { name: 'Data Vol', value: 98 }
+    ]
+  },
+  {
+    title: "FaceMeshX",
+    description: "Real-time system using MediaPipe and OpenCV for advanced facial expression and head pose detection.",
+    achievements: [
+      "Achieved real-time 60 FPS tracking with 468 facial landmarks.",
+      "Implemented detection for head tilt, eye status, and emotional cues."
+    ],
+    stack: ["Python", "OpenCV", "MediaPipe"],
+    domain: "ML",
+    chartData: [
+      { name: 'FPS', value: 95 },
+      { name: 'Accuracy', value: 92 },
+      { name: 'Latency', value: 15 }
+    ]
   },
   {
     title: "Gene Expression Bioinformatics",
-    description: "Statistical analysis of RNA-seq data for early cancer detection markers.",
-    achievements: ["Identified 5 novel biomarkers", "Reduced noise in high-dimensional genomic data"],
-    stack: ["Python", "BioPython", "Seaborn", "StatModels"],
+    description: "Hybrid CNN-BiLSTM deep learning model for predicting cell-cycle phases from genomic time-series data.",
+    achievements: [
+      "Achieved >98% accuracy on benchmark Spellman genomic datasets.",
+      "Developed a compact model footprint of less than 50 KB for edge deployment."
+    ],
+    stack: ["Deep Learning", "CNN", "LSTM", "Bioinformatics"],
+    domain: "IoT",
+    chartData: [
+      { name: 'Accuracy', value: 98 },
+      { name: 'Compactness', value: 96 },
+      { name: 'Recall', value: 97 }
+    ]
+  },
+  {
+    title: "YouTube Trending Analytics",
+    description: "Cross-country trend analysis exploring engagement patterns and content preferences using global datasets.",
+    achievements: [
+      "Uncovered critical insights on 'time-to-trend' variables across regions.",
+      "Analyzed engagement ratios and audience retention metrics."
+    ],
+    stack: ["Python", "Data Viz", "Pandas", "Statistics"],
+    domain: "ML"
+  },
+  {
+    title: "Cervical Cancer Risk Predictor",
+    description: "Sophisticated predictive framework combining deep neural networks and hybrid architectures.",
+    achievements: [
+      "Integrated multi-source clinical data for holistic risk profiling.",
+      "Leveraged hybrid models to significantly reduce false negative rates."
+    ],
+    stack: ["Deep Learning", "Healthcare AI", "Python"],
+    domain: "ML"
+  },
+  {
+    title: "Breast Cancer Classification",
+    description: "Explainable ML pipeline integrating statistical inference and dimensionality reduction.",
+    achievements: [
+      "Built a robust, clinically relevant system with high interpretability (XAI).",
+      "Integrated multivariate analysis for enhanced feature engineering."
+    ],
+    stack: ["Python", "Scikit-learn", "XAI", "Pandas"],
+    domain: "ML"
+  },
+  {
+    title: "Customer Churn Prediction",
+    description: "Telecom-focused supervised learning platform using Random Forest and XGBoost.",
+    achievements: [
+      "Identified top 5 contributing factors to customer churn for telecom providers.",
+      "Optimized model performance through hyperparameter tuning and cross-validation."
+    ],
+    stack: ["Python", "Random Forest", "XGBoost", "Data Analysis"],
+    domain: "Finance"
+  },
+  {
+    title: "Mercedes-Benz Stock Analytics",
+    description: "Financial time-series forecasting emphasizing statistical signal processing and technical indicators.",
+    achievements: [
+      "Extracted temporal and cyclical patterns in global automotive stock movements.",
+      "Visualized volatility clusters and momentum trend reversals."
+    ],
+    stack: ["Python", "Time Series", "Pandas", "Financial Analysis"],
+    domain: "Finance"
+  },
+  {
+    title: "Ultrasonic Radar System",
+    description: "Arduino-powered real-time object detection with Processing-based GUI visualization.",
+    achievements: [
+      "Engineered a functional radar system with a full 180° scan range.",
+      "Developed real-time GUI for obstacle mapping and distance measurement."
+    ],
+    stack: ["Arduino", "C++", "Processing", "IoT"],
+    domain: "IoT"
+  },
+  {
+    title: "Concurrent Port Scanner",
+    description: "High-speed network security tool utilizing multi-threading for efficient remote host scanning.",
+    achievements: [
+      "Implemented concurrent threading to reduce scan time by 90%.",
+      "Created comprehensive diagnostic reporting for network security audits."
+    ],
+    stack: ["Python", "Cybersecurity", "Networking", "Threading"],
+    domain: "IoT"
+  },
+  {
+    title: "Hull Tactical Market Prediction",
+    description: "Deep learning forecasting model using market sentiment, macro data, and volatility indices.",
+    achievements: [
+      "Conducted EDA with 50+ advanced visualizations of financial signal noise.",
+      "Engineered features from cross-asset sentiment and macroeconomic indicators."
+    ],
+    stack: ["Deep Learning", "Quant Finance", "Python"],
+    domain: "Finance"
+  },
+  {
+    title: "Iris Species Neural Net",
+    description: "Advanced classification engine built from scratch using only NumPy with attention mechanisms.",
+    achievements: [
+      "Achieved >98% test accuracy without external ML libraries.",
+      "Implemented Swish/GELU activations and Batch Normalization from first principles."
+    ],
+    stack: ["NumPy", "Neural Networks", "Python", "Math"],
     domain: "ML"
   }
 ];
