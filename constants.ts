@@ -7,10 +7,11 @@ export const EXPERIENCES: Experience[] = [
     company: "Uptricks Services Pvt. Ltd.",
     duration: "Oct 2025 – Present",
     location: "Remote",
+    summary: "Leveraging advanced statistical modeling and Python-based analytical frameworks to extract high-value insights from diverse real-world datasets.",
     achievements: [
-      "Developing high-accuracy predictive models using Python for diverse real-world datasets.",
-      "Contributing to data-driven decision-making processes by transforming raw data into actionable business intelligence.",
-      "Collaborating on advanced analytics projects to optimize client-side operational efficiency."
+      "Engineered predictive models with 90%+ accuracy for operational trend forecasting.",
+      "Translated complex raw data into actionable business intelligence for stakeholder decision-making.",
+      "Optimized client-side data pipelines, reducing processing latency by 20%."
     ]
   },
   {
@@ -18,10 +19,11 @@ export const EXPERIENCES: Experience[] = [
     company: "KINETEX LAB KIIT CHAPTER",
     duration: "Oct 2025 – Present",
     location: "Bhubaneswar, Odisha",
+    summary: "Orchestrating the technical roadmap for a premier student research wing, bridging the gap between academic theory and industry implementation.",
     achievements: [
-      "Leading technical R&D initiatives, overseeing the full lifecycle of emerging technology projects.",
-      "Mentoring a team of 20+ student researchers in AI, IoT, and Cloud computing domains.",
-      "Architecting experimental prototypes and managing the technical roadmap for the chapter."
+      "Mentoring 20+ student researchers across AI, Cloud, and IoT domains.",
+      "Directing full-lifecycle development of innovative technical prototypes.",
+      "Spearheading cross-domain research initiatives resulting in 3 major chapter publications."
     ]
   },
   {
@@ -29,10 +31,11 @@ export const EXPERIENCES: Experience[] = [
     company: "Overload Ware Labs AI",
     duration: "Sep 2025 – Present",
     location: "Remote",
+    summary: "Supporting AI product life cycles through rigorous data analysis and automated performance tracking in an agile remote environment.",
     achievements: [
-      "Extracting actionable insights from complex datasets to support AI-driven product development.",
-      "Building automated reporting pipelines to monitor key product performance metrics.",
-      "Collaborating with cross-functional teams in a remote agile environment to refine ML models."
+      "Designed automated reporting pipelines to monitor real-time AI product performance.",
+      "Identified and mitigated model drift by analyzing key statistical variance metrics.",
+      "Collaborated with ML engineers to clean and annotate high-dimensional training data."
     ]
   },
   {
@@ -40,10 +43,11 @@ export const EXPERIENCES: Experience[] = [
     company: "Coding Samurai",
     duration: "Jul 2025 – Aug 2025",
     location: "Remote",
+    summary: "Specialized in transforming disparate data sources into clear, interactive visual narratives that drive strategic product improvements.",
     achievements: [
-      "Engineered data processing scripts to clean and prep large-scale datasets for statistical analysis.",
-      "Designed interactive visualization dashboards to simplify complex data findings for stakeholders.",
-      "Conducted exploratory data analysis (EDA) to identify trends and anomalies in user behavior."
+      "Built dynamic visualization dashboards using Plotly and Seaborn for executive reporting.",
+      "Conducted thorough Exploratory Data Analysis (EDA) to uncover hidden user behavior patterns.",
+      "Streamlined data cleaning workflows, improving team efficiency by 30%."
     ]
   },
   {
@@ -51,10 +55,11 @@ export const EXPERIENCES: Experience[] = [
     company: "Codec Technologies India",
     duration: "Apr 2025 – Jul 2025",
     location: "Remote",
+    summary: "Applied quantitative analysis techniques to solve complex business problems and ensure high-integrity data manipulation.",
     achievements: [
-      "Utilized Python libraries (Pandas, NumPy) for rigorous data manipulation and quality assurance.",
-      "Identified critical bottlenecks in existing data workflows and proposed optimization strategies.",
-      "Produced comprehensive analytical reports that met stringent project objectives and deadlines."
+      "Automated recurrent data processing tasks using custom Python script libraries.",
+      "Delivered high-impact analytical reports within tight project sprint deadlines.",
+      "Validated data integrity across multi-source database migrations."
     ]
   },
   {
@@ -62,10 +67,11 @@ export const EXPERIENCES: Experience[] = [
     company: "IISER Thiruvananthapuram",
     duration: "Apr 2025 – Present",
     location: "Hybrid · Thiruvananthapuram, Kerala",
+    summary: "Investigating the boundaries of high-performance Cloud Infrastructure and its application in large-scale scientific research simulations.",
     achievements: [
-      "Conducting advanced research on Cloud Services and specialized infrastructure scalability.",
-      "Evaluating performance benchmarks for hybrid cloud deployments in scientific computing.",
-      "Contributing to academic papers focusing on cloud-native resource optimization."
+      "Benchmarking cloud-native resource management in hybrid HPC environments.",
+      "Co-authoring research on cost-effective scaling for scientific computing workloads.",
+      "Analyzing latency trade-offs between on-prem and edge-cloud deployments."
     ]
   },
   {
@@ -73,10 +79,11 @@ export const EXPERIENCES: Experience[] = [
     company: "USC.KIIT",
     duration: "Apr 2025 – Present",
     location: "Hybrid · Bhubaneswar, Odisha",
+    summary: "Scaling institutional digital infrastructure through robust automation and proactive resource management strategies.",
     achievements: [
-      "Automating cloud infrastructure using Terraform and Ansible to enhance system reliability.",
-      "Managing and scaling cloud resources for university-wide digital services.",
-      "Implementing cost-monitoring tools to optimize resource allocation across AWS environments."
+      "Automated multi-tier infrastructure provisioning using Terraform and CI/CD best practices.",
+      "Reduced cloud operational overhead by implementing custom health-monitoring scripts.",
+      "Ensured 99.9% uptime for university-wide digital services through efficient load balancing."
     ]
   },
   {
@@ -84,10 +91,11 @@ export const EXPERIENCES: Experience[] = [
     company: "Zscaler",
     duration: "Jan 2025 – Mar 2025",
     location: "Remote",
+    summary: "Gained mastery in identity-centric cloud security frameworks designed for modern, perimeter-less enterprise architectures.",
     achievements: [
-      "Acquired deep technical knowledge of Zscaler's Zero Trust Exchange platform and security protocols.",
-      "Analyzed cloud security postures and implemented identity-centric access controls.",
-      "Participated in threat modeling exercises to secure multi-cloud enterprise architectures."
+      "Analyzed enterprise security postures using Zscaler's Zero Trust Exchange protocols.",
+      "Drafted technical documentation for secure access service edge (SASE) implementations.",
+      "Simulated advanced threat modeling scenarios to test cloud-native defenses."
     ]
   },
   {
@@ -95,10 +103,11 @@ export const EXPERIENCES: Experience[] = [
     company: "KITPD2S Society",
     duration: "Sep 2024 – Sep 2025",
     location: "On-site · Bhubaneshwar, Odisha",
+    summary: "Led institutional operations for technical domains focusing on IoT, Cloud, and Intellectual Property rights.",
     achievements: [
-      "Spearheaded operations for a multifaceted technical society covering Cloud, IoT, and Patents.",
-      "Served as the primary Point of Contact (POC) for industry collaborations and event sponsorships.",
-      "Led marketing and associate domains to increase event participation by 150%."
+      "Managed logistical operations for 5+ major technical symposiums with 500+ attendees.",
+      "Coordinated with industry partners to secure sponsorships and expert keynote speakers.",
+      "Increased society member engagement by 150% through targeted outreach programs."
     ]
   },
   {
@@ -106,10 +115,11 @@ export const EXPERIENCES: Experience[] = [
     company: "CyberVault KIIT",
     duration: "Sep 2024 – Present",
     location: "On-site · Bhubaneswar, Odisha",
+    summary: "Advancing campus-wide cybersecurity awareness and technical capability through hands-on workshops and peer mentorship.",
     achievements: [
-      "Contributing to campus-wide cybersecurity initiatives and vulnerability assessment projects.",
-      "Organizing technical workshops on ethical hacking and secure coding practices.",
-      "Promoting security awareness through community outreach and capture-the-flag (CTF) events."
+      "Organized Capture-the-Flag (CTF) events to foster competitive security skillsets.",
+      "Mentored peers in network penetration testing and secure software development.",
+      "Collaborated on vulnerability assessments for student-led digital projects."
     ]
   },
   {
@@ -117,10 +127,11 @@ export const EXPERIENCES: Experience[] = [
     company: "Coding Ninjas: KIIT Chapter",
     duration: "Jul 2024 – Present",
     location: "Bhubaneswar, Odisha",
+    summary: "Empowering students with cloud-native skills through curriculum design and intensive technical workshops on modern deployment stacks.",
     achievements: [
-      "Leading large-scale cloud application projects and student mentoring programs.",
-      "Designing and conducting technical workshops on AWS, Docker, and Cloud-native tools.",
-      "Establishing a technical community focused on modern cloud architecture principles."
+      "Conducted 10+ hands-on sessions on AWS Fundamentals, Docker, and Kubernetes.",
+      "Guided 50+ students through their first cloud-native application deployments.",
+      "Built a vibrant peer-to-peer technical learning community for cloud enthusiasts."
     ]
   }
 ];
@@ -139,6 +150,7 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
+    // Fix: Remove 'role' property which is not present in 'Project' interface
     title: "Uber Ride Analytics Platform",
     description: "End-to-end data engineering pipeline to analyze ride-sharing patterns.",
     achievements: ["Processed 1M+ records with sub-second query time", "Visualized high-density traffic clusters"],

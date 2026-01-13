@@ -4,6 +4,7 @@ export interface Experience {
   company: string;
   duration: string;
   location: string;
+  summary: string;
   achievements: string[];
 }
 
