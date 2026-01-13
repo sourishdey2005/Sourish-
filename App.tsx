@@ -9,12 +9,13 @@ import Skills from './components/Skills';
 import SystemSimulation from './components/SystemSimulation';
 import Publications from './components/Publications';
 import Contact from './components/Contact';
-import { Award, GraduationCap, CheckCircle2 } from 'lucide-react';
-import { CERTIFICATIONS } from './constants';
+import { Award, GraduationCap, CheckCircle2, Book, Calendar as CalendarIcon, Star } from 'lucide-react';
+import { CERTIFICATIONS, EDUCATION_DATA } from './constants';
+import { motion } from 'framer-motion';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Navbar />
       <Hero />
       <About />
@@ -26,55 +27,120 @@ const App: React.FC = () => {
       <SystemSimulation />
       
       {/* Education & Certs */}
-      <section id="education" className="py-24 bg-slate-50 dark:bg-slate-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div>
-              <h2 className="text-3xl font-heading font-bold text-slate-900 dark:text-white mb-12 flex items-center">
-                <GraduationCap className="mr-4 text-primary-600" /> Education
-              </h2>
-              <div className="space-y-8">
-                <div className="p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">KIIT University</h3>
-                    <span className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full text-xs font-bold">2023–2027</span>
-                  </div>
-                  <p className="text-slate-600 dark:text-slate-400 mb-2">B.Tech Computer Engineering</p>
-                  <p className="text-sm font-medium text-primary-600">Currently pursuing specializing in AI/ML Foundations</p>
+      <section id="education" className="py-24 bg-slate-50 dark:bg-slate-900/30 overflow-hidden relative">
+        {/* Subtle Background Textures */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-600/5 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+            {/* Education Column */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="flex items-center gap-4 mb-12">
+                <div className="p-3 bg-primary-600 rounded-2xl text-white shadow-lg shadow-primary-500/20">
+                  <GraduationCap size={32} />
                 </div>
-                
-                <div className="p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">Hem Sheela Model School</h3>
-                    <span className="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-500 rounded-full text-xs font-bold">Batch 2023</span>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-slate-600 dark:text-slate-400 flex justify-between">Class 12: <span className="font-bold">91%</span></p>
-                    <p className="text-slate-600 dark:text-slate-400 flex justify-between">Class 10: <span className="font-bold">98%</span></p>
-                  </div>
+                <div>
+                  <span className="text-primary-600 font-black text-xs uppercase tracking-[0.3em] block mb-1">Foundations</span>
+                  <h2 className="text-4xl font-heading font-bold text-slate-900 dark:text-white">Academic Journey</h2>
                 </div>
               </div>
-            </div>
 
-            <div>
-              <h2 className="text-3xl font-heading font-bold text-slate-900 dark:text-white mb-12 flex items-center">
-                <Award className="mr-4 text-primary-600" /> Certifications
-              </h2>
-              <div className="grid grid-cols-1 gap-6">
-                {CERTIFICATIONS.map((cert) => (
-                  <div key={cert.provider} className="p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700">
-                    <h3 className="text-sm font-bold text-primary-600 uppercase tracking-widest mb-4">{cert.provider}</h3>
-                    <ul className="space-y-3">
-                      {cert.items.map(item => (
-                        <li key={item} className="text-slate-700 dark:text-slate-300 flex items-center text-sm">
-                          <CheckCircle2 size={16} className="text-green-500 mr-2 flex-shrink-0" /> {item}
-                        </li>
-                      ))}
-                    </ul>
+              <div className="space-y-12 relative before:absolute before:left-8 before:top-4 before:bottom-4 before:w-px before:bg-slate-200 dark:before:bg-slate-800">
+                {EDUCATION_DATA.map((edu, idx) => (
+                  <div key={idx} className="relative pl-20 group">
+                    {/* Timeline Marker */}
+                    <div className="absolute left-6 top-2 w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-4 border-primary-600 z-10 group-hover:scale-125 transition-transform" />
+                    
+                    <div className="p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm group-hover:shadow-xl group-hover:border-primary-500/30 transition-all duration-500">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
+                        <div className="flex items-center gap-2 text-primary-600 font-bold text-sm uppercase tracking-widest">
+                          <CalendarIcon size={14} />
+                          {edu.duration}
+                        </div>
+                        <span className="inline-flex items-center px-4 py-1.5 bg-green-500/10 text-green-600 dark:text-green-400 rounded-full text-xs font-black border border-green-500/20">
+                          SCORE: {edu.score}
+                        </span>
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary-600 transition-colors">
+                        {edu.institution}
+                      </h3>
+                      <p className="text-slate-500 dark:text-slate-400 font-bold mb-4">{edu.degree}</p>
+                      
+                      <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                        {edu.details}
+                      </p>
+
+                      {edu.coursework && (
+                        <div className="pt-6 border-t border-slate-100 dark:border-slate-700">
+                          <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <Book size={12} className="text-primary-600" /> Relevant Coursework
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {edu.coursework.map(course => (
+                              <span key={course} className="px-3 py-1 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] font-bold rounded-lg border border-slate-200 dark:border-slate-800">
+                                {course}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
+
+            {/* Certifications Column */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="flex items-center gap-4 mb-12">
+                <div className="p-3 bg-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-500/20">
+                  <Award size={32} />
+                </div>
+                <div>
+                  <span className="text-indigo-600 font-black text-xs uppercase tracking-[0.3em] block mb-1">Verification</span>
+                  <h2 className="text-4xl font-heading font-bold text-slate-900 dark:text-white">Professional Certs</h2>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-6">
+                {CERTIFICATIONS.map((cert, idx) => (
+                  <motion.div 
+                    key={cert.provider} 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all group"
+                  >
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="text-sm font-black text-indigo-600 uppercase tracking-widest">{cert.provider}</h3>
+                      <Star size={16} className="text-amber-500 fill-amber-500 group-hover:scale-125 transition-transform" />
+                    </div>
+                    <ul className="space-y-4">
+                      {cert.items.map(item => (
+                        <li key={item} className="text-slate-700 dark:text-slate-300 flex items-center text-sm font-medium">
+                          <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mr-4 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                            <CheckCircle2 size={16} />
+                          </div>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -82,9 +148,13 @@ const App: React.FC = () => {
       <Publications />
 
       {/* Honors */}
-      <section className="py-12 bg-primary-600 dark:bg-primary-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden relative">
-          <div className="flex flex-wrap items-center justify-around gap-8 py-4">
+      <section className="py-20 bg-primary-600 dark:bg-primary-900 relative overflow-hidden">
+        {/* Animated Background Pulse */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-indigo-700 opacity-50" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden relative z-10">
+          <div className="flex flex-wrap items-center justify-around gap-12 py-4">
              <HonorItem title="School Topper 2023" subtitle="98.5% Aggregate" />
              <HonorItem title="School Topper 2020" subtitle="Secondary Boards" />
              <HonorItem title="Gold Medal" subtitle="International Math Olympiad" />
@@ -109,10 +179,16 @@ const App: React.FC = () => {
 };
 
 const HonorItem = ({ title, subtitle }: { title: string, subtitle: string }) => (
-  <div className="text-center text-white p-4">
-    <p className="text-lg font-bold mb-1">{title}</p>
-    <p className="text-xs text-primary-100 uppercase tracking-wider">{subtitle}</p>
-  </div>
+  <motion.div 
+    whileHover={{ y: -10 }}
+    className="text-center text-white p-4"
+  >
+    <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 backdrop-blur-md">
+       <Star size={24} className="text-amber-300 fill-amber-300" />
+    </div>
+    <p className="text-xl font-bold mb-1 tracking-tight">{title}</p>
+    <p className="text-xs text-primary-100 uppercase font-black tracking-widest opacity-80">{subtitle}</p>
+  </motion.div>
 );
 
 export default App;

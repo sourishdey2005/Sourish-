@@ -1,5 +1,5 @@
 
-import { Experience, Project, Publication, Certification } from './types';
+import { Experience, Project, Publication, Certification, Education } from './types';
 
 export const EXPERIENCES: Experience[] = [
   {
@@ -343,5 +343,30 @@ export const PUBLICATIONS: Publication[] = [
     journal: "Intellectual Property India",
     abstract: "A patent for a drone-based system that uses multi-spectral imaging to detect crop diseases and automate pesticide dispersal.",
     type: "patent"
+  }
+];
+
+export const EDUCATION_DATA: Education[] = [
+  {
+    institution: "Kalinga Institute of Industrial Technology (KIIT)",
+    degree: "B.Tech. in Computer Engineering",
+    duration: "July 2023 – Dec 2027 (Expected)",
+    score: "Currently Pursuing",
+    details: "Focusing on large-scale distributed systems and AI infrastructure.",
+    coursework: ["Data Structures", "Algorithms", "Operating Systems", "DBMS", "OOP", "Computer Networks", "Probability", "Statistics"]
+  },
+  {
+    institution: "Hem Sheela Model School",
+    degree: "Senior Secondary (AISSCE) — Science",
+    duration: "2021 – 2023",
+    score: "91%",
+    details: "Completed high school with a major in Physics, Chemistry, and Mathematics."
+  },
+  {
+    institution: "Hem Sheela Model School",
+    degree: "Secondary (AISSE)",
+    duration: "2010 – 2020",
+    score: "98%",
+    details: "Achieved top-tier academic standing in foundational science and mathematics."
   }
 ];

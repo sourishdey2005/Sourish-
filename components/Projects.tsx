@@ -154,7 +154,7 @@ const Projects: React.FC = () => {
                         <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Core Stack</h4>
                         <div className="flex flex-wrap gap-2">
                           {selectedProject.stack.map(s => (
-                            <span key={s} className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black rounded-xl border border-slate-200 dark:border-slate-700">
+                            <span key={s} className="px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 text-xs font-black rounded-xl border border-primary-100 dark:border-primary-900/30">
                               {s}
                             </span>
                           ))}
@@ -205,12 +205,13 @@ const Projects: React.FC = () => {
 const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ project, onClick }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   
-  // Motion values for 3D effect
+  // Motion values for subtle 3D tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), { stiffness: 150, damping: 20 });
+  // Adjusted for more subtlety: 7 degrees max tilt
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [7, -7]), { stiffness: 100, damping: 15 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-7, 7]), { stiffness: 100, damping: 15 });
 
   // Shine/Glare effect values
   const opacity = useSpring(useMotionValue(0));
@@ -226,7 +227,7 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
     const y = e.clientY - rect.top;
     mouseX.set(x / width - 0.5);
     mouseY.set(y / height - 0.5);
-    opacity.set(0.6);
+    opacity.set(0.4); // Subtle glare
   };
 
   const handleMouseLeave = () => {
@@ -238,17 +239,18 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
       viewport={{ once: true }}
-      className="group relative h-[420px]"
-      style={{ perspective: 1500 }}
+      className="group relative h-[440px]"
+      style={{ perspective: 1200 }}
     >
       <motion.div
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        whileHover={{ scale: 1.015 }}
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         className="relative h-full bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden cursor-pointer transition-colors hover:border-primary-500/50 flex flex-col"
         onClick={onClick}
@@ -257,27 +259,27 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
         <motion.div 
           style={{ 
             opacity,
-            background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.2) 0%, transparent 80%)`,
+            background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.15) 0%, transparent 70%)`,
             zIndex: 10
           }} 
           className="absolute inset-0 pointer-events-none"
         />
 
         {/* Content with Parallax Effect */}
-        <div className="p-8 flex-grow flex flex-col" style={{ transform: 'translateZ(30px)' }}>
+        <div className="p-8 flex-grow flex flex-col" style={{ transform: 'translateZ(40px)' }}>
           <div className="flex justify-between items-start mb-6">
             <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-2xl text-primary-600 transition-transform group-hover:scale-110 duration-500">
               <Layers size={28} />
             </div>
             {project.chartData && (
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 rounded-full border border-green-500/20">
-                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-[10px] font-black text-green-600 uppercase tracking-tighter">Live Ops</span>
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-primary-500/10 rounded-full border border-primary-500/20">
+                <span className="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse" />
+                <span className="text-[10px] font-black text-primary-600 dark:text-primary-400 uppercase tracking-tighter">Analytical</span>
               </div>
             )}
           </div>
 
-          <div className="mb-4" style={{ transform: 'translateZ(50px)' }}>
+          <div className="mb-4" style={{ transform: 'translateZ(60px)' }}>
             <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary-600/70 dark:text-primary-400/70">
               {project.domain} Systems
             </span>
@@ -290,14 +292,15 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
             {project.description}
           </p>
 
-          <div className="flex flex-wrap gap-2 mt-auto" style={{ transform: 'translateZ(20px)' }}>
+          {/* Visually distinct stack chips */}
+          <div className="flex flex-wrap gap-2 mt-auto" style={{ transform: 'translateZ(30px)' }}>
             {project.stack.slice(0, 3).map(s => (
-              <span key={s} className="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-black rounded-lg border border-slate-200 dark:border-slate-800">
+              <span key={s} className="px-3 py-1 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-[10px] font-black rounded-lg border border-primary-100 dark:border-primary-900/30">
                 {s}
               </span>
             ))}
             {project.stack.length > 3 && (
-               <span className="px-2 py-1.5 text-[10px] font-black text-slate-400">+{project.stack.length - 3}</span>
+               <span className="px-2 py-1 text-[10px] font-black text-slate-400">+{project.stack.length - 3}</span>
             )}
           </div>
         </div>
@@ -312,7 +315,7 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
       </motion.div>
       
       {/* Interactive Glow Shadow */}
-      <div className="absolute -inset-2 bg-primary-600 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-[0.07] transition duration-700 -z-10" />
+      <div className="absolute -inset-2 bg-primary-600 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-[0.08] transition duration-700 -z-10" />
     </motion.div>
   );
 };

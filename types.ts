@@ -32,3 +32,12 @@ export interface Certification {
   provider: string;
   items: string[];
 }
+
+export interface Education {
+  institution: string;
+  degree: string;
+  duration: string;
+  score: string;
+  details: string;
+  coursework?: string[];
+}
