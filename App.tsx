@@ -8,6 +8,7 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import SystemSimulation from './components/SystemSimulation';
 import Publications from './components/Publications';
+import Patents from './components/Patents';
 import Contact from './components/Contact';
 import { Award, GraduationCap, CheckCircle2, Book, Calendar as CalendarIcon, Star, ExternalLink, Trophy, Medal } from 'lucide-react';
 import { CERTIFICATIONS, EDUCATION_DATA, HONORS } from './constants';
@@ -213,6 +214,7 @@ const App: React.FC = () => {
       </section>
 
       <Publications />
+      <Patents />
 
       <Contact />
 
