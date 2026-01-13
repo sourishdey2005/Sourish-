@@ -1,8 +1,8 @@
 
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ExternalLink, Github, PieChart as ChartIcon, CheckCircle2, ChevronRight, X, Layers, Target, Activity } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip } from 'recharts';
+import { ExternalLink, Github, CheckCircle2, ChevronRight, X, Layers, Target, Activity, Filter } from 'lucide-react';
+import { BarChart, Bar, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 import { PROJECTS } from '../constants';
 import { ProjectDomain, Project as ProjectType } from '../types';
 
@@ -11,7 +11,7 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
 
   const filteredProjects = PROJECTS.filter(p => filter === 'All' || p.domain === filter);
-  const filterOptions = ['All', 'ML', 'Cloud', 'Finance', 'IoT'];
+  const filterOptions: (ProjectDomain | 'All')[] = ['All', 'ML', 'Cloud', 'Finance', 'IoT'];
 
   return (
     <section id="projects" className="py-24 bg-slate-50 dark:bg-slate-950 overflow-hidden relative">
@@ -48,21 +48,29 @@ const Projects: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-wrap gap-2 p-1.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800"
+            className="flex flex-wrap gap-2 p-1.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm"
           >
             {filterOptions.map(opt => (
               <button
                 key={opt}
-                onClick={() => setFilter(opt as any)}
-                className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 ${filter === opt ? 'bg-primary-600 text-white shadow-lg shadow-primary-500/20' : 'text-slate-500 hover:text-primary-600'}`}
+                onClick={() => setFilter(opt)}
+                className={`relative px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-2 ${
+                  filter === opt 
+                    ? 'bg-primary-600 text-white shadow-lg shadow-primary-500/25 scale-105' 
+                    : 'text-slate-500 hover:text-primary-600 hover:bg-slate-50 dark:hover:bg-slate-800'
+                }`}
               >
+                {opt === 'All' && <Filter size={14} className={filter === 'All' ? 'opacity-100' : 'opacity-40'} />}
                 {opt}
               </button>
             ))}
           </motion.div>
         </div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 min-h-[600px]"
+        >
           <AnimatePresence mode='popLayout'>
             {filteredProjects.map((project) => (
               <ProjectCard 
@@ -230,9 +238,9 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
       viewport={{ once: true }}
       className="group relative h-[420px]"
       style={{ perspective: 1500 }}

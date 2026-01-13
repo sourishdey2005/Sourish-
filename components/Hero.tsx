@@ -1,7 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Download, ChevronRight } from 'lucide-react';
+import BrainNetwork from './BrainNetwork';
 
 const Hero: React.FC = () => {
   const roles = ["MLOps Engineer", "Cloud Engineer", "Data Scientist"];
@@ -33,7 +34,12 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white dark:bg-slate-950">
-      {/* Background Decor */}
+      {/* 3D Brain Network Background */}
+      <Suspense fallback={null}>
+        <BrainNetwork />
+      </Suspense>
+
+      {/* Background Decor Gradients */}
       <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary-50 dark:bg-primary-900/10 rounded-full blur-3xl opacity-50" />
       <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[400px] h-[400px] bg-indigo-50 dark:bg-indigo-900/10 rounded-full blur-3xl opacity-50" />
 
@@ -73,7 +79,7 @@ const Hero: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Profile Photo Section */}
+          {/* Profile Photo Section with Overlay Glow */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8, x: 30 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -81,12 +87,15 @@ const Hero: React.FC = () => {
             className="relative flex justify-center lg:justify-end"
           >
             <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+              {/* Dynamic Aura Glow */}
+              <div className="absolute -inset-4 bg-primary-600/20 blur-3xl rounded-full animate-pulse" />
+              
               {/* Animated Background Elements */}
               <div className="absolute inset-0 bg-primary-600/10 dark:bg-primary-600/5 rounded-[2rem] rotate-6 scale-105" />
               <div className="absolute inset-0 border-2 border-primary-600/20 dark:border-primary-600/10 rounded-[2rem] -rotate-3" />
               
               {/* Profile Image Container */}
-              <div className="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800">
+              <div className="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 backdrop-blur-sm">
                 <img 
                   src="https://res.cloudinary.com/dodhvvewu/image/upload/v1768232730/80b22f88-4f08-47a0-aa94-2117cbe80c9b_kbe1ph.jpg" 
                   alt="Sourish Dey" 

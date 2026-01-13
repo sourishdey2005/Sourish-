@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Cloud, Brain, Code2, Server, Database, Cpu, Terminal, GitBranch, ShieldCheck } from 'lucide-react';
+import { Cloud, Brain, Code2, Server, Terminal } from 'lucide-react';
 import { SKILLS } from '../constants';
 
 const Skills: React.FC = () => {
@@ -31,7 +31,7 @@ const Skills: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Cloud & DevOps */}
           <SkillCategory 
             title="Cloud & DevOps (IaC)"
@@ -98,35 +98,54 @@ const SkillCategory: React.FC<{
         <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">{title}</h3>
       </div>
 
-      <div className="space-y-5">
-        {skills.map((skill, index) => (
-          <div key={skill} className="space-y-2">
-            <div className="flex justify-between items-center text-sm">
-              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                <div className={`w-1.5 h-1.5 rounded-full ${index % 3 === 0 ? 'bg-primary-500 animate-pulse' : 'bg-slate-300'}`} />
-                {skill}
-              </span>
-              <span className="text-[10px] font-black uppercase tracking-tighter text-slate-400">
-                {95 - (index * 4)}% Mastery
-              </span>
+      <div className="space-y-6">
+        {skills.map((skill, index) => {
+          // Calculate mastery to be above 90%
+          const mastery = 98 - (index * 0.7);
+          
+          return (
+            <div key={skill} className="space-y-2 group/skill">
+              <div className="flex justify-between items-center text-sm">
+                <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2 group-hover/skill:text-primary-600 transition-colors">
+                  <div className={`w-1.5 h-1.5 rounded-full ${index % 2 === 0 ? 'bg-primary-500 animate-pulse' : 'bg-slate-300 dark:bg-slate-700'}`} />
+                  {skill}
+                </span>
+                <div className="flex items-center gap-1.5">
+                   <span className="text-[10px] font-black uppercase tracking-tighter text-slate-400 dark:text-slate-500">
+                    {mastery.toFixed(1)}% Mastery
+                  </span>
+                </div>
+              </div>
+              
+              {/* Visualisation Progress Bar */}
+              <div className="h-2 w-full bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden border border-slate-200/20 dark:border-slate-700/20">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${mastery}%` }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, delay: delay + (index * 0.05), ease: "easeOut" }}
+                  className={`h-full rounded-full relative bg-gradient-to-r ${
+                    color === 'blue' ? 'from-blue-400 to-blue-600' : 
+                    color === 'indigo' ? 'from-indigo-400 to-indigo-600' : 
+                    'from-purple-400 to-purple-600'
+                  }`}
+                >
+                  {/* Subtle Shimmer Effect on Bar */}
+                  <motion.div 
+                    animate={{ x: ['-100%', '100%'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 bg-white/20 w-1/2 blur-sm"
+                  />
+                </motion.div>
+              </div>
             </div>
-            {/* Visualisation Progress Bar */}
-            <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: `${95 - (index * 4)}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: delay + (index * 0.05) }}
-                className={`h-full rounded-full bg-gradient-to-r ${color === 'blue' ? 'from-blue-400 to-blue-600' : color === 'indigo' ? 'from-indigo-400 to-indigo-600' : 'from-purple-400 to-purple-600'}`}
-              />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Decorative Corner Element */}
-      <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-        {color === 'blue' ? <Server size={64} /> : color === 'indigo' ? <Brain size={64} /> : <Terminal size={64} />}
+      <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
+        {color === 'blue' ? <Server size={80} /> : color === 'indigo' ? <Brain size={80} /> : <Terminal size={80} />}
       </div>
     </motion.div>
   );
