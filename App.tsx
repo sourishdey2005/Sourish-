@@ -6,6 +6,7 @@ import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
+import Terminal from './components/Terminal';
 import Publications from './components/Publications';
 import Patents from './components/Patents';
 import CertificatesGallery from './components/CertificatesGallery';
@@ -22,6 +23,7 @@ const App: React.FC = () => {
       <About />
       <Experience />
       <Projects />
+      <Terminal />
       <Skills />
       
       {/* Education & Certs */}
