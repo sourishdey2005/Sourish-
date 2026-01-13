@@ -6,7 +6,6 @@ import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
-import SystemSimulation from './components/SystemSimulation';
 import Publications from './components/Publications';
 import Patents from './components/Patents';
 import CertificatesGallery from './components/CertificatesGallery';
@@ -24,9 +23,6 @@ const App: React.FC = () => {
       <Experience />
       <Projects />
       <Skills />
-      
-      {/* Live System Simulation - Highlighting Cloud & Infrastructure Depth */}
-      <SystemSimulation />
       
       {/* Education & Certs */}
       <section id="education" className="py-24 bg-slate-50 dark:bg-slate-900/30 overflow-hidden relative border-b border-slate-100 dark:border-slate-800">
