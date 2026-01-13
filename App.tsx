@@ -9,8 +9,8 @@ import Skills from './components/Skills';
 import SystemSimulation from './components/SystemSimulation';
 import Publications from './components/Publications';
 import Contact from './components/Contact';
-import { Award, GraduationCap, CheckCircle2, Book, Calendar as CalendarIcon, Star, ExternalLink } from 'lucide-react';
-import { CERTIFICATIONS, EDUCATION_DATA } from './constants';
+import { Award, GraduationCap, CheckCircle2, Book, Calendar as CalendarIcon, Star, ExternalLink, Trophy, Medal } from 'lucide-react';
+import { CERTIFICATIONS, EDUCATION_DATA, HONORS } from './constants';
 import { motion } from 'framer-motion';
 
 const App: React.FC = () => {
@@ -27,7 +27,7 @@ const App: React.FC = () => {
       <SystemSimulation />
       
       {/* Education & Certs */}
-      <section id="education" className="py-24 bg-slate-50 dark:bg-slate-900/30 overflow-hidden relative">
+      <section id="education" className="py-24 bg-slate-50 dark:bg-slate-900/30 overflow-hidden relative border-b border-slate-100 dark:border-slate-800">
         {/* Subtle Background Textures */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary-600/5 blur-[120px] rounded-full pointer-events-none" />
         
@@ -160,23 +160,59 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      <Publications />
+      {/* Honors Section - Improved Alignment & Detail */}
+      <section id="honors" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-8 bg-amber-500" />
+              <h2 className="text-sm font-black text-amber-500 uppercase tracking-[0.3em]">Excellence</h2>
+              <span className="h-px w-8 bg-amber-500" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-slate-900 dark:text-white mb-6">Honors & Awards</h2>
+            <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+              Academic and competitive recognitions highlighting a consistent record of high-performance and technical proficiency.
+            </p>
+          </motion.div>
 
-      {/* Honors */}
-      <section className="py-20 bg-primary-600 dark:bg-primary-900 relative overflow-hidden">
-        {/* Animated Background Pulse */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-indigo-700 opacity-50" />
-        <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden relative z-10">
-          <div className="flex flex-wrap items-center justify-around gap-12 py-4">
-             <HonorItem title="School Topper 2023" subtitle="98.5% Aggregate" />
-             <HonorItem title="School Topper 2020" subtitle="Secondary Boards" />
-             <HonorItem title="Gold Medal" subtitle="International Math Olympiad" />
-             <HonorItem title="Silver Medal" subtitle="National Math Olympiad" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+             {HONORS.map((honor, idx) => (
+               <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                whileHover={{ y: -8 }}
+                className="group p-8 bg-slate-50 dark:bg-slate-900/40 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:border-amber-500/30"
+               >
+                 <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-3xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform group-hover:bg-amber-500 group-hover:text-white">
+                   {honor.title.includes('Gold') ? <Trophy size={32} className="text-amber-500 group-hover:text-white" /> : honor.title.includes('Silver') ? <Medal size={32} className="text-slate-400 group-hover:text-white" /> : <Star size={32} className="text-amber-500 group-hover:text-white" />}
+                 </div>
+                 
+                 <div className="flex items-center gap-1.5 text-[10px] font-black text-amber-600 uppercase tracking-widest mb-3">
+                   <CalendarIcon size={12} /> {honor.date}
+                 </div>
+                 
+                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-tight group-hover:text-amber-600 transition-colors">
+                   {honor.title}
+                 </h3>
+                 <p className="text-sm text-slate-500 dark:text-slate-400 font-bold mb-4">{honor.institution}</p>
+                 <p className="text-xs text-slate-400 dark:text-slate-500 italic leading-relaxed">
+                   {honor.description}
+                 </p>
+               </motion.div>
+             ))}
           </div>
         </div>
       </section>
+
+      <Publications />
 
       <Contact />
 
@@ -192,18 +228,5 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-const HonorItem = ({ title, subtitle }: { title: string, subtitle: string }) => (
-  <motion.div 
-    whileHover={{ y: -10 }}
-    className="text-center text-white p-4"
-  >
-    <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 backdrop-blur-md">
-       <Star size={24} className="text-amber-300 fill-amber-300" />
-    </div>
-    <p className="text-xl font-bold mb-1 tracking-tight">{title}</p>
-    <p className="text-xs text-primary-100 uppercase font-black tracking-widest opacity-80">{subtitle}</p>
-  </motion.div>
-);
 
 export default App;

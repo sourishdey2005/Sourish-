@@ -24,8 +24,10 @@ export interface Project {
 export interface Publication {
   title: string;
   journal: string;
+  date: string;
   abstract: string;
   type: 'publication' | 'patent';
+  link?: string;
 }
 
 export interface Certification {
@@ -40,4 +42,11 @@ export interface Education {
   score: string;
   details: string;
   coursework?: string[];
+}
+
+export interface Honor {
+  title: string;
+  institution: string;
+  date: string;
+  description?: string;
 }

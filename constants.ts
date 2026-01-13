@@ -1,5 +1,5 @@
 
-import { Experience, Project, Publication, Certification, Education } from './types';
+import { Experience, Project, Publication, Certification, Education, Honor } from './types';
 
 export const EXPERIENCES: Experience[] = [
   {
@@ -385,15 +385,38 @@ export const CERTIFICATIONS: Certification[] = [
 
 export const PUBLICATIONS: Publication[] = [
   {
-    title: "IoT & Computer Vision for Traffic Management",
-    journal: "IJFMR",
-    abstract: "Proposed an integrated framework for real-time traffic density estimation using edge-computing and custom YOLOv8 models.",
+    title: "IoT and Computer Vision for Urban Traffic Management",
+    journal: "International Journal for Multidisciplinary Research (IJFMR)",
+    date: "Feb 11, 2025",
+    abstract: "A novel smart urban traffic management system synergistically integrating IoT and computer vision. The system employs a hybrid edge-cloud architecture with a distributed network of intelligent IoT devices (smart cameras with on-device AI, LIDAR, radar) to capture real-time traffic data. Edge computing nodes perform localized analysis for immediate responses like adaptive traffic signal adjustments, while the cloud platform aggregates data for comprehensive pattern analysis and predictive modeling. Advanced computer vision algorithms (YOLOv8) provide critical insights into traffic dynamics.",
+    type: "publication"
+  },
+  {
+    title: "Smart Breathe: IoT-Integrated Community Air Purification System",
+    journal: "International Journal for Multidisciplinary Research (IJFMR)",
+    date: "Dec 18, 2024",
+    abstract: "An innovative IoT-integrated air purification system to combat air pollution in high-density urban and industrial areas. Utilizing a distributed architecture, the system employs real-time monitoring and dynamic adaptivity to optimize air purification at pollution hotspots. Advanced sensors track pollutants like PM2.5, NO₂, and VOCs, while a centralized IoT platform analyzes data to provide actionable insights for targeted interventions, enhancing public health and promoting environmental equity.",
+    type: "publication"
+  },
+  {
+    title: "Quantum Computing for Nuclear Fusion: Advancing Simulation and Optimization",
+    journal: "International Journal for Multidisciplinary Research (IJFMR)",
+    date: "Dec 10, 2024",
+    abstract: "This paper explores the transformative potential of quantum computing in revolutionizing nuclear fusion. It focuses on leveraging quantum algorithms to enhance simulation accuracy and optimize energy production processes, paving the way for cleaner and more efficient energy solutions. The work aims to combine cutting-edge quantum technologies with energy innovation to contribute to a sustainable and energy-secure future.",
     type: "publication"
   },
   {
     title: "AI-Powered Smart Agriculture Drone",
     journal: "Intellectual Property India",
-    abstract: "A patent for a drone-based system that uses multi-spectral imaging to detect crop diseases and automate pesticide dispersal.",
+    date: "Patent ID: 468494-001",
+    abstract: "A revolutionary autonomous aerial system engineered for precision agriculture. The framework utilizes high-resolution multi-spectral imaging and computer vision to monitor crop health in real-time. By applying edge-based AI models, the drone can identify localized nutrient deficiencies and pest infestations, triggering automated, targeted pesticide dispersal. Includes a predictive engine for yield forecasting based on temporal vegetative indices (NDVI/EVI), significantly optimizing harvest cycles.",
+    type: "patent"
+  },
+  {
+    title: "Underwater Power Generator",
+    journal: "Intellectual Property India",
+    date: "Patent ID: 450888-001",
+    abstract: "A high-efficiency renewable energy solution designed for harvesting kinetic energy from underwater currents. The system features a custom-designed magneto-inductive turbine that operates effectively even in low-velocity flow environments. It employs advanced hydrodynamic blade profiles to maximize energy capture while minimizing environmental impact on marine life. Integrated with IoT sensors for remote structural health monitoring and power output optimization via adaptive torque control.",
     type: "patent"
   }
 ];
@@ -420,5 +443,32 @@ export const EDUCATION_DATA: Education[] = [
     duration: "2010 – 2020",
     score: "98%",
     details: "Achieved top-tier academic standing in foundational science and mathematics."
+  }
+];
+
+export const HONORS: Honor[] = [
+  {
+    title: "School Topper",
+    institution: "Hem Sheela Model School",
+    date: "Jan 2023",
+    description: "Achieved first rank in the graduating class of 2023."
+  },
+  {
+    title: "School Topper (98.5%)",
+    institution: "Hem Sheela Model School",
+    date: "Jan 2020",
+    description: "Academic excellence award for secondary board examinations."
+  },
+  {
+    title: "Gold Medalist",
+    institution: "International Maths Olympiad (SOF)",
+    date: "High School",
+    description: "Achieved top international rank in competitive mathematics."
+  },
+  {
+    title: "Silver Medalist",
+    institution: "International Maths Olympiad (SOF)",
+    date: "High School",
+    description: "Exceptional performance award in SOF mathematics competition."
   }
 ];
