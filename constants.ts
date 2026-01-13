@@ -320,7 +320,7 @@ export const PROJECTS: Project[] = [
 ];
 
 export const SKILLS = {
-  cloud: ["AWS", "GCP", "Azure", "Terraform", "Kubernetes", "Docker", "Jenkins", "GitHub Actions", "Ansible", "Bash"],
+  cloud: ["AWS", "GCP", "Azure", "Terraform", "Kubernetes", "Docker", "Jenkins", "GitHub Actions", "Ansible", "Bash", "Git"],
   ai: ["TensorFlow", "Keras", "Scikit-learn", "OpenCV", "Flask", "Pandas", "NumPy", "XGBoost", "Plotly"],
   programming: ["Python", "C++", "Java", "SQL", "HTML/CSS"]
 };
