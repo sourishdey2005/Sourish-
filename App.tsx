@@ -10,7 +10,7 @@ import SystemSimulation from './components/SystemSimulation';
 import Publications from './components/Publications';
 import Patents from './components/Patents';
 import Contact from './components/Contact';
-import { Award, GraduationCap, CheckCircle2, Book, Calendar as CalendarIcon, Star, ExternalLink, Trophy, Medal } from 'lucide-react';
+import { Award, GraduationCap, CheckCircle2, Book, Calendar as CalendarIcon, Star, ExternalLink, Trophy, Medal, Github, Linkedin, Facebook, Link2 } from 'lucide-react';
 import { CERTIFICATIONS, EDUCATION_DATA, HONORS } from './constants';
 import { motion } from 'framer-motion';
 
@@ -218,12 +218,41 @@ const App: React.FC = () => {
 
       <Contact />
 
-      <footer className="py-12 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-slate-500 dark:text-slate-400 text-sm">
-          <p>© 2026 Sourish Dey. All rights reserved.</p>
-          <div className="flex space-x-8 mt-4 md:mt-0">
-             <a href="#" className="hover:text-primary-600 transition-colors">Privacy Policy</a>
-             <a href="#" className="hover:text-primary-600 transition-colors">Terms of Service</a>
+      <footer className="py-16 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="flex flex-col items-center md:items-start">
+              <span className="text-2xl font-black text-primary-600 mb-2">Sourish Dey</span>
+              <p className="text-slate-500 dark:text-slate-400 text-sm max-w-xs text-center md:text-left">
+                Engineering high-performance cloud ecosystems and intelligent AI solutions.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center gap-6">
+              <div className="flex items-center gap-6">
+                <a href="https://github.com/sourishdey2005" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-primary-600 dark:hover:text-white transition-all hover:scale-110">
+                  <Github size={22} />
+                </a>
+                <a href="https://www.linkedin.com/in/sourish-dey-20b170206/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-primary-600 dark:hover:text-white transition-all hover:scale-110">
+                  <Linkedin size={22} />
+                </a>
+                <a href="https://linktr.ee/Sourishdey" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-primary-600 dark:hover:text-white transition-all hover:scale-110">
+                  <Link2 size={22} />
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61551388003130" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-primary-600 dark:hover:text-white transition-all hover:scale-110">
+                  <Facebook size={22} />
+                </a>
+              </div>
+              <div className="flex space-x-8 text-xs font-bold uppercase tracking-widest text-slate-400">
+                <a href="#" className="hover:text-primary-600 transition-colors">Privacy</a>
+                <a href="#" className="hover:text-primary-600 transition-colors">Terms</a>
+                <a href="mailto:sourish713321@gmail.com" className="hover:text-primary-600 transition-colors">Contact</a>
+              </div>
+            </div>
+
+            <div className="text-slate-400 text-xs font-medium">
+              © 2026 Sourish Dey. All rights reserved.
+            </div>
           </div>
         </div>
       </footer>

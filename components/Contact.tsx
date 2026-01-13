@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Linkedin, Github, Send, CheckCircle, ExternalLink } from 'lucide-react';
+import { Mail, Phone, Linkedin, Github, Send, CheckCircle, ExternalLink, Facebook } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formState, setFormState] = useState<'idle' | 'sending' | 'success'>('idle');
@@ -11,6 +11,12 @@ const Contact: React.FC = () => {
     setFormState('sending');
     setTimeout(() => setFormState('success'), 1500);
   };
+
+  const LinktreeIcon = () => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="m13.736 5.853 4.005-4.117 2.325 1.503-3.2 3.287 5.134 1.255-.523 2.741-5.385-1.317 2.924 5.842-2.43 1.214-2.586-5.166v8.448l4.021 2.626-1.582 2.422-2.439-1.592V24h-3.002v-4.595l-2.439 1.592-1.581-2.422 4.02-2.626v-8.448l-2.586 5.166-2.43-1.214 2.924-5.842-5.384 1.317-.524-2.741 5.134-1.255-3.2-3.287L5.275 1.736l4.005 4.117V0h3.002v5.853Z"/>
+    </svg>
+  );
 
   return (
     <section id="contact" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative">
@@ -62,12 +68,18 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-14 flex flex-wrap gap-4">
-              <a href="https://linkedin.com/in/sourish-dey" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-all font-bold text-sm">
-                <Linkedin size={20} className="text-blue-600" /> LinkedIn Profiler <ExternalLink size={12} className="opacity-40" />
+            <div className="mt-14 grid grid-cols-2 gap-4">
+              <a href="https://www.linkedin.com/in/sourish-dey-20b170206/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-all font-bold text-sm">
+                <Linkedin size={20} className="text-blue-600" /> LinkedIn <ExternalLink size={12} className="opacity-40" />
               </a>
-              <a href="https://github.com/sourish-dey" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-all font-bold text-sm">
-                <Github size={20} className="text-slate-900 dark:text-white" /> GitHub Registry <ExternalLink size={12} className="opacity-40" />
+              <a href="https://github.com/sourishdey2005" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-all font-bold text-sm">
+                <Github size={20} className="text-slate-900 dark:text-white" /> GitHub <ExternalLink size={12} className="opacity-40" />
+              </a>
+              <a href="https://linktr.ee/Sourishdey" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-all font-bold text-sm">
+                <div className="text-green-600"><LinktreeIcon /></div> Linktree <ExternalLink size={12} className="opacity-40" />
+              </a>
+              <a href="https://www.facebook.com/profile.php?id=61551388003130" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-all font-bold text-sm">
+                <Facebook size={20} className="text-blue-700" /> Facebook <ExternalLink size={12} className="opacity-40" />
               </a>
             </div>
           </motion.div>
