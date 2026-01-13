@@ -6,6 +6,7 @@ import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
+import SystemSimulation from './components/SystemSimulation';
 import Publications from './components/Publications';
 import Contact from './components/Contact';
 import { Award, GraduationCap, CheckCircle2 } from 'lucide-react';
@@ -20,6 +21,9 @@ const App: React.FC = () => {
       <Experience />
       <Projects />
       <Skills />
+      
+      {/* Live System Simulation - Highlighting Cloud & Infrastructure Depth */}
+      <SystemSimulation />
       
       {/* Education & Certs */}
       <section id="education" className="py-24 bg-slate-50 dark:bg-slate-900/30">
