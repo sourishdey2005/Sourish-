@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Image as ImageIcon, X, ZoomIn } from 'lucide-react';
+import { Image as ImageIcon, X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface VisualCertificate {
   id: string;
@@ -129,7 +129,33 @@ const INITIAL_CERTIFICATES: VisualCertificate[] = [
 
 const CertificatesGallery: React.FC = () => {
   const [certs] = useState<VisualCertificate[]>(INITIAL_CERTIFICATES);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selectedIndex !== null) {
+      setSelectedIndex((selectedIndex + 1) % certs.length);
+    }
+  };
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selectedIndex !== null) {
+      setSelectedIndex((selectedIndex - 1 + certs.length) % certs.length);
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedIndex === null) return;
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrev();
+      if (e.key === 'Escape') setSelectedIndex(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedIndex]);
 
   return (
     <section id="certificates-gallery" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative border-t border-slate-100 dark:border-slate-800">
@@ -147,12 +173,11 @@ const CertificatesGallery: React.FC = () => {
           </div>
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-slate-900 dark:text-white mb-6">Digital Credential Gallery</h2>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg">
-            Visual verification of professional milestones, technical certifications, and academic excellence.
+            Visual verification of professional milestones, technical certifications, and academic excellence. Click any image for a detailed view.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {/* Certificates Grid */}
           <AnimatePresence mode="popLayout">
             {certs.map((cert, index) => (
               <motion.div
@@ -161,7 +186,8 @@ const CertificatesGallery: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="group relative h-64 bg-slate-50 dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all"
+                onClick={() => setSelectedIndex(index)}
+                className="group relative h-64 bg-slate-50 dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all cursor-zoom-in"
               >
                 <img 
                   src={cert.url} 
@@ -169,20 +195,15 @@ const CertificatesGallery: React.FC = () => {
                   className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
                 />
                 
-                {/* Overlay */}
+                {/* Visual indicator of interactivity */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                   <div className="flex justify-between items-end">
                     <div className="flex-1 mr-4">
                       <p className="text-[10px] font-black text-primary-400 uppercase tracking-widest mb-1">{cert.date}</p>
                       <h4 className="text-white font-bold text-sm leading-tight truncate">{cert.title}</h4>
                     </div>
-                    <div className="flex gap-2">
-                      <button 
-                        onClick={(e) => { e.stopPropagation(); setSelectedImage(cert.url); }}
-                        className="p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white rounded-lg transition-colors"
-                      >
-                        <ZoomIn size={16} />
-                      </button>
+                    <div className="p-2 bg-white/10 backdrop-blur-md text-white rounded-lg">
+                      <ZoomIn size={16} />
                     </div>
                   </div>
                 </div>
@@ -201,26 +222,81 @@ const CertificatesGallery: React.FC = () => {
         )}
       </div>
 
-      {/* Lightbox */}
+      {/* Enhanced Lightbox */}
       <AnimatePresence>
-        {selectedImage && (
+        {selectedIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-[200] bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-4"
+            className="fixed inset-0 z-[200] bg-slate-950/98 backdrop-blur-2xl flex flex-col items-center justify-center p-4"
+            onClick={() => setSelectedIndex(null)}
           >
-            <button className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors">
-              <X size={32} />
-            </button>
-            <motion.img 
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              src={selectedImage} 
-              className="max-w-full max-h-[85vh] rounded-2xl shadow-2xl object-contain"
-            />
+            {/* Header / Close */}
+            <div className="absolute top-8 right-8 z-[210]">
+              <button 
+                onClick={() => setSelectedIndex(null)}
+                className="p-3 bg-white/5 hover:bg-white/10 text-white/50 hover:text-white rounded-full transition-all"
+              >
+                <X size={32} />
+              </button>
+            </div>
+
+            {/* Navigation Controls */}
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 md:px-12 pointer-events-none">
+              <button 
+                onClick={handlePrev}
+                className="p-4 bg-white/5 hover:bg-white/10 text-white rounded-full transition-all pointer-events-auto backdrop-blur-sm border border-white/10"
+                aria-label="Previous Certificate"
+              >
+                <ChevronLeft size={32} />
+              </button>
+              <button 
+                onClick={handleNext}
+                className="p-4 bg-white/5 hover:bg-white/10 text-white rounded-full transition-all pointer-events-auto backdrop-blur-sm border border-white/10"
+                aria-label="Next Certificate"
+              >
+                <ChevronRight size={32} />
+              </button>
+            </div>
+
+            {/* Image Display */}
+            <motion.div 
+              key={selectedIndex}
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: -20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative max-w-5xl w-full flex flex-col items-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={certs[selectedIndex].url} 
+                alt={certs[selectedIndex].title}
+                className="max-w-full max-h-[75vh] rounded-2xl shadow-2xl object-contain border border-white/5"
+              />
+              
+              {/* Caption */}
+              <div className="mt-8 text-center max-w-2xl px-6">
+                <span className="text-primary-400 font-black text-xs uppercase tracking-[0.3em] block mb-2">
+                  {certs[selectedIndex].date} • Verified Credential {selectedIndex + 1}/{certs.length}
+                </span>
+                <h3 className="text-2xl md:text-3xl font-heading font-bold text-white">
+                  {certs[selectedIndex].title}
+                </h3>
+              </div>
+            </motion.div>
+
+            {/* Pagination dots for quick reference */}
+            <div className="absolute bottom-10 flex gap-2 overflow-x-auto max-w-full px-4 scrollbar-hide">
+              {certs.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => { e.stopPropagation(); setSelectedIndex(idx); }}
+                  className={`w-2 h-2 rounded-full transition-all ${idx === selectedIndex ? 'bg-primary-500 w-8' : 'bg-white/20 hover:bg-white/40'}`}
+                />
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
