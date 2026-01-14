@@ -124,6 +124,42 @@ const INITIAL_CERTIFICATES: VisualCertificate[] = [
     url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375524/4832d3c4-6ba1-4aaa-8577-e9d1dfd2a186_d1t6e9.jpg',
     title: 'Enterprise AI Governance',
     date: 'Feb 2026'
+  },
+  {
+    id: 'cert-20',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376475/8b073af5-856d-4f0c-bbe9-11b03b213f36_ggcivy.jpg',
+    title: 'Advanced Neural Architectures',
+    date: 'March 2026'
+  },
+  {
+    id: 'cert-21',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376265/0f547785-bb73-45bb-9f17-e67bf078900f_wo0set.jpg',
+    title: 'Generative AI Specialist',
+    date: 'March 2026'
+  },
+  {
+    id: 'cert-22',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376269/cecb2c7f-b3f8-42c3-b804-835b539cac6b_yalvse.jpg',
+    title: 'Cloud Infrastructure Security',
+    date: 'March 2026'
+  },
+  {
+    id: 'cert-23',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376280/f978da1a-7c72-42cc-8cbd-c97cd85ce853_cw7zfy.jpg',
+    title: 'Data Engineering Professional',
+    date: 'March 2026'
+  },
+  {
+    id: 'cert-24',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376485/eb2a82d6-8e14-4e59-a317-953b3c53aeaa_hp8ps9.jpg',
+    title: 'ML Pipeline Optimization',
+    date: 'March 2026'
+  },
+  {
+    id: 'cert-25',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376497/69aaa0dd-7d04-481c-bd06-ae07a9c58fd7_nlexsd.jpg',
+    title: 'Quantum Computing Fundamentals',
+    date: 'March 2026'
   }
 ];
 
@@ -273,18 +309,8 @@ const CertificatesGallery: React.FC = () => {
               <img 
                 src={certs[selectedIndex].url} 
                 alt={certs[selectedIndex].title}
-                className="max-w-full max-h-[75vh] rounded-2xl shadow-2xl object-contain border border-white/5"
+                className="max-w-full max-h-[85vh] rounded-2xl shadow-2xl object-contain border border-white/5"
               />
-              
-              {/* Caption */}
-              <div className="mt-8 text-center max-w-2xl px-6">
-                <span className="text-primary-400 font-black text-xs uppercase tracking-[0.3em] block mb-2">
-                  {certs[selectedIndex].date} • Verified Credential {selectedIndex + 1}/{certs.length}
-                </span>
-                <h3 className="text-2xl md:text-3xl font-heading font-bold text-white">
-                  {certs[selectedIndex].title}
-                </h3>
-              </div>
             </motion.div>
 
             {/* Pagination dots for quick reference */}
