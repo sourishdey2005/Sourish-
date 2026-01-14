@@ -10,15 +10,77 @@ interface VisualCertificate {
   date: string;
 }
 
+const INITIAL_CERTIFICATES: VisualCertificate[] = [
+  {
+    id: 'cert-1',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373830/Screenshot_20260114_120229_LinkedIn_rfqzrp.jpg',
+    title: 'LinkedIn Professional Certification',
+    date: 'Jan 2026'
+  },
+  {
+    id: 'cert-2',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373830/Screenshot_20260114_120242_LinkedIn_gpjt6j.jpg',
+    title: 'LinkedIn Advanced Engineering',
+    date: 'Jan 2026'
+  },
+  {
+    id: 'cert-3',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373828/image_78f30a48-eb0e-4b61-9983-246a9b7e605e20260114_122402_cvarem.jpg',
+    title: 'Technical Milestone Award',
+    date: 'Jan 2026'
+  },
+  {
+    id: 'cert-4',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373822/image_ae6c90dd-75a8-4f9c-b1a9-80008ab7cdc920260114_122424_a9ubdv.jpg',
+    title: 'Engineering Achievement',
+    date: 'Jan 2026'
+  },
+  {
+    id: 'cert-5',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373594/Screenshot_20260114_120146_LinkedIn_oodrn2.jpg',
+    title: 'Cloud Infrastructure Honors',
+    date: 'Jan 2026'
+  },
+  {
+    id: 'cert-6',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373593/Screenshot_20260114_120131_LinkedIn_l1jrpd.jpg',
+    title: 'MLOps Specialization',
+    date: 'Jan 2026'
+  },
+  {
+    id: 'cert-7',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373593/Screenshot_20260114_120229_LinkedIn_npj28y.jpg',
+    title: 'Data Science Excellence',
+    date: 'Jan 2026'
+  },
+  {
+    id: 'cert-8',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373594/Screenshot_20260114_120210_LinkedIn_tdkezn.jpg',
+    title: 'AI Solutions Architect',
+    date: 'Jan 2026'
+  },
+  {
+    id: 'cert-9',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373820/image_b7073090-6c81-45ec-b3d8-6f8f1d2c64f420260114_122605_lgbbzd.jpg',
+    title: 'System Design Mastery',
+    date: 'Jan 2026'
+  },
+  {
+    id: 'cert-10',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373821/Screenshot_20260114_122546_LinkedIn_b01s3v.jpg',
+    title: 'Professional Engineering Lead',
+    date: 'Jan 2026'
+  }
+];
+
 const CertificatesGallery: React.FC = () => {
-  const [certs, setCerts] = useState<VisualCertificate[]>([]);
+  const [certs, setCerts] = useState<VisualCertificate[]>(INITIAL_CERTIFICATES);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
-      // Fix: Explicitly cast the file to File type to resolve 'unknown' type errors.
       const newCerts: VisualCertificate[] = Array.from(files).map((file) => {
         const f = file as File;
         return {
@@ -28,7 +90,7 @@ const CertificatesGallery: React.FC = () => {
           date: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
         };
       });
-      setCerts((prev) => [...prev, ...newCerts]);
+      setCerts((prev) => [...newCerts, ...prev]);
     }
   };
 
@@ -62,7 +124,7 @@ const CertificatesGallery: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => fileInputRef.current?.click()}
-            className="relative h-64 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[2rem] flex flex-col items-center justify-center cursor-pointer hover:border-primary-500/50 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-all group"
+            className="relative h-64 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[2rem] flex flex-col items-center justify-center cursor-pointer hover:border-primary-500/50 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-all group order-first"
           >
             <input 
               type="file" 
@@ -81,13 +143,14 @@ const CertificatesGallery: React.FC = () => {
 
           {/* Certificates Grid */}
           <AnimatePresence mode="popLayout">
-            {certs.map((cert) => (
+            {certs.map((cert, index) => (
               <motion.div
                 key={cert.id}
                 layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
                 className="group relative h-64 bg-slate-50 dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all"
               >
                 <img 
