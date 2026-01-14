@@ -1,7 +1,7 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Image as ImageIcon, Plus, X, Award, ExternalLink, ZoomIn } from 'lucide-react';
+import { Image as ImageIcon, X, ZoomIn } from 'lucide-react';
 
 interface VisualCertificate {
   id: string;
@@ -74,29 +74,8 @@ const INITIAL_CERTIFICATES: VisualCertificate[] = [
 ];
 
 const CertificatesGallery: React.FC = () => {
-  const [certs, setCerts] = useState<VisualCertificate[]>(INITIAL_CERTIFICATES);
+  const [certs] = useState<VisualCertificate[]>(INITIAL_CERTIFICATES);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      const newCerts: VisualCertificate[] = Array.from(files).map((file) => {
-        const f = file as File;
-        return {
-          id: Math.random().toString(36).substr(2, 9),
-          url: URL.createObjectURL(f),
-          title: f.name.split('.')[0].replace(/[-_]/g, ' '),
-          date: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-        };
-      });
-      setCerts((prev) => [...newCerts, ...prev]);
-    }
-  };
-
-  const removeCert = (id: string) => {
-    setCerts((prev) => prev.filter((c) => c.id !== id));
-  };
 
   return (
     <section id="certificates-gallery" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative border-t border-slate-100 dark:border-slate-800">
@@ -119,28 +98,6 @@ const CertificatesGallery: React.FC = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {/* Upload Card */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => fileInputRef.current?.click()}
-            className="relative h-64 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[2rem] flex flex-col items-center justify-center cursor-pointer hover:border-primary-500/50 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-all group order-first"
-          >
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              onChange={handleFileUpload} 
-              className="hidden" 
-              accept="image/*" 
-              multiple 
-            />
-            <div className="p-4 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-600 mb-4 group-hover:scale-110 transition-transform">
-              <Plus size={32} />
-            </div>
-            <span className="text-sm font-black text-slate-400 uppercase tracking-widest">Add Certificate</span>
-            <p className="text-[10px] text-slate-400 mt-2">PNG, JPG up to 10MB</p>
-          </motion.div>
-
           {/* Certificates Grid */}
           <AnimatePresence mode="popLayout">
             {certs.map((cert, index) => (
@@ -149,7 +106,6 @@ const CertificatesGallery: React.FC = () => {
                 layout
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 className="group relative h-64 bg-slate-50 dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all"
               >
@@ -172,12 +128,6 @@ const CertificatesGallery: React.FC = () => {
                         className="p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white rounded-lg transition-colors"
                       >
                         <ZoomIn size={16} />
-                      </button>
-                      <button 
-                        onClick={(e) => { e.stopPropagation(); removeCert(cert.id); }}
-                        className="p-2 bg-red-500/20 hover:bg-red-500 text-white rounded-lg transition-colors"
-                      >
-                        <X size={16} />
                       </button>
                     </div>
                   </div>
