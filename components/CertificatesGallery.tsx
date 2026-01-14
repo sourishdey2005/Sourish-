@@ -70,6 +70,60 @@ const INITIAL_CERTIFICATES: VisualCertificate[] = [
     url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373821/Screenshot_20260114_122546_LinkedIn_b01s3v.jpg',
     title: 'Professional Engineering Lead',
     date: 'Jan 2026'
+  },
+  {
+    id: 'cert-11',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768374300/bb0ac7e8-0831-4ac6-8c4d-599396414524_fe28hy.jpg',
+    title: 'Deep Learning Specialization',
+    date: 'Feb 2026'
+  },
+  {
+    id: 'cert-12',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768374600/072bd8d0-24c0-4060-85f0-d943cd777d0b_efbyyx.jpg',
+    title: 'Natural Language Processing',
+    date: 'Feb 2026'
+  },
+  {
+    id: 'cert-13',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768374966/d9cd6d94-a9f5-4214-8e99-63af89c298a1_qavnfu.jpg',
+    title: 'TensorFlow Developer Certificate',
+    date: 'Feb 2026'
+  },
+  {
+    id: 'cert-14',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768374974/747c66b3-ba95-4b3e-ac65-f5cda20d6263_m4ewgw.jpg',
+    title: 'PyTorch for Deep Learning',
+    date: 'Feb 2026'
+  },
+  {
+    id: 'cert-15',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375367/a94de537-d9a6-4d17-ab1f-0cd328bb004c_h1hlwr.jpg',
+    title: 'Cloud Native Engineering',
+    date: 'Feb 2026'
+  },
+  {
+    id: 'cert-16',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375365/1835488d-ca6d-4e14-9402-081b8c86e25b_tjjlab.jpg',
+    title: 'Kubernetes Administrator (CKA)',
+    date: 'Feb 2026'
+  },
+  {
+    id: 'cert-17',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375362/b2e9f0b3-37cb-46d8-bd1d-07c374889d14_ijhcg9.jpg',
+    title: 'Docker Certified Associate',
+    date: 'Feb 2026'
+  },
+  {
+    id: 'cert-18',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375523/22212bbd-55e3-497a-8953-861c12407510_judjaw.jpg',
+    title: 'Advanced MLOps Systems',
+    date: 'Feb 2026'
+  },
+  {
+    id: 'cert-19',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375524/4832d3c4-6ba1-4aaa-8577-e9d1dfd2a186_d1t6e9.jpg',
+    title: 'Enterprise AI Governance',
+    date: 'Feb 2026'
   }
 ];
 
