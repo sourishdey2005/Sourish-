@@ -102,7 +102,7 @@ const Hero: React.FC = () => {
               {/* Profile Image Container */}
               <div className="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 backdrop-blur-sm">
                 <img 
-                  src="https://res.cloudinary.com/dodhvvewu/image/upload/v1768232730/80b22f88-4f08-47a0-aa94-2117cbe80c9b_kbe1ph.jpg" 
+                  src="https://res.cloudinary.com/dodhvvewu/image/upload/v1768406215/31bf4861-6535-4127-b55d-b6be23cc4749_xxzvff.jpg" 
                   alt="Sourish Dey" 
                   className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-500 hover:scale-105"
                 />
