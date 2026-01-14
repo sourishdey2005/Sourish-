@@ -160,6 +160,48 @@ const INITIAL_CERTIFICATES: VisualCertificate[] = [
     url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376497/69aaa0dd-7d04-481c-bd06-ae07a9c58fd7_nlexsd.jpg',
     title: 'Quantum Computing Fundamentals',
     date: 'March 2026'
+  },
+  {
+    id: 'cert-26',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768377789/fb50e9e9-c1dc-488f-9cd1-4b6c53fce23e_mkt3xh.jpg',
+    title: 'Enterprise Architecture Professional',
+    date: 'March 2026'
+  },
+  {
+    id: 'cert-27',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768377763/0b42da04-d96c-4b9f-95e6-78956dcda02b_ajcs3k.jpg',
+    title: 'Cloud Governance Mastery',
+    date: 'March 2026'
+  },
+  {
+    id: 'cert-28',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768377760/a048c3e5-0550-4362-9436-13a52c7b13e0_n5c3qf.jpg',
+    title: 'Distributed Systems Specialist',
+    date: 'March 2026'
+  },
+  {
+    id: 'cert-29',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768378487/919f92f7-5951-4b7f-b9ca-42fef49b609c_vtdh0z.jpg',
+    title: 'Advanced AI Ethics',
+    date: 'April 2026'
+  },
+  {
+    id: 'cert-30',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768378181/e1f1a90c-854f-4cd8-8210-f725a6b6a12a_r9dffl.jpg',
+    title: 'Cybersecurity Analyst Professional',
+    date: 'April 2026'
+  },
+  {
+    id: 'cert-31',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768378142/b3adb396-7ebe-4ea2-99f5-7e997da85069_lzijec.jpg',
+    title: 'Cloud Automation Architect',
+    date: 'April 2026'
+  },
+  {
+    id: 'cert-32',
+    url: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768378490/b4c172cd-453d-44cd-8877-d66984c54d90_hwxtlt.jpg',
+    title: 'Machine Learning Engineering Lead',
+    date: 'April 2026'
   }
 ];
 
