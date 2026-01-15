@@ -13,10 +13,10 @@ export interface CodeSnippet {
 export const CODE_SNIPPETS: CodeSnippet[] = [
   {
     id: 'snip-1',
-    title: 'Distributed Model Training Loop',
+    title: 'Distributed Model Training',
     language: 'python',
     category: 'ML',
-    description: 'A scalable training orchestration pattern used for high-dimensional genomic datasets.',
+    description: 'A scalable training orchestration pattern used for high-dimensional genomic datasets using MirroredStrategy.',
     code: `import tensorflow as tf
 from tensorflow.keras import layers
 
@@ -44,10 +44,10 @@ print(f"Cluster Ready. Training on {strategy.num_replicas_in_sync} units.")`
   },
   {
     id: 'snip-2',
-    title: 'Terraform: Multi-AZ Infrastructure',
+    title: 'Multi-AZ Infrastructure',
     language: 'hcl',
     category: 'Cloud',
-    description: 'Production-grade VPC definition with private subnets and NAT gateway orchestration.',
+    description: 'Production-grade VPC definition with private subnets and NAT gateway orchestration via Terraform.',
     code: `module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -69,10 +69,10 @@ print(f"Cluster Ready. Training on {strategy.num_replicas_in_sync} units.")`
   },
   {
     id: 'snip-3',
-    title: 'Kubernetes: Canary Deployment',
+    title: 'Canary Deployment Spec',
     language: 'yaml',
     category: 'DevOps',
-    description: 'Advanced deployment strategy with resource limits and health probes.',
+    description: 'Advanced Kubernetes deployment strategy with resource limits and automated health probes.',
     code: `apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -100,6 +100,51 @@ spec:
           httpGet:
             path: /health
             port: 8080`
+  },
+  {
+    id: 'snip-4',
+    title: 'Lambda@Edge Auth Hook',
+    language: 'javascript',
+    category: 'Cloud',
+    description: 'CloudFront function for identity-based request signing and header sanitization.',
+    code: `export const handler = async (event) => {
+    const request = event.Records[0].cf.request;
+    const headers = request.headers;
+
+    // Validate JWT from custom headers
+    if (!headers['x-auth-token']) {
+        return {
+            status: '403',
+            statusDescription: 'Forbidden',
+            body: 'Access Denied'
+        };
+    }
+
+    // Sanitize and Forward
+    delete headers['x-internal-id'];
+    return request;
+};`
+  },
+  {
+    id: 'snip-5',
+    title: 'CI/CD Model Pipeline',
+    language: 'yaml',
+    category: 'DevOps',
+    description: 'Automated GitHub Actions workflow for linting, testing, and pushing Docker images to ECR.',
+    code: `name: ML Ops CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Tests
+        run: pytest tests/
+      - name: Build and Push
+        run: |
+          docker build -t ml-api .
+          aws ecr get-login-password | docker login
+          docker push ecr-uri:latest`
   }
 ];
 
