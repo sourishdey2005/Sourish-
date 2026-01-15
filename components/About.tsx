@@ -54,7 +54,8 @@ const About: React.FC = () => {
                 className="group flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-primary-400 transition-all hover:-translate-y-1"
               >
                 <div className="mb-4 text-primary-600 group-hover:scale-110 transition-transform">
-                  {React.cloneElement(item.icon as React.ReactElement, { size: 28 })}
+                  {/* Fixed cloneElement type error by casting the icon element to any */}
+                  {React.cloneElement(item.icon as React.ReactElement<any>, { size: 28 })}
                 </div>
                 <h3 className="text-xs font-bold text-center text-slate-800 dark:text-slate-200 uppercase tracking-tighter">
                   {item.title}

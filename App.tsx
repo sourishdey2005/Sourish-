@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import CodeSnippets from './components/CodeSnippets';
 import Skills from './components/Skills';
 import Terminal from './components/Terminal';
 import Publications from './components/Publications';
@@ -32,6 +33,7 @@ const App: React.FC = () => {
       <About />
       <Experience />
       <Projects />
+      <CodeSnippets />
       <Terminal />
       <Skills />
       
@@ -51,7 +53,6 @@ const App: React.FC = () => {
             >
               <div className="flex items-center gap-4 mb-12">
                 <div className="p-3 bg-primary-600 rounded-2xl text-white shadow-lg shadow-primary-500/20">
-                  {/* Fixed: Replaced '卒業キャップ' with the imported 'GraduationCap' component */}
                   <GraduationCap size={32} />
                 </div>
                 <div>

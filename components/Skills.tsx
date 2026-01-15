@@ -93,7 +93,8 @@ const SkillCategory: React.FC<{
     >
       <div className="flex items-center gap-4 mb-8">
         <div className={`p-4 ${bgMap[color]} rounded-2xl transition-transform group-hover:scale-110 duration-500`}>
-          {React.cloneElement(icon as React.ReactElement, { size: 28 })}
+          {/* Fixed cloneElement type error by casting icon to any */}
+          {React.cloneElement(icon as React.ReactElement<any>, { size: 28 })}
         </div>
         <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">{title}</h3>
       </div>

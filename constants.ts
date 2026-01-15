@@ -1,6 +1,108 @@
 
 import { Experience, Project, Publication, Certification, Education, Honor } from './types';
 
+export interface CodeSnippet {
+  id: string;
+  title: string;
+  language: string;
+  code: string;
+  description: string;
+  category: 'ML' | 'Cloud' | 'DevOps';
+}
+
+export const CODE_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'snip-1',
+    title: 'Distributed Model Training Loop',
+    language: 'python',
+    category: 'ML',
+    description: 'A scalable training orchestration pattern used for high-dimensional genomic datasets.',
+    code: `import tensorflow as tf
+from tensorflow.keras import layers
+
+def create_distributed_model(input_shape):
+    strategy = tf.distribute.MirroredStrategy()
+    
+    with strategy.scope():
+        model = tf.keras.Sequential([
+            layers.Conv1D(64, 3, activation='relu', input_shape=input_shape),
+            layers.LSTM(128, return_sequences=True),
+            layers.Dropout(0.3),
+            layers.Dense(3, activation='softmax')
+        ])
+        
+        model.compile(
+            optimizer='adam',
+            loss='categorical_crossentropy',
+            metrics=['accuracy']
+        )
+    return model
+
+# Initialize training on multi-GPU cluster
+model = create_distributed_model((100, 1))
+print(f"Cluster Ready. Training on {strategy.num_replicas_in_sync} units.")`
+  },
+  {
+    id: 'snip-2',
+    title: 'Terraform: Multi-AZ Infrastructure',
+    language: 'hcl',
+    category: 'Cloud',
+    description: 'Production-grade VPC definition with private subnets and NAT gateway orchestration.',
+    code: `module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+
+  name = "engineering-prod-vpc"
+  cidr = "10.0.0.0/16"
+
+  azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+
+  enable_nat_gateway = true
+  single_nat_gateway = false
+  
+  tags = {
+    Environment = "production"
+    Owner       = "SourishDey"
+  }
+}`
+  },
+  {
+    id: 'snip-3',
+    title: 'Kubernetes: Canary Deployment',
+    language: 'yaml',
+    category: 'DevOps',
+    description: 'Advanced deployment strategy with resource limits and health probes.',
+    code: `apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-inference-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inference
+      track: canary
+  template:
+    metadata:
+      labels:
+        app: inference
+        track: canary
+    spec:
+      containers:
+      - name: api
+        image: sourish/ml-inference:v2.1-canary
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080`
+  }
+];
+
 export const EXPERIENCES: Experience[] = [
   {
     role: "Data Science Intern",

@@ -6,6 +6,13 @@ import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cpu, Database, TrendingUp, Zap, ShieldCheck } from 'lucide-react';
 
+// Map Three.js intrinsic elements to typed constants to bypass JSX errors
+const Group = 'group' as any;
+const MeshStandardMaterial = 'meshStandardMaterial' as any;
+const MeshBasicMaterial = 'meshBasicMaterial' as any;
+const AmbientLight = 'ambientLight' as any;
+const PointLight = 'pointLight' as any;
+
 const NODE_SERVICES = [
   "Compute Unit v2",
   "Nginx Ingress",
@@ -35,14 +42,14 @@ const ServerBlade: React.FC<ServerBladeProps> = ({ position, index, cpuLoad, isS
   });
 
   return (
-    <group 
+    <Group 
       position={position}
-      onPointerOver={(e) => { e.stopPropagation(); setHovered(true); onHover(index); }}
+      onPointerOver={(e: any) => { e.stopPropagation(); setHovered(true); onHover(index); }}
       onPointerOut={() => { setHovered(false); onHover(null); }}
     >
       {/* Blade Chassis */}
       <Box args={[3.8, 0.4, 3.8]}>
-        <meshStandardMaterial 
+        <MeshStandardMaterial 
           color={hovered ? "#312e81" : "#111827"} 
           roughness={0.05} 
           metalness={0.9}
@@ -53,14 +60,14 @@ const ServerBlade: React.FC<ServerBladeProps> = ({ position, index, cpuLoad, isS
 
       {/* Front Face Accents */}
       <Box args={[3.85, 0.2, 0.1]} position={[0, 0, 1.9]}>
-        <meshStandardMaterial color="#1f2937" metalness={1} />
+        <MeshStandardMaterial color="#1f2937" metalness={1} />
       </Box>
 
       {/* Status LED */}
       <Sphere ref={lightRef} args={[0.07, 16, 16]} position={[-1.6, 0, 1.98]}>
-        <meshBasicMaterial color={cpuLoad > 0.8 ? "#ff3333" : "#00ff88"} transparent />
+        <MeshBasicMaterial color={cpuLoad > 0.8 ? "#ff3333" : "#00ff88"} transparent />
       </Sphere>
-    </group>
+    </Group>
   );
 };
 
@@ -73,12 +80,12 @@ const ServerRack = ({ cpuLoad, isScaling }: { cpuLoad: number, isScaling: boolea
   });
 
   return (
-    <group ref={rackRef}>
+    <Group ref={rackRef}>
       {/* Structural Frame */}
-      <Box args={[0.2, 7.5, 0.2]} position={[2, 0, 2]}><meshStandardMaterial color="#0a0a0a" metalness={1} /></Box>
-      <Box args={[0.2, 7.5, 0.2]} position={[-2, 0, 2]}><meshStandardMaterial color="#0a0a0a" metalness={1} /></Box>
-      <Box args={[0.2, 7.5, 0.2]} position={[2, 0, -2]}><meshStandardMaterial color="#0a0a0a" metalness={1} /></Box>
-      <Box args={[0.2, 7.5, 0.2]} position={[-2, 0, -2]}><meshStandardMaterial color="#0a0a0a" metalness={1} /></Box>
+      <Box args={[0.2, 7.5, 0.2]} position={[2, 0, 2]}><MeshStandardMaterial color="#0a0a0a" metalness={1} /></Box>
+      <Box args={[0.2, 7.5, 0.2]} position={[-2, 0, 2]}><MeshStandardMaterial color="#0a0a0a" metalness={1} /></Box>
+      <Box args={[0.2, 7.5, 0.2]} position={[2, 0, -2]}><MeshStandardMaterial color="#0a0a0a" metalness={1} /></Box>
+      <Box args={[0.2, 7.5, 0.2]} position={[-2, 0, -2]}><MeshStandardMaterial color="#0a0a0a" metalness={1} /></Box>
 
       {/* Blades */}
       {[...Array(10)].map((_, i) => (
@@ -107,7 +114,7 @@ const ServerRack = ({ cpuLoad, isScaling }: { cpuLoad: number, isScaling: boolea
           </motion.div>
         </Html>
       )}
-    </group>
+    </Group>
   );
 };
 
@@ -163,8 +170,8 @@ const SystemSimulation: React.FC = () => {
 
             <Canvas shadows dpr={[1, 2]}>
               <PerspectiveCamera makeDefault position={[12, 10, 12]} fov={35} />
-              <ambientLight intensity={0.8} />
-              <pointLight position={[10, 10, 10]} intensity={2} color="#6366f1" />
+              <AmbientLight intensity={0.8} />
+              <PointLight position={[10, 10, 10]} intensity={2} color="#6366f1" />
               <PresentationControls global snap rotation={[0, -Math.PI / 4, 0]}>
                 <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
                   <ServerRack cpuLoad={metrics.cpu / 100} isScaling={isScaling} />
