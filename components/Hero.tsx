@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import { Download, ChevronRight } from 'lucide-react';
+import { Download, ChevronRight, Binary, Cpu, Database } from 'lucide-react';
 import BrainNetwork from './BrainNetwork';
 
 const Hero: React.FC = () => {
@@ -38,6 +38,37 @@ const Hero: React.FC = () => {
       <Suspense fallback={null}>
         <BrainNetwork />
       </Suspense>
+
+      {/* NEW: Floating Data Particles Background Layer */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-30 dark:opacity-40">
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ 
+              x: Math.random() * 100 + "%", 
+              y: Math.random() * 100 + "%", 
+              opacity: 0 
+            }}
+            animate={{ 
+              y: ["0%", "100%", "0%"],
+              x: ["0%", "10%", "-10%", "0%"],
+              opacity: [0.1, 0.3, 0.1]
+            }}
+            transition={{ 
+              duration: 20 + Math.random() * 30, 
+              repeat: Infinity, 
+              ease: "linear",
+              delay: i * 2
+            }}
+            className="absolute text-primary-500/20 dark:text-primary-400/10 select-none"
+          >
+            {i % 4 === 0 ? <Binary size={40 + Math.random() * 40} /> : 
+             i % 4 === 1 ? <Cpu size={30 + Math.random() * 30} /> : 
+             i % 4 === 2 ? <Database size={35 + Math.random() * 35} /> :
+             <span className="font-mono text-2xl font-bold opacity-20">{(Math.random() > 0.5 ? "0" : "1")}</span>}
+          </motion.div>
+        ))}
+      </div>
 
       {/* Background Decor Gradients */}
       <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary-50 dark:bg-primary-900/10 rounded-full blur-3xl opacity-50" />

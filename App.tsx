@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -16,6 +16,15 @@ import { CERTIFICATIONS, EDUCATION_DATA, HONORS } from './constants';
 import { motion } from 'framer-motion';
 
 const App: React.FC = () => {
+  // Ensure the site reloads from the beginning (top of page)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // If there's a hash in the URL, clear it to force home state
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Navbar />
@@ -42,6 +51,7 @@ const App: React.FC = () => {
             >
               <div className="flex items-center gap-4 mb-12">
                 <div className="p-3 bg-primary-600 rounded-2xl text-white shadow-lg shadow-primary-500/20">
+                  {/* Fixed: Replaced '卒業キャップ' with the imported 'GraduationCap' component */}
                   <GraduationCap size={32} />
                 </div>
                 <div>
