@@ -18,6 +18,12 @@ const Contact: React.FC = () => {
     </svg>
   );
 
+  const ResearchGateIcon = () => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M19.586 0c-.815 0-1.5.685-1.5 1.5s.685 1.5 1.5 1.5 1.5-.685 1.5-1.5-.685-1.5-1.5-1.5zM9 20a1 1 0 0 0 1-1v-5h1.22c.1 0 .22.04.3.12l2.36 2.36c.46.46 1.06.68 1.66.68a2.3 2.3 0 0 0 1.63-3.93l-1.63-1.63c-.3-.3-.47-.7-.47-1.14a2.26 2.26 0 0 0-4.44-.6H9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1zm0-12h2.26a.26.26 0 0 1 .26.26v1.48a.26.26 0 0 1-.26.26H9V8zm4.33 4.2a.3.3 0 0 1 .1.2c0 .12-.04.22-.12.3l-.75.75a.3.3 0 0 1-.43 0L11 12.3c-.08-.08-.12-.18-.12-.3a.3.3 0 0 1 .1-.2c0-.12.04-.22.12-.3l.75-.75a.3.3 0 0 1 .43 0l1.15 1.15a.3.3 0 0 1 .08.2zM2.5 0A2.5 2.5 0 0 0 0 2.5v19A2.5 2.5 0 0 0 2.5 24h12c.33 0 .6-.27.6-.6v-2.4c0-.33-.27-.6-.6-.6h-11.4a.6.6 0 0 1-.6-.6V3.1a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6.6v3.3c0 .33.27.6.6.6h2.4c.33 0 .6-.27.6-.6v-3.9A2.5 2.5 0 0 0 21.5 0h-19z"/>
+    </svg>
+  );
+
   return (
     <section id="contact" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative">
       {/* Subtle Background Elements */}
@@ -80,6 +86,9 @@ const Contact: React.FC = () => {
               </a>
               <a href="https://www.facebook.com/profile.php?id=61551388003130" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-all font-bold text-sm">
                 <Facebook size={20} className="text-blue-700" /> Facebook <ExternalLink size={12} className="opacity-40" />
+              </a>
+              <a href="https://www.researchgate.net/profile/Sourish-Dey-3?ev=hdr_xprf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-all font-bold text-sm col-span-2 md:col-span-1">
+                <div className="text-emerald-600"><ResearchGateIcon /></div> ResearchGate <ExternalLink size={12} className="opacity-40" />
               </a>
             </div>
           </motion.div>
