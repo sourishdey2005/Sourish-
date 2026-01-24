@@ -532,6 +532,13 @@ export const CERTIFICATIONS: Certification[] = [
 
 export const PUBLICATIONS: Publication[] = [
   {
+    title: "HyperNova++: A Novel Adaptive Activation Function for High-Accuracy Neural Learning on Nonlinear Synthetic Decision Manifolds",
+    journal: "INTERNATIONAL JOURNAL OF LATEST TECHNOLOGY IN ENGINEERING, MANAGEMENT & APPLIED SCIENCE (IJLTEMAS)",
+    date: "Jan 10, 2026",
+    abstract: "Activation functions play a critical role in enabling deep neural networks to model complex non-linear relationships; however, widely used functions such as ReLU, GELU, and Swish suffer from gradient saturation, vanishing gradients in deep architectures, and limited ability to model periodic and heterogeneous non-linear patterns. To address these limitations, this work introduces HyperNova++, a smooth, adaptive, parameterized activation function that unifies bounded saturation, periodic oscillation, and unbounded monotonic growth within a single learnable formulation. HyperNova++ combines hyperbolic tangent, sine, and Softplus components, modulated by three trainable parameters (𝛼,𝛽,𝛾) that dynamically control curvature, frequency, and growth behavior.\n\nExtensive evaluation on a controlled synthetic dataset with known ground-truth decision boundaries—incorporating linear, polynomial, and periodic interactions—demonstrates that HyperNova++ consistently outperforms ReLU, GELU, and Swish under identical training conditions. The proposed activation achieves over 99% accuracy, along with superior F1-score and ROC-AUC, while exhibiting stable, non-vanishing gradients and faster convergence. Theoretical analysis further establishes universal approximation capability, bounded Lipschitz continuity, and favorable gradient properties. These results position HyperNova++ as a robust and versatile activation function for deep learning applications involving complex, multi-regime nonlinear manifolds, particularly in scientific, financial, and engineering domains.",
+    type: "publication"
+  },
+  {
     title: "IoT and Computer Vision for Urban Traffic Management",
     journal: "International Journal for Multidisciplinary Research (IJFMR)",
     date: "Feb 11, 2025",

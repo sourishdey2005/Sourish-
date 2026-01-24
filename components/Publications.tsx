@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, FileText, ChevronDown, Calendar, ExternalLink, Cpu, Wind, Zap } from 'lucide-react';
+import { BookOpen, FileText, ChevronDown, Calendar, ExternalLink, Cpu, Wind, Zap, Brain } from 'lucide-react';
 import { PUBLICATIONS } from '../constants';
 
 const Publications: React.FC = () => {
@@ -10,6 +10,7 @@ const Publications: React.FC = () => {
   const researchPublications = PUBLICATIONS.filter(p => p.type === 'publication');
 
   const getIcon = (title: string) => {
+    if (title.toLowerCase().includes('hypernova') || title.toLowerCase().includes('activation')) return <Brain className="text-purple-600" size={28} />;
     if (title.toLowerCase().includes('traffic')) return <Cpu className="text-primary-600" size={28} />;
     if (title.toLowerCase().includes('breathe') || title.toLowerCase().includes('air')) return <Wind className="text-blue-500" size={28} />;
     if (title.toLowerCase().includes('quantum') || title.toLowerCase().includes('fusion')) return <Zap className="text-amber-500" size={28} />;
@@ -98,7 +99,7 @@ const Publications: React.FC = () => {
                         <h4 className="text-[10px] font-black text-primary-600 uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
                           <FileText size={12} /> Detailed Abstract & Methodology
                         </h4>
-                        <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed font-medium mb-8">
+                        <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed font-medium mb-8 whitespace-pre-wrap">
                           {pub.abstract}
                         </p>
                         
