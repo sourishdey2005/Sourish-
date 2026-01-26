@@ -5,13 +5,18 @@ import { Menu, X, Sun, Moon } from 'lucide-react';
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     
-    if (document.documentElement.classList.contains('dark')) setIsDark(true);
+    // Sync state with HTML class if it was changed outside React (though we set it by default now)
+    if (document.documentElement.classList.contains('dark')) {
+      setIsDark(true);
+    } else {
+      setIsDark(false);
+    }
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -54,8 +59,9 @@ const Navbar: React.FC = () => {
               <button
                 onClick={toggleDarkMode}
                 className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                aria-label="Toggle Dark Mode"
               >
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                {isDark ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} className="text-slate-600" />}
               </button>
             </div>
           </div>
@@ -64,8 +70,9 @@ const Navbar: React.FC = () => {
             <button
               onClick={toggleDarkMode}
               className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Toggle Dark Mode"
             >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              {isDark ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} className="text-slate-600" />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
