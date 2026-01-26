@@ -285,6 +285,70 @@ export const EXPERIENCES: Experience[] = [
 
 export const PROJECTS: Project[] = [
   {
+    title: "Advanced Imposter Syndrome Analysis Engine",
+    description: "A research-grade NLP system that combines Transformer-based emotion detection with psycholinguistic marker analysis to quantify self-doubt patterns.",
+    achievements: [
+      "Integrated Transformer-based emotion detection with psycholinguistic markers.",
+      "Engineered an interactive 20-metric diagnostic visualization dashboard.",
+      "Leveraged large-scale text analysis to quantify granular self-doubt patterns."
+    ],
+    stack: ["Python", "Hugging Face", "SpaCy", "PyTorch", "Matplotlib"],
+    domain: "NLP",
+    chartData: [
+      { name: 'Precision', value: 94 },
+      { name: 'F1-Score', value: 92 },
+      { name: 'Metrics', value: 85 }
+    ]
+  },
+  {
+    title: "AI-Powered Legal Document Analyzer",
+    description: "An AI-powered NLP application that analyzes legal documents, summarizes long contracts, and extracts key clauses using open-source transformer models.",
+    achievements: [
+      "Automated contract summarization for 50+ page legal documents.",
+      "Extracted critical compliance clauses with 93% recall rate.",
+      "Streamlined legal audit workflows by reducing manual reading time."
+    ],
+    stack: ["Python", "Transformers", "NLTK", "Scikit-learn"],
+    domain: "NLP",
+    chartData: [
+      { name: 'Summarization', value: 89 },
+      { name: 'Extraction', value: 93 },
+      { name: 'Speed Boost', value: 75 }
+    ]
+  },
+  {
+    title: "Language Detection System",
+    description: "High-accuracy identification of user-provided text across 176+ languages with real-time support and interactive visual analytics.",
+    achievements: [
+      "Supports seamless identification of 176+ global languages.",
+      "Integrated real-time input streaming and bulk CSV upload capabilities.",
+      "Built interactive performance dashboards with Seaborn and Matplotlib."
+    ],
+    stack: ["Python", "FastText", "Pandas", "Scikit-learn", "Matplotlib", "Seaborn"],
+    domain: "NLP",
+    chartData: [
+      { name: 'Accuracy', value: 97 },
+      { name: 'Latencies', value: 12 },
+      { name: 'Coverage', value: 98 }
+    ]
+  },
+  {
+    title: "Learning Style Identification System",
+    description: "AI-powered NLP system analyzing students’ notes to identify learning styles and providing personalized study strategy recommendations.",
+    achievements: [
+      "Utilized LDA and topic modeling for dominant learning style identification.",
+      "Applied sentence transformers for high-accuracy semantic text embeddings.",
+      "Delivered personalized pedagogical strategy recommendations via Plotly."
+    ],
+    stack: ["Python", "LDA", "Sentence Transformers", "Plotly", "NLTK"],
+    domain: "NLP",
+    chartData: [
+      { name: 'LDA Coh', value: 88 },
+      { name: 'Embedding', value: 91 },
+      { name: 'Insight Acc', value: 94 }
+    ]
+  },
+  {
     title: "ICICI vs SBI Stock Analysis",
     description: "Econometric & Time-Series Comparison (2011–2021) using over a decade of NIFTY data.",
     achievements: [

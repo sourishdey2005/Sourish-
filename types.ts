@@ -8,7 +8,7 @@ export interface Experience {
   achievements: string[];
 }
 
-export type ProjectDomain = 'ML' | 'Cloud' | 'Finance' | 'IoT' | 'All';
+export type ProjectDomain = 'ML' | 'Cloud' | 'Finance' | 'IoT' | 'NLP' | 'All';
 
 export interface Project {
   title: string;

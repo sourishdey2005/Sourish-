@@ -11,7 +11,7 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
 
   const filteredProjects = PROJECTS.filter(p => filter === 'All' || p.domain === filter);
-  const filterOptions: (ProjectDomain | 'All')[] = ['All', 'ML', 'Cloud', 'Finance', 'IoT'];
+  const filterOptions: (ProjectDomain | 'All')[] = ['All', 'NLP', 'ML', 'Cloud', 'Finance', 'IoT'];
 
   return (
     <section id="projects" className="py-24 bg-slate-50 dark:bg-slate-950 overflow-hidden relative">
