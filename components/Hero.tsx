@@ -1,36 +1,11 @@
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Download, ChevronRight, Binary, Cpu, Database } from 'lucide-react';
 import BrainNetwork from './BrainNetwork';
 
 const Hero: React.FC = () => {
-  const roles = ["MLOps Engineer", "Cloud Engineer", "Data Scientist"];
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [text, setText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const speed = isDeleting ? 50 : 100;
-
-  useEffect(() => {
-    const handleTyping = () => {
-      const fullText = roles[roleIndex];
-      if (!isDeleting) {
-        setText(fullText.substring(0, text.length + 1));
-        if (text === fullText) {
-          setTimeout(() => setIsDeleting(true), 1500);
-        }
-      } else {
-        setText(fullText.substring(0, text.length - 1));
-        if (text === "") {
-          setIsDeleting(false);
-          setRoleIndex((roleIndex + 1) % roles.length);
-        }
-      }
-    };
-
-    const timer = setTimeout(handleTyping, speed);
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, roleIndex]);
+  const roles = "Data Scientist | MLOps Engineer | Cloud Engineer";
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white dark:bg-slate-950">
@@ -39,7 +14,7 @@ const Hero: React.FC = () => {
         <BrainNetwork />
       </Suspense>
 
-      {/* NEW: Floating Data Particles Background Layer */}
+      {/* Floating Data Particles Background Layer */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-30 dark:opacity-40">
         {[...Array(12)].map((_, i) => (
           <motion.div
@@ -87,10 +62,15 @@ const Hero: React.FC = () => {
             <h1 className="text-5xl md:text-7xl font-heading font-bold tracking-tight text-slate-900 dark:text-white mb-6">
               Hi, I'm <span className="text-primary-600">Sourish Dey</span>
             </h1>
-            <div className="h-12 md:h-16 mb-8">
-              <h2 className="text-2xl md:text-4xl font-semibold text-slate-600 dark:text-slate-400">
-                {text}<span className="animate-pulse">|</span>
-              </h2>
+            <div className="mb-8">
+              <motion.h2 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-xl md:text-3xl font-semibold text-slate-600 dark:text-slate-400 leading-tight"
+              >
+                {roles}
+              </motion.h2>
             </div>
             <p className="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed max-w-2xl">
               Highly motivated Cloud and Data Science Engineer with experience in building intelligent, 
