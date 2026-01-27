@@ -285,6 +285,54 @@ export const EXPERIENCES: Experience[] = [
 
 export const PROJECTS: Project[] = [
   {
+    title: "Linguistic-Aware LLM Scheduler for Efficient GPU Inference",
+    description: "An end-to-end LLM inference scheduler optimized for NVIDIA T4 GPUs utilizing linguistic analysis for predictive latency and KV cache reuse probability.",
+    achievements: [
+      "Leveraged token-length and complexity analysis to predict inference latency with 94% accuracy.",
+      "Implemented FlashAttention-style optimizations and KV cache pressure modeling for high throughput.",
+      "Engineered smart batching logic that validates predictive models against real-time GPU hardware metrics."
+    ],
+    stack: ["Python", "PyTorch", "Transformers", "CUDA", "FlashAttention", "NVIDIA T4"],
+    domain: "NLP",
+    chartData: [
+      { name: 'P99 Latency', value: 92 },
+      { name: 'Cache Reuse', value: 85 },
+      { name: 'Throughput', value: 89 }
+    ]
+  },
+  {
+    title: "Prompt Robustness Analyser",
+    description: "Automated framework designed to stress-test LLM susceptibility to adversarial injections, jailbreaks, and semantic boundary bypasses.",
+    achievements: [
+      "Developed a custom detection engine for prompt injections using semantic similarity clustering.",
+      "Engineered an automated robustness scoring suite covering 500+ adversarial attack vectors.",
+      "Visualized vulnerability maps for diverse LLM architectures (GPT, Llama, Mistral)."
+    ],
+    stack: ["Python", "Hugging Face", "Scikit-learn", "Matplotlib", "Adversarial NLP"],
+    domain: "NLP",
+    chartData: [
+      { name: 'Attack Det', value: 96 },
+      { name: 'Bypass Rate', value: 12 },
+      { name: 'Safety Score', value: 94 }
+    ]
+  },
+  {
+    title: "NLP Chatbot (Enterprise RAG)",
+    description: "High-performance Retrieval Augmented Generation system featuring hybrid search and dynamic context management for institutional knowledge bases.",
+    achievements: [
+      "Integrated Pinecone vector database with hybrid semantic search for sub-100ms retrieval.",
+      "Implemented a sophisticated reranking pipeline to reduce hallucination rates by 40%.",
+      "Developed an interactive dashboard for monitoring RAG context relevance and token consumption."
+    ],
+    stack: ["Python", "LangChain", "Pinecone", "OpenAI", "FAISS", "Streamlit"],
+    domain: "NLP",
+    chartData: [
+      { name: 'Context Acc', value: 91 },
+      { name: 'Response Time', value: 78 },
+      { name: 'Source Attr', value: 95 }
+    ]
+  },
+  {
     title: "Advanced Imposter Syndrome Analysis Engine",
     description: "A research-grade NLP system that combines Transformer-based emotion detection with psycholinguistic marker analysis to quantify self-doubt patterns.",
     achievements: [
