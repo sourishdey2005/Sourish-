@@ -150,11 +150,11 @@ jobs:
 
 export const EXPERIENCES: Experience[] = [
   {
-    role: "Infosys Springboard Virtual Intern (6.0)",
+    role: "Infosys Springboard  Intern (6.0)",
     company: "Infosys",
     duration: "Jan 2026 – Present",
     location: "Remote",
-    summary: "Selected for the Infosys Springboard Virtual Internship 6.0, gaining hands-on experience in data science, AI/ML, cloud technologies, and real-world problem solving.",
+    summary: "Selected for the Infosys Springboard  Internship 6.0, gaining hands-on experience in data science, AI/ML, cloud technologies, and real-world problem solving.",
     achievements: [
       "Focused on applying data science, AI/ML, and cloud concepts to practical, industry-relevant challenges.",
       "Developing scalable data pipelines and machine learning models for enterprise-scale simulations.",
