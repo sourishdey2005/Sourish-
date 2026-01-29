@@ -234,6 +234,18 @@ export const EXPERIENCES: Experience[] = [
     ]
   },
   {
+    role: "Infosys Springboard Virtual Intern (6.0)",
+    company: "Infosys",
+    duration: "Jan 2025 – Present",
+    location: "Remote",
+    summary: "Selected for the Infosys Springboard Virtual Internship 6.0, gaining hands-on experience in data science, AI/ML, cloud technologies, and real-world problem solving.",
+    achievements: [
+      "Focused on applying data science, AI/ML, and cloud concepts to practical, industry-relevant challenges.",
+      "Developing scalable AI solutions within the Infosys Springboard ecosystem.",
+      "Participating in large-scale problem-solving modules using modern ML frameworks."
+    ]
+  },
+  {
     role: "Zero Trust Cloud Security Intern",
     company: "Zscaler",
     duration: "Jan 2025 – Mar 2025",
@@ -286,11 +298,11 @@ export const EXPERIENCES: Experience[] = [
 export const PROJECTS: Project[] = [
   {
     title: "Linguistic-Aware LLM Scheduler for Efficient GPU Inference",
-    description: "An end-to-end LLM inference scheduler optimized for NVIDIA T4 GPUs utilizing linguistic analysis for predictive latency and KV cache reuse probability.",
+    description: "Designed and implemented an end-to-end LLM inference scheduler optimized for NVIDIA T4 GPUs. The system leverages linguistic analysis to predict inference latency and KV cache reuse probability before execution.",
     achievements: [
-      "Leveraged token-length and complexity analysis to predict inference latency with 94% accuracy.",
-      "Implemented FlashAttention-style optimizations and KV cache pressure modeling for high throughput.",
-      "Engineered smart batching logic that validates predictive models against real-time GPU hardware metrics."
+      "Integrated FlashAttention-style optimizations and KV cache pressure modeling.",
+      "Validated latency predictions against real GPU performance metrics on NVIDIA T4 hardware.",
+      "Implemented smart batching logic to simulate production-scale LLM serving behavior."
     ],
     stack: ["Python", "PyTorch", "Transformers", "CUDA", "FlashAttention", "NVIDIA T4"],
     domain: "NLP",
@@ -485,96 +497,6 @@ export const PROJECTS: Project[] = [
       { name: 'Compactness', value: 96 },
       { name: 'Recall', value: 97 }
     ]
-  },
-  {
-    title: "YouTube Trending Analytics",
-    description: "Cross-country trend analysis exploring engagement patterns and content preferences using global datasets.",
-    achievements: [
-      "Uncovered critical insights on 'time-to-trend' variables across regions.",
-      "Analyzed engagement ratios and audience retention metrics."
-    ],
-    stack: ["Python", "Data Viz", "Pandas", "Statistics"],
-    domain: "ML"
-  },
-  {
-    title: "Cervical Cancer Risk Predictor",
-    description: "Sophisticated predictive framework combining deep neural networks and hybrid architectures.",
-    achievements: [
-      "Integrated multi-source clinical data for holistic risk profiling.",
-      "Leveraged hybrid models to significantly reduce false negative rates."
-    ],
-    stack: ["Deep Learning", "Healthcare AI", "Python"],
-    domain: "ML"
-  },
-  {
-    title: "Breast Cancer Classification",
-    description: "Explainable ML pipeline integrating statistical inference and dimensionality reduction.",
-    achievements: [
-      "Built a robust, clinically relevant system with high interpretability (XAI).",
-      "Integrated multivariate analysis for enhanced feature engineering."
-    ],
-    stack: ["Python", "Scikit-learn", "XAI", "Pandas"],
-    domain: "ML"
-  },
-  {
-    title: "Customer Churn Prediction",
-    description: "Telecom-focused supervised learning platform using Random Forest and XGBoost.",
-    achievements: [
-      "Identified top 5 contributing factors to customer churn for telecom providers.",
-      "Optimized model performance through hyperparameter tuning and cross-validation."
-    ],
-    stack: ["Python", "Random Forest", "XGBoost", "Data Analysis"],
-    domain: "Finance"
-  },
-  {
-    title: "Mercedes-Benz Stock Analytics",
-    description: "Financial time-series forecasting emphasizing statistical signal processing and technical indicators.",
-    achievements: [
-      "Extracted temporal and cyclical patterns in global automotive stock movements.",
-      "Visualized volatility clusters and momentum trend reversals."
-    ],
-    stack: ["Python", "Time Series", "Pandas", "Financial Analysis"],
-    domain: "Finance"
-  },
-  {
-    title: "Ultrasonic Radar System",
-    description: "Arduino-powered real-time object detection with Processing-based GUI visualization.",
-    achievements: [
-      "Engineered a functional radar system with a full 180° scan range.",
-      "Developed real-time GUI for obstacle mapping and distance measurement."
-    ],
-    stack: ["Arduino", "C++", "Processing", "IoT"],
-    domain: "IoT"
-  },
-  {
-    title: "Concurrent Port Scanner",
-    description: "High-speed network security tool utilizing multi-threading for efficient remote host scanning.",
-    achievements: [
-      "Implemented concurrent threading to reduce scan time by 90%.",
-      "Created comprehensive diagnostic reporting for network security audits."
-    ],
-    stack: ["Python", "Cybersecurity", "Networking", "Threading"],
-    domain: "IoT"
-  },
-  {
-    title: "Hull Tactical Market Prediction",
-    description: "Deep learning forecasting model using market sentiment, macro data, and volatility indices.",
-    achievements: [
-      "Conducted EDA with 50+ advanced visualizations of financial signal noise.",
-      "Engineered features from cross-asset sentiment and macroeconomic indicators."
-    ],
-    stack: ["Deep Learning", "Quant Finance", "Python"],
-    domain: "Finance"
-  },
-  {
-    title: "Iris Species Neural Net",
-    description: "Advanced classification engine built from scratch using only NumPy with attention mechanisms.",
-    achievements: [
-      "Achieved >98% test accuracy without external ML libraries.",
-      "Implemented Swish/GELU activations and Batch Normalization from first principles."
-    ],
-    stack: ["NumPy", "Neural Networks", "Python", "Math"],
-    domain: "ML"
   }
 ];
 
