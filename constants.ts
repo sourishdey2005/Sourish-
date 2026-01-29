@@ -150,6 +150,18 @@ jobs:
 
 export const EXPERIENCES: Experience[] = [
   {
+    role: "Infosys Springboard Virtual Intern (6.0)",
+    company: "Infosys",
+    duration: "Jan 2026 – Present",
+    location: "Remote",
+    summary: "Selected for the Infosys Springboard Virtual Internship 6.0, gaining hands-on experience in data science, AI/ML, cloud technologies, and real-world problem solving.",
+    achievements: [
+      "Focused on applying data science, AI/ML, and cloud concepts to practical, industry-relevant challenges.",
+      "Developing scalable data pipelines and machine learning models for enterprise-scale simulations.",
+      "Collaborating with cross-functional teams to implement cloud-native AI solutions."
+    ]
+  },
+  {
     role: "Data Science Intern",
     company: "Uptricks Services Pvt. Ltd.",
     duration: "Oct 2025 – Present",
@@ -231,18 +243,6 @@ export const EXPERIENCES: Experience[] = [
       "Automated multi-tier infrastructure provisioning using Terraform and CI/CD best practices.",
       "Reduced cloud operational overhead by implementing custom health-monitoring scripts.",
       "Ensured 99.9% uptime for university-wide digital services through efficient load balancing."
-    ]
-  },
-  {
-    role: "Infosys Springboard Virtual Intern (6.0)",
-    company: "Infosys",
-    duration: "Jan 2025 – Present",
-    location: "Remote",
-    summary: "Selected for the Infosys Springboard Virtual Internship 6.0, gaining hands-on experience in data science, AI/ML, cloud technologies, and real-world problem solving.",
-    achievements: [
-      "Focused on applying data science, AI/ML, and cloud concepts to practical, industry-relevant challenges.",
-      "Developing scalable AI solutions within the Infosys Springboard ecosystem.",
-      "Participating in large-scale problem-solving modules using modern ML frameworks."
     ]
   },
   {
