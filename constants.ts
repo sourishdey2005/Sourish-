@@ -599,7 +599,7 @@ export const PUBLICATIONS: Publication[] = [
     date: "Patent ID: 478013-001",
     abstract: "An advanced robotic orchestration framework designed for autonomous industrial monitoring and predictive fault detection. The system integrates multi-modal sensory data (acoustic, thermal, and vibration) with edge-based deep learning models to identify mechanical fatigue and impending component failure. Features a localized decision-making engine that reduces downtime by triggering preventative maintenance protocols before critical system breaches occur.",
     type: "patent",
-    image: "" // ADD YOUR PATENT CERTIFICATE URL HERE
+    image: "https://res.cloudinary.com/dodhvvewu/image/upload/v1770041029/patents1_page-0001_upxuyx.jpg" // ADD YOUR PATENT CERTIFICATE URL HERE
   },
   {
     title: "AI-Powered Smart Agriculture Drone",
@@ -607,7 +607,7 @@ export const PUBLICATIONS: Publication[] = [
     date: "Patent ID: 468494-001",
     abstract: "A revolutionary autonomous aerial system engineered for precision agriculture. The framework utilizes high-resolution multi-spectral imaging and computer vision to monitor crop health in real-time. By applying edge-based AI models, the drone can identify localized nutrient deficiencies and pest infestations, triggering automated, targeted pesticide dispersal. Includes a predictive engine for yield forecasting based on temporal vegetative indices (NDVI/EVI), significantly optimizing harvest cycles.",
     type: "patent",
-    image: "" // ADD YOUR PATENT CERTIFICATE URL HERE
+    image: "https://res.cloudinary.com/dodhvvewu/image/upload/v1770041319/patents2_page-0001_m8pbee.jpg" // ADD YOUR PATENT CERTIFICATE URL HERE
   },
   {
     title: "Underwater Power Generator",
@@ -615,7 +615,7 @@ export const PUBLICATIONS: Publication[] = [
     date: "Patent ID: 450888-001",
     abstract: "A high-efficiency renewable energy solution designed for harvesting kinetic energy from underwater currents. The system features a custom-designed magneto-inductive turbine that operates effectively even in low-velocity flow environments. It employs advanced hydrodynamic blade profiles to maximize energy capture while minimizing environmental impact on marine life. Integrated with IoT sensors for remote structural health monitoring and power output optimization via adaptive torque control.",
     type: "patent",
-    image: "" // ADD YOUR PATENT CERTIFICATE URL HERE
+    image: "https://res.cloudinary.com/dodhvvewu/image/upload/v1770041500/patents3_page-0001_n7ekc0.jpg" // ADD YOUR PATENT CERTIFICATE URL HERE
   }
 ];
 
