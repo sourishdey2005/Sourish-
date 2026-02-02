@@ -1,15 +1,27 @@
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { GitBranch, Users, Code2, ExternalLink, Globe, Sparkles, Terminal, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { GitBranch, Users, Code2, Sparkles, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const OpenSource: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const MotionDiv = motion.div as any;
 
   const images = [
     "https://res.cloudinary.com/dodhvvewu/image/upload/v1770041640/fb814544-8f23-47ff-a49a-30beaaa8bb9f_byf0qh.jpg",
     "https://res.cloudinary.com/dodhvvewu/image/upload/v1770041695/8f6a6de7-5376-49f0-ae3c-1e7f5dece56c_ahajum.jpg"
   ];
+
+  // Auto-swipe functionality
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+  const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
     <section id="opensource" className="py-32 bg-slate-50 dark:bg-slate-950 overflow-hidden relative border-t border-slate-100 dark:border-slate-800">
@@ -64,40 +76,62 @@ const OpenSource: React.FC = () => {
                 </div>
               ))}
             </div>
-
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              <button className="flex items-center gap-3 px-8 py-5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-xs uppercase tracking-[0.2em] rounded-2xl hover:scale-105 transition-transform shadow-xl">
-                <Globe size={18} /> Official Portal
-              </button>
-              <button className="flex items-center gap-3 px-8 py-5 border-2 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-black text-xs uppercase tracking-[0.2em] rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                <ExternalLink size={18} /> Git Activity
-              </button>
-            </div>
           </MotionDiv>
 
-          {/* Visual Gallery Pane - Side by Side, No Overlap */}
-          <MotionDiv 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="w-full lg:w-[540px] grid grid-cols-1 sm:grid-cols-2 gap-6"
-          >
-            {images.map((url, i) => (
-              <div key={i} className="group/img relative rounded-[2.5rem] overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                <img 
-                  src={url} 
-                  alt={`GSSoC 2025 verification ${i + 1}`} 
-                  className="w-full h-[400px] object-cover transition-transform duration-700 group-hover/img:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500 flex items-end p-8">
-                  <div className="flex items-center gap-2 text-white">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Verification Layer {i + 1}</span>
+          {/* Swiping Visual Gallery Pane */}
+          <div className="w-full lg:w-[500px] relative">
+            <div className="relative h-[600px] w-full rounded-[3rem] overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl bg-slate-900/10">
+              <AnimatePresence mode="wait">
+                <MotionDiv
+                  key={currentIndex}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  className="absolute inset-0 w-full h-full"
+                >
+                  <img 
+                    src={images[currentIndex]} 
+                    alt={`GSSoC 2025 verification ${currentIndex + 1}`} 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-10">
+                    <div className="flex items-center gap-2 text-white">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]" />
+                      <span className="text-xs font-black uppercase tracking-[0.2em]">Verification Asset {currentIndex + 1}</span>
+                    </div>
                   </div>
-                </div>
+                </MotionDiv>
+              </AnimatePresence>
+
+              {/* Navigation Arrows */}
+              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 pointer-events-none">
+                <button 
+                  onClick={prevSlide}
+                  className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white pointer-events-auto transition-all border border-white/10"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button 
+                  onClick={nextSlide}
+                  className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white pointer-events-auto transition-all border border-white/10"
+                >
+                  <ChevronRight size={24} />
+                </button>
               </div>
-            ))}
-          </MotionDiv>
+            </div>
+
+            {/* Pagination Indicators */}
+            <div className="mt-8 flex justify-center gap-3">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentIndex(i)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${currentIndex === i ? 'w-12 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'w-3 bg-slate-200 dark:bg-slate-800'}`}
+                />
+              ))}
+            </div>
+          </div>
           
         </div>
       </div>
