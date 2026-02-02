@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GitBranch, Users, Code2, ExternalLink, Globe, Sparkles, Terminal } from 'lucide-react';
+import { GitBranch, Users, Code2, ExternalLink, Globe, Sparkles, Terminal, ShieldCheck } from 'lucide-react';
 
 const OpenSource: React.FC = () => {
   const MotionDiv = motion.div as any;
@@ -12,111 +12,94 @@ const OpenSource: React.FC = () => {
   ];
 
   return (
-    <section id="opensource" className="py-24 bg-slate-50 dark:bg-slate-900/20 overflow-hidden relative border-t border-slate-100 dark:border-slate-800">
-      {/* Abstract Background Decor */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-600/5 blur-[120px] rounded-full pointer-events-none" />
+    <section id="opensource" className="py-32 bg-slate-50 dark:bg-slate-950 overflow-hidden relative border-t border-slate-100 dark:border-slate-800">
+      {/* Dynamic Background Element */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/5 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary-600/5 blur-[120px] rounded-full pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <MotionDiv 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col lg:flex-row items-center gap-16"
-        >
-          {/* Left Column: Narrative */}
-          <div className="flex-1 space-y-8 text-center lg:text-left">
-            <div className="inline-flex items-center gap-3 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Active Contributor 2025</span>
-            </div>
-            
-            <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-slate-900 dark:text-white leading-tight">
-                Global Open Source <br />
-                <span className="text-primary-600">Impact Program</span>
+        <div className="flex flex-col lg:flex-row items-center gap-20">
+          
+          {/* Technical Narrative Pane */}
+          <MotionDiv 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex-1 space-y-10"
+          >
+            <div className="space-y-6 text-center lg:text-left">
+              <div className="inline-flex items-center gap-3 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+                <Sparkles size={14} className="text-emerald-500 animate-pulse" />
+                <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-[0.2em]">Contributor Status: Active 2025</span>
+              </div>
+              
+              <h2 className="text-5xl md:text-6xl font-heading font-bold text-slate-900 dark:text-white leading-[1.1]">
+                Global Open Source<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-emerald-500">Impact Program</span>
               </h2>
+              
               <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                Thrilled to be selected as a Contributor for <span className="text-slate-900 dark:text-white font-bold">GirlScript Summer of Code 2025 (GSSoC'25)</span>. 
-                This appointment involves orchestrating high-impact contributions to global repositories, focusing on architectural scalability and distributed engineering workflows.
+                Thrilled to be selected as a <span className="text-slate-950 dark:text-white font-bold">Contributor for GirlScript Summer of Code 2025 (GSSoC'25)</span>. 
+                This appointment involves orchestrating high-impact contributions to global repositories, focusing on architectural scalability, distributed engineering workflows, and real-world system optimization.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { icon: <GitBranch size={18} />, label: "Real-world Collaboration" },
-                { icon: <Users size={18} />, label: "Inclusive Learning Ecosystem" },
-                { icon: <Code2 size={18} />, label: "Production-grade Optimization" },
-                { icon: <Terminal size={18} />, label: "Impactful Development" }
+                { icon: <GitBranch size={20} />, label: "Git Orchestration", desc: "Distributed version control" },
+                { icon: <Users size={20} />, label: "Global Collab", desc: "Cross-functional teams" },
+                { icon: <Code2 size={20} />, label: "Refactor Engineering", desc: "Production optimization" },
+                { icon: <ShieldCheck size={20} />, label: "OSS Security", desc: "Code integrity standards" }
               ].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm group hover:border-primary-500/30 transition-all">
-                  <div className="p-2 bg-primary-50 dark:bg-primary-900/30 text-primary-600 rounded-lg group-hover:scale-110 transition-transform">
-                    {item.icon}
+                <div key={idx} className="p-5 bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm group hover:border-emerald-500/30 transition-all duration-300">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 rounded-2xl group-hover:scale-110 transition-transform">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <span className="block text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">{item.label}</span>
+                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">{item.desc}</span>
+                    </div>
                   </div>
-                  <span className="text-xs font-black text-slate-500 dark:text-slate-300 uppercase tracking-tight">{item.label}</span>
                 </div>
               ))}
             </div>
 
-            <div className="pt-4 flex flex-wrap justify-center lg:justify-start gap-4">
-              <button className="flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-sm uppercase tracking-widest rounded-2xl hover:scale-105 transition-transform shadow-xl">
-                <Globe size={18} /> GSSoC Program Portal
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+              <button className="flex items-center gap-3 px-8 py-5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black text-xs uppercase tracking-[0.2em] rounded-2xl hover:scale-105 transition-transform shadow-xl">
+                <Globe size={18} /> Official Portal
               </button>
-              <button className="flex items-center gap-3 px-8 py-4 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-black text-sm uppercase tracking-widest rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                <ExternalLink size={18} /> View GitHub Activity
+              <button className="flex items-center gap-3 px-8 py-5 border-2 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-black text-xs uppercase tracking-[0.2em] rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                <ExternalLink size={18} /> Git Activity
               </button>
             </div>
-          </div>
+          </MotionDiv>
 
-          {/* Right Column: Visual Panel */}
-          <div className="w-full lg:w-[450px] shrink-0">
-            <div className="relative group">
-              {/* Background Glow */}
-              <div className="absolute -inset-4 bg-primary-600/10 blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              
-              <div className="relative space-y-6">
-                {/* Main Selection Image */}
-                <MotionDiv 
-                  whileHover={{ y: -10, rotate: -2 }}
-                  className="relative h-[320px] rounded-[2.5rem] overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl z-20"
-                >
-                  <img 
-                    src={images[0]} 
-                    alt="GSSoC selection" 
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex items-end p-8">
-                    <div className="flex items-center gap-3 text-white">
-                      <Sparkles size={20} className="text-amber-400" />
-                      <span className="font-bold text-sm tracking-widest uppercase">GSSoC'25 Contributor</span>
-                    </div>
+          {/* Visual Gallery Pane - Side by Side, No Overlap */}
+          <MotionDiv 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="w-full lg:w-[540px] grid grid-cols-1 sm:grid-cols-2 gap-6"
+          >
+            {images.map((url, i) => (
+              <div key={i} className="group/img relative rounded-[2.5rem] overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <img 
+                  src={url} 
+                  alt={`GSSoC 2025 verification ${i + 1}`} 
+                  className="w-full h-[400px] object-cover transition-transform duration-700 group-hover/img:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                  <div className="flex items-center gap-2 text-white">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span className="text-[10px] font-black uppercase tracking-widest">Verification Layer {i + 1}</span>
                   </div>
-                </MotionDiv>
-
-                {/* Secondary Image Overlap */}
-                <MotionDiv 
-                  whileHover={{ x: 10, rotate: 2 }}
-                  className="absolute -bottom-12 -right-6 w-56 h-72 rounded-[2rem] overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl z-30 hidden sm:block"
-                >
-                  <img 
-                    src={images[1]} 
-                    alt="Selection Certificate" 
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors" />
-                </MotionDiv>
-
-                {/* Mobile version of second image */}
-                <div className="sm:hidden h-[280px] rounded-[2rem] overflow-hidden border-2 border-slate-100 dark:border-slate-800">
-                   <img 
-                    src={images[1]} 
-                    alt="Selection Certificate" 
-                    className="w-full h-full object-cover"
-                  />
                 </div>
               </div>
-            </div>
-          </div>
-        </MotionDiv>
+            ))}
+          </MotionDiv>
+          
+        </div>
       </div>
     </section>
   );
