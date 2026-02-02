@@ -33,6 +33,8 @@ const Terminal: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [currentDir, setCurrentDir] = useState('/home/sourish');
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
   
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -390,7 +392,7 @@ const Terminal: React.FC = () => {
   return (
     <section id="terminal" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative border-b border-slate-100 dark:border-slate-800">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -406,9 +408,9 @@ const Terminal: React.FC = () => {
           <p className="mt-4 text-slate-500 dark:text-slate-400 text-sm max-w-lg mx-auto leading-relaxed">
             An interactive Linux shell allowing you to audit my infrastructure logs and file systems.
           </p>
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -438,7 +440,7 @@ const Terminal: React.FC = () => {
           >
             <AnimatePresence initial={false}>
               {history.map((line, i) => (
-                <motion.div 
+                <MotionDiv 
                   key={i}
                   initial={{ opacity: 0, x: -5 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -461,18 +463,18 @@ const Terminal: React.FC = () => {
                       {line.content}
                     </div>
                   )}
-                </motion.div>
+                </MotionDiv>
               ))}
             </AnimatePresence>
 
             {isTyping && (
-              <motion.div 
+              <MotionDiv 
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ duration: 0.8, repeat: Infinity }}
                 className="text-slate-600 text-[10px] italic ml-4 mt-2"
               >
                 Accessing storage clusters...
-              </motion.div>
+              </MotionDiv>
             )}
 
             <div className="flex gap-3 mt-4 group">
@@ -504,7 +506,7 @@ const Terminal: React.FC = () => {
             </div>
             <span className="text-[9px] text-slate-600 font-mono uppercase tracking-tighter">Sourish-Kernel-v2.5.1-LTS</span>
           </div>
-        </motion.div>
+        </MotionDiv>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           {['ls -la', 'man top', 'grep sourish cv.txt', 'ping google.com', 'df -h', 'uptime'].map(tip => (

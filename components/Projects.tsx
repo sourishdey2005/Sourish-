@@ -9,6 +9,8 @@ import { ProjectDomain, Project as ProjectType } from '../types';
 const Projects: React.FC = () => {
   const [filter, setFilter] = useState<ProjectDomain | 'All'>('All');
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
 
   const filteredProjects = PROJECTS.filter(p => filter === 'All' || p.domain === filter);
   const filterOptions: (ProjectDomain | 'All')[] = ['All', 'NLP', 'ML', 'Cloud', 'Finance', 'IoT'];
@@ -28,7 +30,7 @@ const Projects: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-          <motion.div 
+          <MotionDiv 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -42,9 +44,9 @@ const Projects: React.FC = () => {
             <p className="text-slate-600 dark:text-slate-400 max-w-xl text-lg leading-relaxed">
               Bridging the gap between theoretical algorithms and high-performance production systems through rigorous engineering.
             </p>
-          </motion.div>
+          </MotionDiv>
           
-          <motion.div 
+          <MotionDiv 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -64,10 +66,10 @@ const Projects: React.FC = () => {
                 {opt}
               </button>
             ))}
-          </motion.div>
+          </MotionDiv>
         </div>
 
-        <motion.div 
+        <MotionDiv 
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 min-h-[600px]"
         >
@@ -80,21 +82,21 @@ const Projects: React.FC = () => {
               />
             ))}
           </AnimatePresence>
-        </motion.div>
+        </MotionDiv>
       </div>
 
       {/* Project Detail Modal */}
       <AnimatePresence>
         {selectedProject && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
               className="absolute inset-0 bg-slate-950/80 backdrop-blur-md"
             />
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, scale: 0.9, y: 40 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 40 }}
@@ -194,7 +196,7 @@ const Projects: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         )}
       </AnimatePresence>
@@ -204,6 +206,7 @@ const Projects: React.FC = () => {
 
 const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ project, onClick }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const MotionDiv = motion.div as any;
   
   // Motion values for subtle 3D tilt
   const mouseX = useMotionValue(0);
@@ -237,7 +240,7 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
   };
 
   return (
-    <motion.div
+    <MotionDiv
       layout
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -246,7 +249,7 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
       className="group relative h-[440px]"
       style={{ perspective: 1200 }}
     >
-      <motion.div
+      <MotionDiv
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -256,7 +259,7 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
         onClick={onClick}
       >
         {/* Dynamic Glare Overlay */}
-        <motion.div 
+        <MotionDiv 
           style={{ 
             opacity,
             background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.15) 0%, transparent 70%)`,
@@ -312,11 +315,11 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
             <ChevronRight size={20} className="text-slate-400 group-hover:text-white transition-all transform group-hover:translate-x-1" />
           </div>
         </div>
-      </motion.div>
+      </MotionDiv>
       
       {/* Interactive Glow Shadow */}
       <div className="absolute -inset-2 bg-primary-600 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-[0.08] transition duration-700 -z-10" />
-    </motion.div>
+    </MotionDiv>
   );
 };
 

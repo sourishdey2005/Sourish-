@@ -74,6 +74,8 @@ const ServerBlade: React.FC<ServerBladeProps> = ({ position, index, cpuLoad, isS
 const ServerRack = ({ cpuLoad, isScaling }: { cpuLoad: number, isScaling: boolean }) => {
   const rackRef = useRef<THREE.Group>(null!);
   const [activeService, setActiveService] = useState<number | null>(null);
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
 
   useFrame(() => {
     if (rackRef.current) rackRef.current.rotation.y += 0.003;
@@ -101,7 +103,7 @@ const ServerRack = ({ cpuLoad, isScaling }: { cpuLoad: number, isScaling: boolea
 
       {activeService !== null && (
         <Html position={[0, activeService * 0.65 - 2.8, 2.5]} center>
-          <motion.div 
+          <MotionDiv 
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             className="bg-slate-900/95 text-white p-4 rounded-2xl border border-primary-500/30 shadow-2xl backdrop-blur-xl pointer-events-none min-w-[180px]"
@@ -111,7 +113,7 @@ const ServerRack = ({ cpuLoad, isScaling }: { cpuLoad: number, isScaling: boolea
               <Zap size={14} className="text-amber-400" />
               {NODE_SERVICES[activeService % NODE_SERVICES.length]}
             </div>
-          </motion.div>
+          </MotionDiv>
         </Html>
       )}
     </Group>
@@ -121,6 +123,8 @@ const ServerRack = ({ cpuLoad, isScaling }: { cpuLoad: number, isScaling: boolea
 const SystemSimulation: React.FC = () => {
   const [metrics, setMetrics] = useState({ cpu: 45, ram: 62 });
   const [isScaling, setIsScaling] = useState(false);
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -151,14 +155,14 @@ const SystemSimulation: React.FC = () => {
               </div>
               <AnimatePresence>
                 {isScaling && (
-                  <motion.div 
+                  <MotionDiv 
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     className="flex items-center gap-3 px-4 py-2 bg-primary-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg"
                   >
                     <TrendingUp size={12} /> HPA: SCALING UP
-                  </motion.div>
+                  </MotionDiv>
                 )}
               </AnimatePresence>
             </div>

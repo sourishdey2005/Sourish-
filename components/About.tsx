@@ -16,11 +16,14 @@ const competencies = [
 ];
 
 const About: React.FC = () => {
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
+
   return (
     <section id="about" className="py-24 bg-slate-50 dark:bg-slate-900/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -41,11 +44,11 @@ const About: React.FC = () => {
                 <span className="text-sm text-slate-500">Projects Deployed</span>
               </div>
             </div>
-          </motion.div>
+          </MotionDiv>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {competencies.map((item, index) => (
-              <motion.div
+              <MotionDiv
                 key={item.title}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -60,7 +63,7 @@ const About: React.FC = () => {
                 <h3 className="text-xs font-bold text-center text-slate-800 dark:text-slate-200 uppercase tracking-tighter">
                   {item.title}
                 </h3>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>

@@ -5,6 +5,8 @@ import { Mail, Phone, Linkedin, Github, Send, CheckCircle, ExternalLink, Faceboo
 
 const Contact: React.FC = () => {
   const [formState, setFormState] = useState<'idle' | 'sending' | 'success'>('idle');
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +22,7 @@ const Contact: React.FC = () => {
 
   const ResearchGateIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-      <path d="M19.586 0c-.815 0-1.5.685-1.5 1.5s.685 1.5 1.5 1.5 1.5-.685 1.5-1.5-.685-1.5-1.5-1.5zM9 20a1 1 0 0 0 1-1v-5h1.22c.1 0 .22.04.3.12l2.36 2.36c.46.46 1.06.68 1.66.68a2.3 2.3 0 0 0 1.63-3.93l-1.63-1.63c-.3-.3-.47-.7-.47-1.14a2.26 2.26 0 0 0-4.44-.6H9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1zm0-12h2.26a.26.26 0 0 1 .26.26v1.48a.26.26 0 0 1-.26.26H9V8zm4.33 4.2a.3.3 0 0 1 .1.2c0 .12-.04.22-.12.3l-.75.75a.3.3 0 0 1-.43 0L11 12.3c-.08-.08-.12-.18-.12-.3a.3.3 0 0 1 .1-.2c0-.12.04-.22.12-.3l.75-.75a.3.3 0 0 1 .43 0l1.15 1.15a.3.3 0 0 1 .08.2zM2.5 0A2.5 2.5 0 0 0 0 2.5v19A2.5 2.5 0 0 0 2.5 24h12c.33 0 .6-.27.6-.6v-2.4c0-.33-.27-.6-.6-.6h-11.4a.6.6 0 0 1-.6-.6V3.1a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6.6v3.3c0 .33.27.6.6.6h2.4c.33 0 .6-.27.6-.6v-3.9A2.5 2.5 0 0 0 21.5 0h-19z"/>
+      <path d="M19.586 0c-.815 0-1.5.685-1.5 1.5s.685 1.5 1.5 1.5 1.5-.685 1.5-1.5-.685-1.5-1.5-1.5zM9 20a1 1 0 0 0 1-1v-5h1.22c.1 0 .22.04.3.12l2.36 2.36c.46.46 1.06.68 1.66.68a2.3 2.3 0 0 0 1.63-3.93l-1.63-1.63c-.3-.3-.47-.7-.47-1.14a2.26 2.26 0 0 0-4.44-.6H9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1zm0-12h2.26a.26.26 0 0 1 .26.26v1.48a.26.26 0 0 1-.26.26H9V8zm4.33 4.2a.3.3 0 0 1 .1.2c0 .12-.04.22-.12.3l-.75.75a.3.3 0 0 1-.43 0L11 12.3c-.08-.08-.12-.18-.12-.3a.3.3 0 0 1 .1-.2c0-.12.04-.22.12-.3l.75-.75a.3.3 0 0 1 .43 0l1.15 1.15a.3.3 0 0 1 .08.2zM2.5 0A2.5 2.5 0 0 0 0 2.5v19A2.5 2.5 0 0 0 2.5 24h12c.33 0 .6-.27.6-.6v-2.4c0-.33-.27-.6-.6-.6h-11.4a.6.6 0 0 1-.6-.6V3.1a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6-.6v3.3c0 .33.27.6.6.6h2.4c.33 0 .6-.27.6-.6v-3.9A2.5 2.5 0 0 0 21.5 0h-19z"/>
     </svg>
   );
 
@@ -31,7 +33,7 @@ const Contact: React.FC = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -91,9 +93,9 @@ const Contact: React.FC = () => {
                 <div className="text-emerald-600"><ResearchGateIcon /></div> ResearchGate <ExternalLink size={12} className="opacity-40" />
               </a>
             </div>
-          </motion.div>
+          </MotionDiv>
 
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -163,7 +165,7 @@ const Contact: React.FC = () => {
                 )}
               </button>
             </form>
-          </motion.div>
+          </MotionDiv>
         </div>
       </div>
     </section>

@@ -208,6 +208,8 @@ const INITIAL_CERTIFICATES: VisualCertificate[] = [
 const CertificatesGallery: React.FC = () => {
   const [certs] = useState<VisualCertificate[]>(INITIAL_CERTIFICATES);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
 
   const handleNext = (e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -238,7 +240,7 @@ const CertificatesGallery: React.FC = () => {
   return (
     <section id="certificates-gallery" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative border-t border-slate-100 dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -253,12 +255,12 @@ const CertificatesGallery: React.FC = () => {
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg">
             Visual verification of professional milestones, technical certifications, and academic excellence. Click any image for a detailed view.
           </p>
-        </motion.div>
+        </MotionDiv>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <AnimatePresence mode="popLayout">
             {certs.map((cert, index) => (
-              <motion.div
+              <MotionDiv
                 key={cert.id}
                 layout
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -285,7 +287,7 @@ const CertificatesGallery: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </MotionDiv>
             ))}
           </AnimatePresence>
         </div>
@@ -303,7 +305,7 @@ const CertificatesGallery: React.FC = () => {
       {/* Enhanced Lightbox */}
       <AnimatePresence>
         {selectedIndex !== null && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -339,7 +341,7 @@ const CertificatesGallery: React.FC = () => {
             </div>
 
             {/* Image Display */}
-            <motion.div 
+            <MotionDiv 
               key={selectedIndex}
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -353,7 +355,7 @@ const CertificatesGallery: React.FC = () => {
                 alt={certs[selectedIndex].title}
                 className="max-w-full max-h-[85vh] rounded-2xl shadow-2xl object-contain border border-white/5"
               />
-            </motion.div>
+            </MotionDiv>
 
             {/* Pagination dots for quick reference */}
             <div className="absolute bottom-10 flex gap-2 overflow-x-auto max-w-full px-4 scrollbar-hide">
@@ -365,7 +367,7 @@ const CertificatesGallery: React.FC = () => {
                 />
               ))}
             </div>
-          </motion.div>
+          </MotionDiv>
         )}
       </AnimatePresence>
     </section>

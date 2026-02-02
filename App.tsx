@@ -26,6 +26,9 @@ const App: React.FC = () => {
     }
   }, []);
 
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
+
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Navbar />
@@ -45,7 +48,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             {/* Education Column */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -105,10 +108,10 @@ const App: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </MotionDiv>
 
             {/* Certifications Column */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -126,7 +129,7 @@ const App: React.FC = () => {
 
               <div className="grid grid-cols-1 gap-6">
                 {CERTIFICATIONS.map((cert, idx) => (
-                  <motion.div 
+                  <MotionDiv 
                     key={cert.provider} 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -163,10 +166,10 @@ const App: React.FC = () => {
                         Verify Credentials <ExternalLink size={10} />
                       </button>
                     </div>
-                  </motion.div>
+                  </MotionDiv>
                 ))}
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -174,7 +177,7 @@ const App: React.FC = () => {
       {/* Honors Section - Improved Alignment & Detail */}
       <section id="honors" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <MotionDiv 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -189,11 +192,11 @@ const App: React.FC = () => {
             <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
               Academic and competitive recognitions highlighting a consistent record of high-performance and technical proficiency.
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
              {HONORS.map((honor, idx) => (
-               <motion.div
+               <MotionDiv
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -217,7 +220,7 @@ const App: React.FC = () => {
                  <p className="text-xs text-slate-400 dark:text-slate-500 italic leading-relaxed">
                    {honor.description}
                  </p>
-               </motion.div>
+               </MotionDiv>
              ))}
           </div>
         </div>
@@ -255,7 +258,7 @@ const App: React.FC = () => {
                 </a>
                 <a href="https://www.researchgate.net/profile/Sourish-Dey-3?ev=hdr_xprf" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-emerald-600 dark:hover:text-white transition-all hover:scale-110">
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-[22px] h-[22px]">
-                    <path d="M19.586 0c-.815 0-1.5.685-1.5 1.5s.685 1.5 1.5 1.5 1.5-.685 1.5-1.5-.685-1.5-1.5-1.5zM9 20a1 1 0 0 0 1-1v-5h1.22c.1 0 .22.04.3.12l2.36 2.36c.46.46 1.06.68 1.66.68a2.3 2.3 0 0 0 1.63-3.93l-1.63-1.63c-.3-.3-.47-.7-.47-1.14a2.26 2.26 0 0 0-4.44-.6H9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1zm0-12h2.26a.26.26 0 0 1 .26.26v1.48a.26.26 0 0 1-.26.26H9V8zm4.33 4.2a.3.3 0 0 1 .1.2c0 .12-.04.22-.12.3l-.75.75a.3.3 0 0 1-.43 0L11 12.3c-.08-.08-.12-.18-.12-.3a.3.3 0 0 1 .1-.2c0-.12.04-.22.12-.3l.75-.75a.3.3 0 0 1 .43 0l1.15 1.15a.3.3 0 0 1 .08.2zM2.5 0A2.5 2.5 0 0 0 0 2.5v19A2.5 2.5 0 0 0 2.5 24h12c.33 0 .6-.27.6-.6v-2.4c0-.33-.27-.6-.6-.6h-11.4a.6.6 0 0 1-.6-.6V3.1a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6.6v3.3c0 .33.27.6.6.6h2.4c.33 0 .6-.27.6-.6v-3.9A2.5 2.5 0 0 0 21.5 0h-19z"/>
+                    <path d="M19.586 0c-.815 0-1.5.685-1.5 1.5s.685 1.5 1.5 1.5 1.5-.685 1.5-1.5-.685-1.5-1.5-1.5zM9 20a1 1 0 0 0 1-1v-5h1.22c.1 0 .22.04.3.12l2.36 2.36c.46.46 1.06.68 1.66.68a2.3 2.3 0 0 0 1.63-3.93l-1.63-1.63c-.3-.3-.47-.7-.47-1.14a2.26 2.26 0 0 0-4.44-.6H9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1zm0-12h2.26a.26.26 0 0 1 .26.26v1.48a.26.26 0 0 1-.26.26H9V8zm4.33 4.2a.3.3 0 0 1 .1.2c0 .12-.04.22-.12.3l-.75.75a.3.3 0 0 1-.43 0L11 12.3c-.08-.08-.12-.18-.12-.3a.3.3 0 0 1 .1-.2c0-.12.04-.22.12-.3l.75-.75a.3.3 0 0 1 .43 0l1.15 1.15a.3.3 0 0 1 .08.2zM2.5 0A2.5 2.5 0 0 0 0 2.5v19A2.5 2.5 0 0 0 2.5 24h12c.33 0 .6-.27.6-.6v-2.4c0-.33-.27-.6-.6-.6h-11.4a.6.6 0 0 1-.6-.6V3.1a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6-.6v3.3c0 .33.27.6.6.6h2.4c.33 0 .6-.27.6-.6v-3.9A2.5 2.5 0 0 0 21.5 0h-19z"/>
                   </svg>
                 </a>
               </div>

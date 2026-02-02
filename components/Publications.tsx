@@ -6,6 +6,8 @@ import { PUBLICATIONS } from '../constants';
 
 const Publications: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // Default first one open
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
   
   const researchPublications = PUBLICATIONS.filter(p => p.type === 'publication');
 
@@ -22,7 +24,7 @@ const Publications: React.FC = () => {
       <div className="absolute left-0 top-0 w-64 h-64 bg-primary-600/5 blur-[100px] rounded-full pointer-events-none" />
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -37,11 +39,11 @@ const Publications: React.FC = () => {
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg">
             Contributing to the scientific community through rigorous research in IoT, Quantum Computing, and AI-driven Infrastructure.
           </p>
-        </motion.div>
+        </MotionDiv>
 
         <div className="space-y-6">
           {researchPublications.map((pub, idx) => (
-            <motion.div
+            <MotionDiv
               key={idx}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -88,7 +90,7 @@ const Publications: React.FC = () => {
 
               <AnimatePresence>
                 {openIndex === idx && (
-                  <motion.div
+                  <MotionDiv
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -110,10 +112,10 @@ const Publications: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </MotionDiv>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
       </div>

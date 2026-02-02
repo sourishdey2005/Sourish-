@@ -1,13 +1,16 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, ChevronDown, Plane, Droplets, FileText, ExternalLink, Lock, Settings, Image as ImageIcon, ZoomIn, X } from 'lucide-react';
+import { ShieldCheck, ChevronDown, Plane, Droplets, FileText, ExternalLink, Lock, Settings, Image as ImageIcon, ZoomIn, X, Clock } from 'lucide-react';
 import { PUBLICATIONS } from '../constants';
 
 const Patents: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
   const patentList = PUBLICATIONS.filter(p => p.type === 'patent');
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
+  const MotionImg = motion.img as any;
 
   const getIcon = (title: string) => {
     const t = title.toLowerCase();
@@ -23,7 +26,7 @@ const Patents: React.FC = () => {
       <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -38,17 +41,17 @@ const Patents: React.FC = () => {
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-xl leading-relaxed">
             Pioneering hardware and software frameworks filed for intellectual property protection in India, showcasing innovative energy and industrial solutions.
           </p>
-        </motion.div>
+        </MotionDiv>
 
         <div className="space-y-8">
           {patentList.map((pub, idx) => (
-            <motion.div
+            <MotionDiv
               key={idx}
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.15 }}
-              className={`group bg-slate-50 dark:bg-slate-900/60 rounded-[3rem] border transition-all duration-500 shadow-sm hover:shadow-2xl ${
+              className={`group bg-slate-50 dark:bg-slate-900/60 rounded-[3rem] border transition-all duration-500 shadow-sm hover:shadow-xl ${
                 openIndex === idx 
                   ? 'border-amber-500/40 bg-white dark:bg-slate-900' 
                   : 'border-slate-100 dark:border-slate-800 hover:border-amber-200'
@@ -92,7 +95,7 @@ const Patents: React.FC = () => {
 
               <AnimatePresence>
                 {openIndex === idx && (
-                  <motion.div
+                  <MotionDiv
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -145,22 +148,23 @@ const Patents: React.FC = () => {
                                 <div className="p-4 bg-amber-500/10 rounded-2xl text-amber-600 mb-4">
                                   <ImageIcon size={32} />
                                 </div>
-                                <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Certificate Image</h5>
-                                <p className="text-[10px] text-slate-500 leading-relaxed">Repository link established. Image upload pending verification.</p>
-                                <label className="mt-4 px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-amber-500 hover:text-white transition-colors text-[10px] font-bold rounded-lg cursor-pointer">
-                                  Upload Picture
-                                  <input type="file" className="hidden" accept="image/*" />
-                                </label>
+                                <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Registry Certificate</h5>
+                                <p className="text-[10px] text-slate-500 leading-relaxed max-w-[180px]">Legal record indexed. Digital scan pending official verification.</p>
+                                
+                                <div className="mt-6 flex items-center gap-2 px-3 py-1.5 bg-slate-200 dark:bg-slate-700/50 rounded-full border border-slate-300 dark:border-slate-600">
+                                   <Clock size={12} className="text-amber-500 animate-pulse" />
+                                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Processing Ledger</span>
+                                </div>
                               </div>
                             )}
                           </div>
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </MotionDiv>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
       </div>
@@ -168,7 +172,7 @@ const Patents: React.FC = () => {
       {/* Zoom Modal */}
       <AnimatePresence>
         {zoomedImage && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -178,13 +182,13 @@ const Patents: React.FC = () => {
             <button className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors">
               <X size={40} />
             </button>
-            <motion.img 
+            <MotionImg 
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               src={zoomedImage} 
               className="max-w-full max-h-full object-contain rounded-xl shadow-2xl" 
             />
-          </motion.div>
+          </MotionDiv>
         )}
       </AnimatePresence>
 

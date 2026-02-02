@@ -5,6 +5,9 @@ import { Cloud, Brain, Code2, Server, Terminal } from 'lucide-react';
 import { SKILLS } from '../constants';
 
 const Skills: React.FC = () => {
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
+
   return (
     <section id="skills" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative">
       {/* Background Decor */}
@@ -14,7 +17,7 @@ const Skills: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -29,7 +32,7 @@ const Skills: React.FC = () => {
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg">
             Engineering robust digital ecosystems using a research-grade toolset across Cloud Infrastructure, Machine Learning, and Enterprise Development.
           </p>
-        </motion.div>
+        </MotionDiv>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Cloud & DevOps */}
@@ -83,8 +86,11 @@ const SkillCategory: React.FC<{
     purple: 'bg-purple-50 dark:bg-purple-900/10',
   };
 
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
+
   return (
-    <motion.div
+    <MotionDiv
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -120,7 +126,7 @@ const SkillCategory: React.FC<{
               
               {/* Visualisation Progress Bar */}
               <div className="h-2 w-full bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden border border-slate-200/20 dark:border-slate-700/20">
-                <motion.div 
+                <MotionDiv 
                   initial={{ width: 0 }}
                   whileInView={{ width: `${mastery}%` }}
                   viewport={{ once: true }}
@@ -132,12 +138,12 @@ const SkillCategory: React.FC<{
                   }`}
                 >
                   {/* Subtle Shimmer Effect on Bar */}
-                  <motion.div 
+                  <MotionDiv 
                     animate={{ x: ['-100%', '100%'] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                     className="absolute inset-0 bg-white/20 w-1/2 blur-sm"
                   />
-                </motion.div>
+                </MotionDiv>
               </div>
             </div>
           );
@@ -148,7 +154,7 @@ const SkillCategory: React.FC<{
       <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
         {color === 'blue' ? <Server size={80} /> : color === 'indigo' ? <Brain size={80} /> : <Terminal size={80} />}
       </div>
-    </motion.div>
+    </MotionDiv>
   );
 };
 

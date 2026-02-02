@@ -7,11 +7,13 @@ import { Experience as ExperienceType } from '../types';
 
 const Experience: React.FC = () => {
   const [selectedExp, setSelectedExp] = useState<ExperienceType | null>(null);
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
 
   return (
     <section id="experience" className="py-24 bg-white dark:bg-slate-950 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -22,7 +24,7 @@ const Experience: React.FC = () => {
             A chronological timeline of my internships, research initiatives, and technical leadership roles.
           </p>
           <div className="w-24 h-1.5 bg-primary-600 mx-auto rounded-full mt-6" />
-        </motion.div>
+        </MotionDiv>
 
         <div className="relative">
           {/* Central Vertical Line for Desktop */}
@@ -30,7 +32,7 @@ const Experience: React.FC = () => {
 
           <div className="space-y-16 relative">
             {EXPERIENCES.map((exp, index) => (
-              <motion.div
+              <MotionDiv
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -90,7 +92,7 @@ const Experience: React.FC = () => {
 
                 {/* Empty Side for Desktop Spacing */}
                 <div className="hidden md:block md:w-[45%]" />
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -100,14 +102,14 @@ const Experience: React.FC = () => {
       <AnimatePresence>
         {selectedExp && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedExp(null)}
               className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             />
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -174,7 +176,7 @@ const Experience: React.FC = () => {
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         )}
       </AnimatePresence>

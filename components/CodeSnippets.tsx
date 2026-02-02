@@ -68,6 +68,8 @@ const SyntaxHighlighter: React.FC<{ code: string; language: string }> = ({ code 
 
 const SnippetCard: React.FC<{ snippet: CodeSnippet; isVisible: boolean }> = ({ snippet, isVisible }) => {
   const [copied, setCopied] = useState(false);
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
 
   const handleCopy = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -85,7 +87,7 @@ const SnippetCard: React.FC<{ snippet: CodeSnippet; isVisible: boolean }> = ({ s
   };
 
   return (
-    <motion.div
+    <MotionDiv
       whileHover={{ scale: 1.08, zIndex: 30, boxShadow: "0 20px 50px rgba(79, 70, 229, 0.15)" }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
       className={`flex flex-col h-[480px] bg-[#0d1117] rounded-2xl border border-slate-800 overflow-hidden shadow-2xl group transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-40 grayscale scale-95'}`}
@@ -127,7 +129,7 @@ const SnippetCard: React.FC<{ snippet: CodeSnippet; isVisible: boolean }> = ({ s
           {snippet.description}
         </p>
       </div>
-    </motion.div>
+    </MotionDiv>
   );
 };
 
@@ -135,6 +137,8 @@ const CodeSnippets: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [visibleCount, setVisibleCount] = useState(3);
+  // Fix: Type casting to avoid motion prop errors
+  const MotionDiv = motion.div as any;
 
   // Update visible count based on screen size
   useEffect(() => {
@@ -164,7 +168,7 @@ const CodeSnippets: React.FC = () => {
       <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-primary-600/5 blur-[150px] rounded-full pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -195,7 +199,7 @@ const CodeSnippets: React.FC = () => {
                <ChevronRight size={24} />
              </button>
           </div>
-        </motion.div>
+        </MotionDiv>
 
         <div 
           className="relative"
@@ -203,7 +207,7 @@ const CodeSnippets: React.FC = () => {
           onMouseLeave={() => setIsPaused(false)}
         >
           <div className="overflow-visible py-10">
-            <motion.div 
+            <MotionDiv 
               animate={{ x: `-${activeIndex * (100 / visibleCount)}%` }}
               transition={{ type: "spring", stiffness: 120, damping: 22 }}
               className="flex gap-6"
@@ -221,7 +225,7 @@ const CodeSnippets: React.FC = () => {
                   />
                 </div>
               ))}
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
 

@@ -6,6 +6,9 @@ import BrainNetwork from './BrainNetwork';
 
 const Hero: React.FC = () => {
   const roles = "Data Scientist | MLOps Engineer | Cloud Engineer";
+  // Fix: Type casting to avoid motion prop errors in environments with broken framer-motion types
+  const MotionDiv = motion.div as any;
+  const MotionH2 = motion.h2 as any;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white dark:bg-slate-950">
@@ -17,7 +20,7 @@ const Hero: React.FC = () => {
       {/* Floating Data Particles Background Layer */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-30 dark:opacity-40">
         {[...Array(12)].map((_, i) => (
-          <motion.div
+          <MotionDiv
             key={i}
             initial={{ 
               x: Math.random() * 100 + "%", 
@@ -41,7 +44,7 @@ const Hero: React.FC = () => {
              i % 4 === 1 ? <Cpu size={30 + Math.random() * 30} /> : 
              i % 4 === 2 ? <Database size={35 + Math.random() * 35} /> :
              <span className="font-mono text-2xl font-bold opacity-20">{(Math.random() > 0.5 ? "0" : "1")}</span>}
-          </motion.div>
+          </MotionDiv>
         ))}
       </div>
 
@@ -51,7 +54,7 @@ const Hero: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -63,14 +66,14 @@ const Hero: React.FC = () => {
               Hi, I'm <span className="text-primary-600">Sourish Dey</span>
             </h1>
             <div className="mb-8">
-              <motion.h2 
+              <MotionH2 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-xl md:text-3xl font-semibold text-slate-600 dark:text-slate-400 leading-tight"
               >
                 {roles}
-              </motion.h2>
+              </MotionH2>
             </div>
             <p className="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed max-w-2xl">
               Highly motivated Cloud and Data Science Engineer with experience in building intelligent, 
@@ -93,10 +96,10 @@ const Hero: React.FC = () => {
                 Download Resume <Download className="ml-2" size={18} />
               </a>
             </div>
-          </motion.div>
+          </MotionDiv>
 
           {/* Profile Photo Section with Overlay Glow */}
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, scale: 0.8, x: 30 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -120,7 +123,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Decorative Tech Badges */}
-              <motion.div 
+              <MotionDiv 
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -top-4 -right-4 p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700"
@@ -128,9 +131,9 @@ const Hero: React.FC = () => {
                 <div className="w-8 h-8 flex items-center justify-center text-primary-600">
                   <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                 </div>
-              </motion.div>
+              </MotionDiv>
 
-              <motion.div 
+              <MotionDiv 
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -bottom-4 -left-4 p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700"
@@ -138,9 +141,9 @@ const Hero: React.FC = () => {
                 <div className="w-8 h-8 flex items-center justify-center text-primary-600">
                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
                 </div>
-              </motion.div>
+              </MotionDiv>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </div>
 
