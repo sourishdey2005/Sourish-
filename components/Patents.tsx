@@ -1,16 +1,19 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, ChevronDown, Plane, Droplets, FileText, ExternalLink, Target, Lock } from 'lucide-react';
+import { ShieldCheck, ChevronDown, Plane, Droplets, FileText, ExternalLink, Lock, Settings, Image as ImageIcon, ZoomIn, X } from 'lucide-react';
 import { PUBLICATIONS } from '../constants';
 
 const Patents: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
   const patentList = PUBLICATIONS.filter(p => p.type === 'patent');
 
   const getIcon = (title: string) => {
-    if (title.toLowerCase().includes('drone') || title.toLowerCase().includes('agriculture')) return <Plane size={28} />;
-    if (title.toLowerCase().includes('underwater') || title.toLowerCase().includes('power')) return <Droplets size={28} />;
+    const t = title.toLowerCase();
+    if (t.includes('drone') || t.includes('agriculture')) return <Plane size={28} />;
+    if (t.includes('underwater') || t.includes('power')) return <Droplets size={28} />;
+    if (t.includes('robotic') || t.includes('maintenance')) return <Settings size={28} className="animate-spin-slow" />;
     return <ShieldCheck size={28} />;
   };
 
@@ -33,7 +36,7 @@ const Patents: React.FC = () => {
           </div>
           <h2 className="text-5xl md:text-6xl font-heading font-bold text-slate-900 dark:text-white mb-8">Engineering Patents</h2>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-xl leading-relaxed">
-            Pioneering hardware and software frameworks filed for intellectual property protection in India, showcasing innovative energy and agricultural solutions.
+            Pioneering hardware and software frameworks filed for intellectual property protection in India, showcasing innovative energy and industrial solutions.
           </p>
         </motion.div>
 
@@ -96,24 +99,61 @@ const Patents: React.FC = () => {
                     className="overflow-hidden"
                   >
                     <div className="px-10 pb-12 pt-4 border-t border-slate-100 dark:border-slate-800">
-                      <div className="max-w-3xl">
-                        <div className="flex items-center gap-3 mb-6">
-                           <div className="w-1 h-10 bg-amber-500 rounded-full" />
-                           <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">
-                             Technical Specification & Innovative Merit
-                           </h4>
+                      <div className="flex flex-col lg:flex-row gap-12">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-6">
+                             <div className="w-1 h-10 bg-amber-500 rounded-full" />
+                             <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">
+                               Technical Specification & Innovative Merit
+                             </h4>
+                          </div>
+                          <p className="text-slate-600 dark:text-slate-300 text-xl leading-relaxed font-medium mb-10">
+                            {pub.abstract}
+                          </p>
+                          
+                          <div className="flex flex-wrap gap-5">
+                            <button className="flex items-center gap-3 px-8 py-4 bg-amber-600 text-white text-sm font-black rounded-2xl hover:scale-[1.05] transition-transform shadow-xl shadow-amber-600/20">
+                              <FileText size={18} /> Download Registry Copy
+                            </button>
+                            <button className="flex items-center gap-3 px-8 py-4 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 text-sm font-black rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                              <ExternalLink size={18} /> Verify via IPI Portal
+                            </button>
+                          </div>
                         </div>
-                        <p className="text-slate-600 dark:text-slate-300 text-xl leading-relaxed font-medium mb-10">
-                          {pub.abstract}
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-5">
-                          <button className="flex items-center gap-3 px-8 py-4 bg-amber-600 text-white text-sm font-black rounded-2xl hover:scale-[1.05] transition-transform shadow-xl shadow-amber-600/20">
-                            <FileText size={18} /> Download Registry Copy
-                          </button>
-                          <button className="flex items-center gap-3 px-8 py-4 border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 text-sm font-black rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                            <ExternalLink size={18} /> Verify via IPI Portal
-                          </button>
+
+                        {/* Certificate View Area */}
+                        <div className="w-full lg:w-72 shrink-0">
+                          <div className="relative group/cert h-80 lg:h-96 rounded-3xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-inner">
+                            {pub.image ? (
+                              <>
+                                <img 
+                                  src={pub.image} 
+                                  alt="Patent Certificate" 
+                                  className="w-full h-full object-cover grayscale-[30%] group-hover/cert:grayscale-0 transition-all duration-700"
+                                />
+                                <button 
+                                  onClick={() => setZoomedImage(pub.image || null)}
+                                  className="absolute inset-0 flex items-center justify-center bg-slate-900/40 opacity-0 group-hover/cert:opacity-100 transition-opacity"
+                                >
+                                  <div className="p-4 bg-white/10 backdrop-blur-md rounded-full text-white">
+                                    <ZoomIn size={24} />
+                                  </div>
+                                </button>
+                              </>
+                            ) : (
+                              <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center">
+                                <div className="p-4 bg-amber-500/10 rounded-2xl text-amber-600 mb-4">
+                                  <ImageIcon size={32} />
+                                </div>
+                                <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Certificate Image</h5>
+                                <p className="text-[10px] text-slate-500 leading-relaxed">Repository link established. Image upload pending verification.</p>
+                                <label className="mt-4 px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-amber-500 hover:text-white transition-colors text-[10px] font-bold rounded-lg cursor-pointer">
+                                  Upload Picture
+                                  <input type="file" className="hidden" accept="image/*" />
+                                </label>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -124,6 +164,39 @@ const Patents: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Zoom Modal */}
+      <AnimatePresence>
+        {zoomedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[300] bg-slate-950/95 flex items-center justify-center p-8 backdrop-blur-xl"
+            onClick={() => setZoomedImage(null)}
+          >
+            <button className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors">
+              <X size={40} />
+            </button>
+            <motion.img 
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              src={zoomedImage} 
+              className="max-w-full max-h-full object-contain rounded-xl shadow-2xl" 
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style>{`
+        .animate-spin-slow {
+          animation: spin 8s linear infinite;
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </section>
   );
 };

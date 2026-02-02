@@ -28,6 +28,7 @@ export interface Publication {
   abstract: string;
   type: 'publication' | 'patent';
   link?: string;
+  image?: string;
 }
 
 export interface Certification {

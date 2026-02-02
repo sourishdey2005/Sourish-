@@ -150,11 +150,11 @@ jobs:
 
 export const EXPERIENCES: Experience[] = [
   {
-    role: "Infosys Springboard  Intern (6.0)",
+    role: "Infosys Springboard Virtual Intern (6.0)",
     company: "Infosys",
     duration: "Jan 2026 – Present",
     location: "Remote",
-    summary: "Selected for the Infosys Springboard  Internship 6.0, gaining hands-on experience in data science, AI/ML, cloud technologies, and real-world problem solving.",
+    summary: "Selected for the Infosys Springboard Virtual Internship 6.0, gaining hands-on experience in data science, AI/ML, cloud technologies, and real-world problem solving.",
     achievements: [
       "Focused on applying data science, AI/ML, and cloud concepts to practical, industry-relevant challenges.",
       "Developing scalable data pipelines and machine learning models for enterprise-scale simulations.",
@@ -594,18 +594,28 @@ export const PUBLICATIONS: Publication[] = [
     type: "publication"
   },
   {
+    title: "AI ROBOTIC SYSTEM FOR INDUSTRIAL PREDICTIVE MAINTENANCE",
+    journal: "Intellectual Property India",
+    date: "Patent ID: 478013-001",
+    abstract: "An advanced robotic orchestration framework designed for autonomous industrial monitoring and predictive fault detection. The system integrates multi-modal sensory data (acoustic, thermal, and vibration) with edge-based deep learning models to identify mechanical fatigue and impending component failure. Features a localized decision-making engine that reduces downtime by triggering preventative maintenance protocols before critical system breaches occur.",
+    type: "patent",
+    image: "" // ADD YOUR PATENT CERTIFICATE URL HERE
+  },
+  {
     title: "AI-Powered Smart Agriculture Drone",
     journal: "Intellectual Property India",
     date: "Patent ID: 468494-001",
     abstract: "A revolutionary autonomous aerial system engineered for precision agriculture. The framework utilizes high-resolution multi-spectral imaging and computer vision to monitor crop health in real-time. By applying edge-based AI models, the drone can identify localized nutrient deficiencies and pest infestations, triggering automated, targeted pesticide dispersal. Includes a predictive engine for yield forecasting based on temporal vegetative indices (NDVI/EVI), significantly optimizing harvest cycles.",
-    type: "patent"
+    type: "patent",
+    image: "" // ADD YOUR PATENT CERTIFICATE URL HERE
   },
   {
     title: "Underwater Power Generator",
     journal: "Intellectual Property India",
     date: "Patent ID: 450888-001",
     abstract: "A high-efficiency renewable energy solution designed for harvesting kinetic energy from underwater currents. The system features a custom-designed magneto-inductive turbine that operates effectively even in low-velocity flow environments. It employs advanced hydrodynamic blade profiles to maximize energy capture while minimizing environmental impact on marine life. Integrated with IoT sensors for remote structural health monitoring and power output optimization via adaptive torque control.",
-    type: "patent"
+    type: "patent",
+    image: "" // ADD YOUR PATENT CERTIFICATE URL HERE
   }
 ];
 
