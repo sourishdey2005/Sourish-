@@ -88,7 +88,7 @@ const Hero: React.FC = () => {
                 Contact Me <ChevronRight className="ml-2" size={18} />
               </a>
               <a 
-                href="https://sourishdey-cv.edgeone.app/Sourish%20Dey.pdf"
+                href="https://solid-teal-tem9kr5cov.edgeone.app/SOURISH_DEY.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center px-8 py-3 text-primary-600 border border-primary-200 hover:bg-primary-50 dark:border-primary-800 dark:hover:bg-slate-900 rounded-lg font-medium transition-all"
