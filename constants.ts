@@ -150,6 +150,19 @@ jobs:
 
 export const EXPERIENCES: Experience[] = [
   {
+    role: "Data Science and Analysis Intern",
+    company: "H&P Projects",
+    duration: "Apr 2026 – Present",
+    location: "Remote",
+    summary: "Cleaning and analyzing temple management and financial datasets, identifying donation and expense trends, and developing dashboards to support data-driven financial planning.",
+    achievements: [
+      "Cleaning and analyzing temple management and financial datasets to identify donation and expense trends.",
+      "Developing interactive dashboards and visualizations for financial monitoring.",
+      "Preparing analytical reports with insights to support data-driven financial planning.",
+      "Supporting operational improvements through detailed data analysis and reporting."
+    ]
+  },
+  {
     role: "Infosys Springboard Virtual Intern (6.0)",
     company: "Infosys",
     duration: "Jan 2026 – Present",
