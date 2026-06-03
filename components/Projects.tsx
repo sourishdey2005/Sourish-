@@ -185,12 +185,22 @@ const Projects: React.FC = () => {
                       )}
 
                       <div className="pt-6 flex flex-col gap-3">
-                        <button className="flex items-center justify-center gap-3 px-8 py-5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black rounded-2xl hover:scale-[1.02] transition-transform">
+                        <a 
+                          href={selectedProject.github || "https://github.com/sourishdey2005"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-3 px-8 py-5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black rounded-2xl hover:scale-[1.02] transition-transform text-center"
+                        >
                           <Github size={20} /> Repository
-                        </button>
-                        <button className="flex items-center justify-center gap-3 px-8 py-5 border-2 border-slate-200 dark:border-slate-700 font-black rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                        </a>
+                        <a 
+                          href={selectedProject.demo || "https://github.com/sourishdey2005"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-3 px-8 py-5 border-2 border-slate-200 dark:border-slate-700 font-black rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-center"
+                        >
                           <ExternalLink size={20} /> Deployment
-                        </button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -274,12 +284,24 @@ const ProjectCard: React.FC<{ project: ProjectType; onClick: () => void }> = ({ 
             <div className="p-4 bg-primary-50 dark:bg-primary-900/30 rounded-2xl text-primary-600 transition-transform group-hover:scale-110 duration-500">
               <Layers size={28} />
             </div>
-            {project.chartData && (
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-primary-500/10 rounded-full border border-primary-500/20">
-                <span className="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse" />
-                <span className="text-[10px] font-black text-primary-600 dark:text-primary-400 uppercase tracking-tighter">Analytical</span>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              <a
+                href={project.github || "https://github.com/sourishdey2005"}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="p-3 bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 rounded-xl transition-all shadow-sm flex items-center justify-center"
+                title="GitHub Repository"
+              >
+                <Github size={18} />
+              </a>
+              {project.chartData && (
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-primary-500/10 rounded-full border border-primary-500/20">
+                  <span className="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse" />
+                  <span className="text-[10px] font-black text-primary-600 dark:text-primary-400 uppercase tracking-tighter">Analytical</span>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="mb-4" style={{ transform: 'translateZ(60px)' }}>

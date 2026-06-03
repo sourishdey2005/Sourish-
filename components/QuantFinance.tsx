@@ -8,10 +8,6 @@ import {
   ExternalLink, 
   ChevronRight, 
   Activity, 
-  CheckCircle2, 
-  Sparkles,
-  ArrowRight,
-  Database,
   BarChart4
 } from 'lucide-react';
 
@@ -184,9 +180,31 @@ const QuantFinance: React.FC = () => {
                     <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1 block">
                       {proj.domain}
                     </span>
-                    <h3 className="text-md font-bold text-slate-900 dark:text-white leading-snug line-clamp-2">
+                    <h3 className="text-md font-bold text-slate-900 dark:text-white leading-snug line-clamp-2 mb-2">
                       {proj.title}
                     </h3>
+                    
+                    {/* Quick Link Buttons Directly on Tabs */}
+                    <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
+                      <a 
+                        href={proj.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] text-slate-500 hover:text-primary-600 dark:text-slate-400 dark:hover:text-white flex items-center gap-1 font-bold border border-slate-200 dark:border-slate-800 bg-slate-50 hover:bg-slate-100 dark:bg-slate-950/50 dark:hover:bg-slate-950 px-2.5 py-1 rounded-lg transition-all"
+                        title="View Github Repo"
+                      >
+                        <Github size={12} /> Repo
+                      </a>
+                      <a 
+                        href={proj.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 flex items-center gap-1 font-bold border border-primary-100 dark:border-primary-900/30 bg-primary-50/50 hover:bg-primary-50 dark:bg-primary-950/20 dark:hover:bg-primary-950/40 px-2.5 py-1 rounded-lg transition-all"
+                        title="View Live Site"
+                      >
+                        <ExternalLink size={12} /> Live
+                      </a>
+                    </div>
                   </div>
                   <ChevronRight 
                     size={18} 
@@ -218,29 +236,37 @@ const QuantFinance: React.FC = () => {
                       {activeProject.domain}
                     </span>
                     <h3 className="text-3xl font-heading font-black text-slate-900 dark:text-white leading-tight">
-                      {activeProject.title}
+                      <a 
+                        href={activeProject.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 group/title hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                      >
+                        {activeProject.title}
+                        <ExternalLink size={20} className="inline opacity-40 group-hover/title:opacity-100 transition-opacity" />
+                      </a>
                     </h3>
                   </div>
                   
-                  {/* Action Link Buttons */}
-                  <div className="flex gap-3">
+                  {/* Action Link Buttons with Text Descriptive Labels */}
+                  <div className="flex gap-3 flex-wrap flex-shrink-0">
                     <a 
                       href={activeProject.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-white rounded-xl transition-all shadow-sm"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold rounded-xl transition-all shadow-sm border border-slate-200/20"
                       title="GitHub Repository"
                     >
-                      <Github size={20} />
+                      <Github size={18} /> Repository
                     </a>
                     <a 
                       href={activeProject.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-3 bg-primary-600 hover:bg-primary-700 text-white rounded-xl transition-all shadow-md shadow-primary-500/20 flex items-center justify-center"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl transition-all shadow-md shadow-primary-500/20"
                       title="Live Streamlit App"
                     >
-                      <ExternalLink size={20} />
+                      <ExternalLink size={18} /> Live Demo
                     </a>
                   </div>
                 </div>
