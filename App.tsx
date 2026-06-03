@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
+import QuantFinance from './components/QuantFinance';
 import Projects from './components/Projects';
 import CodeSnippets from './components/CodeSnippets';
 import Skills from './components/Skills';
@@ -36,6 +37,7 @@ const App: React.FC = () => {
       <Hero />
       <About />
       <Experience />
+      <QuantFinance />
       <Projects />
       <CodeSnippets />
       <Terminal />
