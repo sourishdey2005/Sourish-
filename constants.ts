@@ -187,18 +187,6 @@ export const EXPERIENCES: Experience[] = [
     ]
   },
   {
-    role: "Head of Research And Development",
-    company: "KINETEX LAB KIIT CHAPTER",
-    duration: "Oct 2025 – Present",
-    location: "Bhubaneswar, Odisha",
-    summary: "Orchestrating the technical roadmap for a premier student research wing, bridging the gap between academic theory and industry implementation.",
-    achievements: [
-      "Mentoring 20+ student researchers across AI, Cloud, and IoT domains.",
-      "Directing full-lifecycle development of innovative technical prototypes.",
-      "Spearheading cross-domain research initiatives resulting in 3 major chapter publications."
-    ]
-  },
-  {
     role: "Data Analyst Intern",
     company: "Overload Ware Labs AI",
     duration: "Sep 2025 – Present",
@@ -247,18 +235,6 @@ export const EXPERIENCES: Experience[] = [
     ]
   },
   {
-    role: "Cloud Automation Executive",
-    company: "USC.KIIT",
-    duration: "Apr 2025 – Present",
-    location: "Hybrid · Bhubaneswar, Odisha",
-    summary: "Scaling institutional digital infrastructure through robust automation and proactive resource management strategies.",
-    achievements: [
-      "Automated multi-tier infrastructure provisioning using Terraform and CI/CD best practices.",
-      "Reduced cloud operational overhead by implementing custom health-monitoring scripts.",
-      "Ensured 99.9% uptime for university-wide digital services through efficient load balancing."
-    ]
-  },
-  {
     role: "Zero Trust Cloud Security Intern",
     company: "Zscaler",
     duration: "Jan 2025 – Mar 2025",
@@ -268,6 +244,33 @@ export const EXPERIENCES: Experience[] = [
       "Analyzed enterprise security postures using Zscaler's Zero Trust Exchange protocols.",
       "Drafted technical documentation for secure access service edge (SASE) implementations.",
       "Simulated advanced threat modeling scenarios to test cloud-native defenses."
+    ]
+  }
+];
+
+export const LEADERSHIP_ROLES: Experience[] = [
+  {
+    role: "Head of Research And Development",
+    company: "KINETEX LAB KIIT CHAPTER",
+    duration: "Oct 2025 – Present",
+    location: "Bhubaneswar, Odisha",
+    summary: "Orchestrating the technical roadmap for a premier student research wing, bridging the gap between academic theory and industry implementation.",
+    achievements: [
+      "Mentoring 20+ student researchers across AI, Cloud, and IoT domains.",
+      "Directing full-lifecycle development of innovative technical prototypes.",
+      "Spearheading cross-domain research initiatives resulting in chapter publications."
+    ]
+  },
+  {
+    role: "Cloud Automation Executive",
+    company: "USC.KIIT",
+    duration: "Apr 2025 – Present",
+    location: "Hybrid · Bhubaneswar, Odisha",
+    summary: "Scaling institutional digital infrastructure through robust automation and proactive resource management strategies.",
+    achievements: [
+      "Automated multi-tier infrastructure provisioning using Terraform and CI/CD best practices.",
+      "Reduced cloud operational overhead by implementing custom health-monitoring scripts.",
+      "Mentoring 20+ student researchers across AI, Cloud, and IoT domains."
     ]
   },
   {
