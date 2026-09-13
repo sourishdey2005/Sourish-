@@ -1,5 +1,6 @@
 {
   "name": "Sourish Dey - Professional Portfolio",
   "description": "High-performance, enterprise-grade engineering portfolio for an MLOps and Cloud Engineer featuring interactive charts, scroll animations, and project filtering.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

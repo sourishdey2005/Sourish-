@@ -1,6 +1,17 @@
 
 import { Experience, Project, Publication, Certification, Education, Honor } from './types';
 
+export const PERSONAL_INFO = {
+  name: "Sourish Dey",
+  email: "sourish713321@gmail.com",
+  phone: "9064648823",
+  github: "https://github.com/sourishdey2005",
+  linkedin: "https://www.linkedin.com/in/sourish-dey/",
+  resumeUrl: "https://drive.google.com/file/d/1sB_GXplJ5_LZu3u3AUks8UclmLCVT1b7/view?usp=drive_link",
+  location: "Bhubaneswar, Odisha, India",
+  university: "Kalinga Institute of Industrial Technology (KIIT)"
+};
+
 export interface CodeSnippet {
   id: string;
   title: string;
@@ -223,15 +234,15 @@ export const EXPERIENCES: Experience[] = [
     ]
   },
   {
-    role: "Research Internship (Cloud Infrastructure)",
-    company: "IISER Thiruvananthapuram",
-    duration: "Apr 2025 – Present",
-    location: "Hybrid · Thiruvananthapuram, Kerala",
-    summary: "Investigating the boundaries of high-performance Cloud Infrastructure and its application in large-scale scientific research simulations.",
+    role: "Research Intern – Federated Learning & IoT Security",
+    company: "Indian Institute of Science Education and Research (IISER-TVM)",
+    duration: "Apr 2025 – Jun 2025",
+    location: "Thiruvananthapuram, India",
+    summary: "Researched federated learning algorithms and distributed IoT telemetry security, building high-throughput pipelines and automated anomaly detection engines.",
     achievements: [
-      "Benchmarking cloud-native resource management in hybrid HPC environments.",
-      "Co-authoring research on cost-effective scaling for scientific computing workloads.",
-      "Analyzing latency trade-offs between on-prem and edge-cloud deployments."
+      "Improved data ingestion efficiency by 30% by building modular Python pipelines with statistical modeling and time-series processing for distributed sensor telemetry.",
+      "Achieved 94% anomaly detection accuracy on high-frequency sensor data by applying outlier detection and hypothesis testing alongside machine learning across distributed edge nodes.",
+      "Reduced data aggregation latency by 40% by automating multi-node analysis and reporting with Python and SQL, improving data quality and device-performance monitoring."
     ]
   },
   {
@@ -312,6 +323,24 @@ export const LEADERSHIP_ROLES: Experience[] = [
 ];
 
 export const PROJECTS: Project[] = [
+  {
+    title: "BizSight AI",
+    description: "Autonomous Business Intelligence & Anomaly Screening Platform integrating natural language querying with automated analytical pipeline generation and executive report synthesis.",
+    achievements: [
+      "Engineered automated ETL workflows and predictive regression pipelines.",
+      "Synthesized interactive business intelligence monitors reducing manual monthly reporting effort by 35%.",
+      "Deployed full-stack application with real-time telemetry screening."
+    ],
+    stack: ["Python", "FastAPI", "React", "LangChain", "PostgreSQL", "Docker"],
+    domain: "ML",
+    demo: "https://biz-sight-ai-business-intelligence.vercel.app/",
+    github: "https://github.com/sourishdey2005",
+    chartData: [
+      { name: 'Reporting Accel', value: 94 },
+      { name: 'Anomaly Recall', value: 92 },
+      { name: 'Latency (ms)', value: 18 }
+    ]
+  },
   {
     title: "Linguistic-Aware LLM Scheduler for Efficient GPU Inference",
     description: "Designed and implemented an end-to-end LLM inference scheduler optimized for NVIDIA T4 GPUs. The system leverages linguistic analysis to predict inference latency and KV cache reuse probability before execution.",

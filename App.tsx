@@ -1,283 +1,500 @@
-
-import React, { useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Experience from './components/Experience';
-import Leadership from './components/Leadership';
-import QuantFinance from './components/QuantFinance';
-import Projects from './components/Projects';
-import CodeSnippets from './components/CodeSnippets';
-import Skills from './components/Skills';
-import Terminal from './components/Terminal';
-import Publications from './components/Publications';
-import Patents from './components/Patents';
-import OpenSource from './components/OpenSource';
-import CertificatesGallery from './components/CertificatesGallery';
-import Contact from './components/Contact';
-import { Award, GraduationCap, CheckCircle2, Book, Calendar as CalendarIcon, Star, ExternalLink, Trophy, Medal, Github, Linkedin, Facebook, Link2 } from 'lucide-react';
-import { CERTIFICATIONS, EDUCATION_DATA, HONORS } from './constants';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { Github, Linkedin, Mail, Download, Menu, X } from 'lucide-react';
+import ProfileHeroVisual from './components/ProfileHeroVisual';
+import ThinkingEngine from './components/ThinkingEngine';
+import EditorialProjects from './components/EditorialProjects';
+import EditorialExperience from './components/EditorialExperience';
+import PositionOfResponsibility from './components/PositionOfResponsibility';
+import EditorialResearch from './components/EditorialResearch';
+import EditorialSkills from './components/EditorialSkills';
+import { PERSONAL_INFO } from './constants';
 
 const App: React.FC = () => {
-  // Ensure the site reloads from the beginning (top of page)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-    // If there's a hash in the URL, clear it to force home state
-    if (window.location.hash) {
-      window.history.replaceState(null, '', window.location.pathname);
-    }
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Fix: Type casting to avoid motion prop errors
-  const MotionDiv = motion.div as any;
-
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      <Navbar />
-      <Hero />
-      <About />
-      <Experience />
-      <Leadership />
-      <QuantFinance />
-      <Projects />
-      <CodeSnippets />
-      <Terminal />
-      <Skills />
-      
-      {/* Education & Certs */}
-      <section id="education" className="py-24 bg-slate-50 dark:bg-slate-900/30 overflow-hidden relative border-b border-slate-100 dark:border-slate-800">
-        {/* Subtle Background Textures */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-600/5 blur-[120px] rounded-full pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            {/* Education Column */}
-            <MotionDiv
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="flex items-center gap-4 mb-12">
-                <div className="p-3 bg-primary-600 rounded-2xl text-white shadow-lg shadow-primary-500/20">
-                  <GraduationCap size={32} />
-                </div>
-                <div>
-                  <span className="text-primary-600 font-black text-xs uppercase tracking-[0.3em] block mb-1">Foundations</span>
-                  <h2 className="text-4xl font-heading font-bold text-slate-900 dark:text-white">Academic Journey</h2>
-                </div>
-              </div>
-
-              <div className="space-y-12 relative before:absolute before:left-8 before:top-4 before:bottom-4 before:w-px before:bg-slate-200 dark:before:bg-slate-800">
-                {EDUCATION_DATA.map((edu, idx) => (
-                  <div key={idx} className="relative pl-20 group">
-                    {/* Timeline Marker */}
-                    <div className="absolute left-6 top-2 w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-4 border-primary-600 z-10 group-hover:scale-125 transition-transform" />
-                    
-                    <div className="p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm group-hover:shadow-xl group-hover:border-primary-500/30 transition-all duration-500">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
-                        <div className="flex items-center gap-2 text-primary-600 font-bold text-sm uppercase tracking-widest">
-                          <CalendarIcon size={14} />
-                          {edu.duration}
-                        </div>
-                        <span className="inline-flex items-center px-4 py-1.5 bg-green-500/10 text-green-600 dark:text-green-400 rounded-full text-xs font-black border border-green-500/20">
-                          SCORE: {edu.score}
-                        </span>
-                      </div>
-                      
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary-600 transition-colors">
-                        {edu.institution}
-                      </h3>
-                      <p className="text-slate-500 dark:text-slate-400 font-bold mb-4">{edu.degree}</p>
-                      
-                      <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
-                        {edu.details}
-                      </p>
-
-                      {edu.coursework && (
-                        <div className="pt-6 border-t border-slate-100 dark:border-slate-700">
-                          <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                            <Book size={12} className="text-primary-600" /> Relevant Coursework
-                          </h4>
-                          <div className="flex flex-wrap gap-2">
-                            {edu.coursework.map(course => (
-                              <span key={course} className="px-3 py-1 bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] font-bold rounded-lg border border-slate-200 dark:border-slate-800">
-                                {course}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </MotionDiv>
-
-            {/* Certifications Column */}
-            <MotionDiv
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="flex items-center gap-4 mb-12">
-                <div className="p-3 bg-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-500/20">
-                  <Award size={32} />
-                </div>
-                <div>
-                  <span className="text-indigo-600 font-black text-xs uppercase tracking-[0.3em] block mb-1">Verification</span>
-                  <h2 className="text-4xl font-heading font-bold text-slate-900 dark:text-white">Professional Certs</h2>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-6">
-                {CERTIFICATIONS.map((cert, idx) => (
-                  <MotionDiv 
-                    key={cert.provider} 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all group overflow-hidden relative"
-                  >
-                    {/* Background Icon */}
-                    <Award className="absolute -right-4 -bottom-4 w-24 h-24 text-indigo-500/5 rotate-12" />
-
-                    <div className="flex items-center justify-between mb-6 relative z-10">
-                      <div className="flex items-center gap-3">
-                         <div className="w-2 h-8 bg-indigo-600 rounded-full" />
-                         <h3 className="text-sm font-black text-indigo-600 uppercase tracking-widest">{cert.provider}</h3>
-                      </div>
-                      <Star size={16} className="text-amber-500 fill-amber-500 group-hover:scale-125 transition-transform" />
-                    </div>
-                    
-                    <ul className="space-y-3 relative z-10">
-                      {cert.items.map(item => (
-                        <li key={item} className="text-slate-700 dark:text-slate-300 flex items-start text-sm font-medium group/item">
-                          <div className="w-6 h-6 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mr-3 mt-0.5 group-hover/item:bg-indigo-600 group-hover/item:text-white transition-all flex-shrink-0">
-                            <CheckCircle2 size={12} />
-                          </div>
-                          <span className="group-hover/item:text-indigo-600 dark:group-hover/item:text-indigo-400 transition-colors">
-                            {item}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex justify-end">
-                      <button className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5 hover:text-indigo-600 transition-colors">
-                        Verify Credentials <ExternalLink size={10} />
-                      </button>
-                    </div>
-                  </MotionDiv>
-                ))}
-              </div>
-            </MotionDiv>
-          </div>
-        </div>
-      </section>
-
-      {/* Honors Section - Improved Alignment & Detail */}
-      <section id="honors" className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <MotionDiv 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
+    <div className="min-h-screen bg-white text-zinc-950 font-sans selection:bg-zinc-950 selection:text-white antialiased">
+      {/* 1. Ultra Clean Fixed Navigation */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+          scrolled ? 'bg-white/90 backdrop-blur-md border-b border-zinc-200/80 py-3.5' : 'bg-white py-5'
+        }`}
+      >
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 flex items-center justify-between">
+          {/* Left: Personal Name / Monogram */}
+          <a
+            href="#"
+            className="flex items-center gap-2.5 font-bold tracking-tight text-zinc-950 text-sm group"
           >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="h-px w-8 bg-amber-500" />
-              <h2 className="text-sm font-black text-amber-500 uppercase tracking-[0.3em]">Excellence</h2>
-              <span className="h-px w-8 bg-amber-500" />
-            </div>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-slate-900 dark:text-white mb-6">Honors & Awards</h2>
-            <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              Academic and competitive recognitions highlighting a consistent record of high-performance and technical proficiency.
-            </p>
-          </MotionDiv>
+            <span className="w-7 h-7 rounded-md bg-zinc-950 text-white flex items-center justify-center font-mono text-xs font-semibold group-hover:bg-zinc-800 transition-colors">
+              SD
+            </span>
+            <span>Sourish Dey</span>
+          </a>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-             {HONORS.map((honor, idx) => (
-               <MotionDiv
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="group p-8 bg-slate-50 dark:bg-slate-900/40 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:border-amber-500/30"
-               >
-                 <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-3xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform group-hover:bg-amber-500 group-hover:text-white">
-                   {honor.title.includes('Gold') ? <Trophy size={32} className="text-amber-500 group-hover:text-white" /> : honor.title.includes('Silver') ? <Medal size={32} className="text-slate-400 group-hover:text-white" /> : <Star size={32} className="text-amber-500 group-hover:text-white" />}
-                 </div>
-                 
-                 <div className="flex items-center gap-1.5 text-[10px] font-black text-amber-600 uppercase tracking-widest mb-3">
-                   <CalendarIcon size={12} /> {honor.date}
-                 </div>
-                 
-                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-tight group-hover:text-amber-600 transition-colors">
-                   {honor.title}
-                 </h3>
-                 <p className="text-sm text-slate-500 dark:text-slate-400 font-bold mb-4">{honor.institution}</p>
-                 <p className="text-xs text-slate-400 dark:text-slate-500 italic leading-relaxed">
-                   {honor.description}
-                 </p>
-               </MotionDiv>
-             ))}
+          {/* Center/Right Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-7 text-xs font-medium text-zinc-600">
+            <a href="#about" className="hover:text-zinc-950 transition-colors">
+              About
+            </a>
+            <a href="#experience" className="hover:text-zinc-950 transition-colors">
+              Experience
+            </a>
+            <a href="#responsibilities" className="hover:text-zinc-950 transition-colors">
+              Responsibilities
+            </a>
+            <a href="#projects" className="hover:text-zinc-950 transition-colors">
+              Projects
+            </a>
+            <a href="#research" className="hover:text-zinc-950 transition-colors">
+              Research
+            </a>
+            <a href="#skills" className="hover:text-zinc-950 transition-colors">
+              Skills
+            </a>
+            <a href="#contact" className="hover:text-zinc-950 transition-colors">
+              Contact
+            </a>
+          </nav>
+
+          {/* Small Understated CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href={PERSONAL_INFO.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-zinc-200 text-xs font-semibold text-zinc-800 hover:text-zinc-950 hover:border-zinc-400 transition-colors"
+            >
+              <Download size={13} />
+              <span>Resume</span>
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-950 hover:text-blue-600 transition-colors group cursor-pointer"
+            >
+              <span>Let's connect</span>
+              <span className="transition-transform group-hover:translate-x-0.5">&rarr;</span>
+            </a>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-1.5 text-zinc-600 hover:text-zinc-950"
+            aria-label="Toggle navigation"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+        {/* Mobile Dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-b border-zinc-200 px-6 py-4 space-y-3 text-sm font-medium">
+            <a
+              href="#about"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-zinc-600 hover:text-zinc-950"
+            >
+              About
+            </a>
+            <a
+              href="#experience"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-zinc-600 hover:text-zinc-950"
+            >
+              Experience
+            </a>
+            <a
+              href="#responsibilities"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-zinc-600 hover:text-zinc-950"
+            >
+              Positions of Responsibility
+            </a>
+            <a
+              href="#projects"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-zinc-600 hover:text-zinc-950"
+            >
+              Projects
+            </a>
+            <a
+              href="#research"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-zinc-600 hover:text-zinc-950"
+            >
+              Research
+            </a>
+            <a
+              href="#skills"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-zinc-600 hover:text-zinc-950"
+            >
+              Skills
+            </a>
+            <a
+              href={PERSONAL_INFO.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-1.5 text-zinc-900 font-medium pt-1"
+            >
+              <Download size={14} /> Resume (PDF) &rarr;
+            </a>
+            <a
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-blue-600 font-semibold"
+            >
+              Let's connect &rarr;
+            </a>
+          </div>
+        )}
+      </header>
+
+      {/* 2. Hero Section */}
+      <section className="pt-32 sm:pt-40 pb-20 sm:pb-28 max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Hero Narrative */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+            <div className="space-y-3">
+              <span className="text-[11px] font-mono tracking-widest uppercase text-zinc-500 font-semibold block">
+                COMPUTER SCIENCE &bull; DATA &bull; AI &bull; RESEARCH
+              </span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-950 tracking-tight leading-[1.08]">
+                Building intelligent systems from data, research, and ideas.
+              </h1>
+            </div>
+
+            <p className="text-base sm:text-lg text-zinc-600 max-w-xl leading-relaxed">
+              Computer Science undergraduate focused on Data Science, AI, analytics, quantitative problem solving, and research-driven products.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+              <a
+                href="#projects"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-zinc-950 text-white text-xs font-semibold hover:bg-zinc-800 transition-colors group cursor-pointer"
+              >
+                <span>View Work</span>
+                <span className="transition-transform group-hover:translate-x-0.5">&rarr;</span>
+              </a>
+
+              <a
+                href={PERSONAL_INFO.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 text-xs font-semibold hover:bg-zinc-50 hover:border-zinc-400 transition-colors cursor-pointer shadow-2xs"
+              >
+                <Download size={13} className="text-zinc-500" />
+                <span>Download Resume</span>
+              </a>
+
+              <a
+                href="#about"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-zinc-600 hover:text-zinc-950 text-xs font-medium transition-colors cursor-pointer"
+              >
+                About Me
+              </a>
+            </div>
+          </div>
+
+          {/* Right Hero Visual: User Profile Photo with Editorial Framing */}
+          <div className="lg:col-span-5">
+            <ProfileHeroVisual />
           </div>
         </div>
       </section>
 
-      <Publications />
-      <Patents />
-      <OpenSource />
-      <CertificatesGallery />
+      {/* 3. Trust / Snapshot Strip (Typographic, not cards) */}
+      <section className="border-y border-zinc-200/80 bg-zinc-50/50">
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 py-10 sm:py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            <div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-950 font-mono">
+                4+
+              </div>
+              <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 mt-1">
+                Research Publications
+              </div>
+            </div>
 
-      <Contact />
+            <div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-950 font-mono">
+                5
+              </div>
+              <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 mt-1">
+                Granted Patents
+              </div>
+            </div>
 
-      <footer className="py-16 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="flex flex-col items-center md:items-start">
-              <span className="text-2xl font-black text-primary-600 mb-2">Sourish Dey</span>
-              <p className="text-slate-500 dark:text-slate-400 text-sm max-w-xs text-center md:text-left">
-                Engineering high-performance cloud ecosystems and intelligent AI solutions.
+            <div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-950 font-mono">
+                100K+
+              </div>
+              <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 mt-1">
+                Records Analyzed
+              </div>
+            </div>
+
+            <div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-950 font-mono">
+                35%
+              </div>
+              <div className="text-xs font-mono uppercase tracking-wider text-zinc-500 mt-1">
+                Reporting Efficiency
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. About Section (Split Editorial Layout) */}
+      <section id="about" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Heading */}
+          <div className="lg:col-span-4">
+            <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
+              01 &bull; PERSPECTIVE
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
+              About
+            </h2>
+          </div>
+
+          {/* Right Professional Introduction & Metadata Block */}
+          <div className="lg:col-span-8 space-y-10">
+            <div className="space-y-5 text-base sm:text-lg text-zinc-700 leading-relaxed font-normal">
+              <p>
+                I am a Computer Science student with a deep focus on building end-to-end data systems that bridge mathematical modeling with operational software engineering.
+              </p>
+              <p>
+                My work spans quantitative finance platforms using Random Matrix Theory for covariance denoising, automated anomaly telemetry, and scalable cloud microservices. I am passionate about taking academic rigor and converting it into resilient, fast, and measurable real-world products.
               </p>
             </div>
 
-            <div className="flex flex-col items-center gap-6">
-              <div className="flex items-center gap-6">
-                <a href="https://github.com/sourishdey2005" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-primary-600 dark:hover:text-white transition-all hover:scale-110">
-                  <Github size={22} />
-                </a>
-                <a href="https://www.linkedin.com/in/sourish-dey-20b170206/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-primary-600 dark:hover:text-white transition-all hover:scale-110">
-                  <Linkedin size={22} />
-                </a>
-                <a href="https://linktr.ee/Sourishdey" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-primary-600 dark:hover:text-white transition-all hover:scale-110">
-                  <Link2 size={22} />
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=61551388003130" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-primary-600 dark:hover:text-white transition-all hover:scale-110">
-                  <Facebook size={22} />
-                </a>
-                <a href="https://www.researchgate.net/profile/Sourish-Dey-3?ev=hdr_xprf" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-50 dark:bg-slate-900 rounded-full text-slate-400 hover:text-emerald-600 dark:hover:text-white transition-all hover:scale-110">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-[22px] h-[22px]">
-                    <path d="M19.586 0c-.815 0-1.5.685-1.5 1.5s.685 1.5 1.5 1.5 1.5-.685 1.5-1.5-.685-1.5-1.5-1.5zM9 20a1 1 0 0 0 1-1v-5h1.22c.1 0 .22.04.3.12l2.36 2.36c.46.46 1.06.68 1.66.68a2.3 2.3 0 0 0 1.63-3.93l-1.63-1.63c-.3-.3-.47-.7-.47-1.14a2.26 2.26 0 0 0-4.44-.6H9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1zm0-12h2.26a.26.26 0 0 1 .26.26v1.48a.26.26 0 0 1-.26.26H9V8zm4.33 4.2a.3.3 0 0 1 .1.2c0 .12-.04.22-.12.3l-.75.75a.3.3 0 0 1-.43 0L11 12.3c-.08-.08-.12-.18-.12-.3a.3.3 0 0 1 .1-.2c0-.12.04-.22.12-.3l.75-.75a.3.3 0 0 1 .43 0l1.15 1.15a.3.3 0 0 1 .08.2zM2.5 0A2.5 2.5 0 0 0 0 2.5v19A2.5 2.5 0 0 0 2.5 24h12c.33 0 .6-.27.6-.6v-2.4c0-.33-.27-.6-.6-.6h-11.4a.6.6 0 0 1-.6-.6V3.1a.6.6 0 0 1 .6-.6h16.8a.6.6 0 0 1 .6-.6v3.3c0 .33.27.6.6.6h2.4c.33 0 .6-.27.6-.6v-3.9A2.5 2.5 0 0 0 21.5 0h-19z"/>
-                  </svg>
-                </a>
+            {/* Secondary Metadata Block */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-zinc-200">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 block mb-1">
+                  Currently
+                </span>
+                <span className="text-sm font-semibold text-zinc-900 block">
+                  Computer Science @ KIIT
+                </span>
+                <span className="text-xs text-zinc-500">Graduating 2026</span>
               </div>
-              <div className="flex space-x-8 text-xs font-bold uppercase tracking-widest text-slate-400">
-                <a href="#" className="hover:text-primary-600 transition-colors">Privacy</a>
-                <a href="#" className="hover:text-primary-600 transition-colors">Terms</a>
-                <a href="mailto:sourish713321@gmail.com" className="hover:text-primary-600 transition-colors">Contact</a>
-              </div>
-            </div>
 
-            <div className="text-slate-400 text-xs font-medium">
-              © 2026 Sourish Dey. All rights reserved.
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 block mb-1">
+                  Focus
+                </span>
+                <span className="text-sm font-semibold text-zinc-900 block">
+                  Data Science / AI / Analytics / Research
+                </span>
+                <span className="text-xs text-zinc-500">Quantitative Systems</span>
+              </div>
+
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 block mb-1">
+                  Location
+                </span>
+                <span className="text-sm font-semibold text-zinc-900 block">
+                  India
+                </span>
+                <span className="text-xs text-zinc-500">Open to Global Roles</span>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Interactive Thinking Framework */}
+      <section className="py-12 max-w-6xl mx-auto px-6 sm:px-8">
+        <ThinkingEngine />
+      </section>
+
+      {/* 6. Experience Section (Structured Editorial Vertical Timeline) */}
+      <section id="experience" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="mb-12">
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
+            02 &bull; CAREER PATH
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
+            Experience
+          </h2>
+          <p className="text-sm text-zinc-500 mt-1 max-w-xl">
+            A chronological record of engineering and data science internships.
+          </p>
+        </div>
+
+        <EditorialExperience />
+      </section>
+
+      {/* 7. Position of Responsibility Section */}
+      <section id="responsibilities" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-zinc-200/80">
+        <div className="mb-12">
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
+            03 &bull; LEADERSHIP & IMPACT
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
+            Positions of Responsibility
+          </h2>
+          <p className="text-sm text-zinc-500 mt-1 max-w-xl">
+            Institutional leadership, R&amp;D direction, cloud automation architecture, and technical mentorship roles.
+          </p>
+        </div>
+
+        <PositionOfResponsibility />
+      </section>
+
+      {/* 8. Projects Section (Asymmetric Editorial Showcase) */}
+      <section id="projects" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 bg-zinc-50/40 border-y border-zinc-200/80">
+        <div className="mb-16">
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
+            04 &bull; CODE & SYSTEMS
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
+            Selected Work
+          </h2>
+          <p className="text-sm text-zinc-500 mt-1 max-w-xl">
+            Systems designed for business intelligence, quantitative finance, and automated risk estimation.
+          </p>
+        </div>
+
+        <EditorialProjects />
+      </section>
+
+      {/* 9. Research Section (Clean Editorial List) */}
+      <section id="research" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8">
+        <div className="mb-14">
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
+            05 &bull; INTELLECTUAL WORK
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
+            Research & Intellectual Work
+          </h2>
+          <p className="text-sm text-zinc-500 mt-1 max-w-xl">
+            Published research papers, preprints, and filed utility patents.
+          </p>
+        </div>
+
+        <EditorialResearch />
+      </section>
+
+      {/* 10. Skills Section (Organized Categorical Editorial Typography) */}
+      <section id="skills" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-zinc-200/80">
+        <div className="mb-12">
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
+            06 &bull; PROFICIENCIES
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
+            Skills & Frameworks
+          </h2>
+          <p className="text-sm text-zinc-500 mt-1 max-w-xl">
+            Technical competencies categorized by analytical depth and practical engineering.
+          </p>
+        </div>
+
+        <EditorialSkills />
+      </section>
+
+      {/* 11. Contact Section */}
+      <section id="contact" className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 border-t border-zinc-200">
+        <div className="max-w-2xl space-y-6">
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block">
+            07 &bull; DIALOGUE
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-zinc-950 tracking-tight">
+            Have an interesting problem?
+          </h2>
+          <p className="text-lg text-zinc-600">
+            Let's build something useful.
+          </p>
+
+          <div className="pt-2">
+            <a
+              href="mailto:sourish713321@gmail.com"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-zinc-950 text-white text-xs font-semibold hover:bg-zinc-800 transition-colors group cursor-pointer"
+            >
+              <span>Get in touch</span>
+              <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
+            </a>
+          </div>
+
+          <div className="pt-8 border-t border-zinc-100 flex flex-wrap items-center gap-6 text-xs text-zinc-500 font-mono">
+            <a
+              href="mailto:sourish713321@gmail.com"
+              className="hover:text-zinc-950 transition-colors"
+            >
+              sourish713321@gmail.com
+            </a>
+            <span>&bull;</span>
+            <a
+              href="tel:+919832264627"
+              className="hover:text-zinc-950 transition-colors"
+            >
+              +91 98322 64627
+            </a>
+            <span>&bull;</span>
+            <a
+              href={PERSONAL_INFO.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+            >
+              <Download size={12} /> Curriculum Vitae (PDF)
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 11. Minimal Footer */}
+      <footer className="border-t border-zinc-200 py-8 bg-white">
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-mono">
+          <div>
+            Sourish Dey &bull; &copy; 2026
+          </div>
+
+          <div className="flex items-center gap-6">
+            <a
+              href={PERSONAL_INFO.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+            >
+              <Download size={13} /> Resume
+            </a>
+            <a
+              href="https://github.com/sourishdey2005"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-950 transition-colors inline-flex items-center gap-1"
+            >
+              <Github size={13} /> GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/sourish-dey-20b170206/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+            >
+              <Linkedin size={13} /> LinkedIn
+            </a>
+            <a
+              href="mailto:sourish713321@gmail.com"
+              className="hover:text-zinc-950 transition-colors inline-flex items-center gap-1"
+            >
+              <Mail size={13} /> Email
+            </a>
           </div>
         </div>
       </footer>

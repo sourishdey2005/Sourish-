@@ -112,7 +112,7 @@ const QuantFinance: React.FC = () => {
   const activeProject = QUANT_PROJECTS[activeProjectIdx];
 
   return (
-    <section id="quantfinance" className="py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900/10 dark:to-slate-950 overflow-hidden relative border-b border-slate-100 dark:border-slate-800">
+    <section id="quant" className="py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900/10 dark:to-slate-950 overflow-hidden relative border-b border-slate-100 dark:border-slate-800">
       {/* Decorative Matrix/Finance Lines */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.02] dark:opacity-[0.05]" 
         style={{ 

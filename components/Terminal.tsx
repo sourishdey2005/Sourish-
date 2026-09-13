@@ -85,7 +85,7 @@ const Terminal: React.FC = () => {
         });
         break;
 
-      case 'ls':
+      case 'ls': {
         const dir = VirtualFS[currentDir];
         if (dir && dir.children) {
           const formatted = dir.children.map(child => {
@@ -96,6 +96,7 @@ const Terminal: React.FC = () => {
           addLine({ type: 'output', content: <div className="flex flex-wrap gap-2">{formatted}</div> });
         }
         break;
+      }
 
       case 'pwd':
         addLine({ type: 'output', content: currentDir });
@@ -117,7 +118,7 @@ const Terminal: React.FC = () => {
         }
         break;
 
-      case 'cd':
+      case 'cd': {
         const target = commandParams[0];
         if (!target || target === '~') {
           setCurrentDir('/home/sourish');
@@ -134,8 +135,9 @@ const Terminal: React.FC = () => {
           }
         }
         break;
+      }
 
-      case 'cat':
+      case 'cat': {
         const file = commandParams[0];
         if (!file) {
           addLine({ type: 'error', content: 'cat: missing operand' });
@@ -148,6 +150,7 @@ const Terminal: React.FC = () => {
           }
         }
         break;
+      }
 
       case 'echo':
         addLine({ type: 'output', content: commandParams.join(' ') });
@@ -173,7 +176,7 @@ const Terminal: React.FC = () => {
         addLine({ type: 'error', content: '[sudo] password for sourish: \nsourish is not in the sudoers file. This incident will be reported.' });
         break;
 
-      case 'man':
+      case 'man': {
         const manTarget = commandParams[0];
         if (!manTarget) addLine({ type: 'output', content: 'What manual page do you want?' });
         else addLine({ type: 'output', content: (
@@ -185,6 +188,7 @@ const Terminal: React.FC = () => {
           </div>
         )});
         break;
+      }
 
       case 'grep':
         if (!commandParams[1]) addLine({ type: 'error', content: 'Usage: grep [PATTERN] [FILE]' });
@@ -246,7 +250,7 @@ const Terminal: React.FC = () => {
         )});
         break;
 
-      case 'ping':
+      case 'ping': {
         const host = commandParams[0] || 'google.com';
         addLine({ type: 'output', content: `PING ${host} (142.250.190.46) 56(84) bytes of data.` });
         for(let i=1; i<=3; i++) {
@@ -254,6 +258,7 @@ const Terminal: React.FC = () => {
           addLine({ type: 'output', content: `64 bytes from ${host}: icmp_seq=${i} ttl=117 time=${(Math.random()*20+10).toFixed(2)} ms` });
         }
         break;
+      }
 
       case 'curl':
         if (!commandParams[0]) addLine({ type: 'error', content: 'curl: no URL specified' });
