@@ -667,25 +667,18 @@ export const PUBLICATIONS: Publication[] = [
 export const EDUCATION_DATA: Education[] = [
   {
     institution: "Kalinga Institute of Industrial Technology (KIIT)",
-    degree: "B.Tech. in Computer Engineering",
-    duration: "July 2023 – Dec 2027 (Expected)",
+    degree: "Bachelor of Technology in Computer Science and Engineering",
+    duration: "Jul 2023 – Oct 2027 (Expected)",
     score: "Currently Pursuing",
-    details: "Focusing on large-scale distributed systems and AI infrastructure.",
+    details: "Bhubaneswar, India. Focusing on data structures, machine learning, statistical modeling, algorithm design, and distributed systems.",
     coursework: ["Data Structures", "Algorithms", "Operating Systems", "DBMS", "OOP", "Computer Networks", "Probability", "Statistics"]
   },
   {
     institution: "Hem Sheela Model School",
-    degree: "Senior Secondary (AISSCE) — Science",
-    duration: "2021 – 2023",
-    score: "91%",
-    details: "Completed high school with a major in Physics, Chemistry, and Mathematics."
-  },
-  {
-    institution: "Hem Sheela Model School",
-    degree: "Secondary (AISSE)",
-    duration: "2010 – 2020",
-    score: "98%",
-    details: "Achieved top-tier academic standing in foundational science and mathematics."
+    degree: "Higher Secondary (12th): 90.8% | Secondary (10th): 98.0%",
+    duration: "2020 – 2023",
+    score: "90.8% / 98.0%",
+    details: "Durgapur, West Bengal. Higher Secondary (12th): 90.8% | Secondary (10th): 98.0%. Awarded School Topper."
   }
 ];
 

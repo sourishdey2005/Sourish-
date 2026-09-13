@@ -7,6 +7,7 @@ import EditorialExperience from './components/EditorialExperience';
 import PositionOfResponsibility from './components/PositionOfResponsibility';
 import EditorialResearch from './components/EditorialResearch';
 import EditorialSkills from './components/EditorialSkills';
+import EditorialEducation from './components/EditorialEducation';
 import { PERSONAL_INFO } from './constants';
 
 const App: React.FC = () => {
@@ -45,6 +46,9 @@ const App: React.FC = () => {
           <nav className="hidden md:flex items-center gap-7 text-xs font-medium text-zinc-600">
             <a href="#about" className="hover:text-zinc-950 transition-colors">
               About
+            </a>
+            <a href="#education" className="hover:text-zinc-950 transition-colors">
+              Education
             </a>
             <a href="#experience" className="hover:text-zinc-950 transition-colors">
               Experience
@@ -105,6 +109,13 @@ const App: React.FC = () => {
               className="block text-zinc-600 hover:text-zinc-950"
             >
               About
+            </a>
+            <a
+              href="#education"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-zinc-600 hover:text-zinc-950"
+            >
+              Education
             </a>
             <a
               href="#experience"
@@ -170,13 +181,16 @@ const App: React.FC = () => {
               <span className="text-[11px] font-mono tracking-widest uppercase text-zinc-500 font-semibold block">
                 COMPUTER SCIENCE &bull; DATA &bull; AI &bull; RESEARCH
               </span>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-950 tracking-tight leading-[1.08]">
-                Building intelligent systems from data, research, and ideas.
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-950 tracking-tight leading-tight">
+                SOURISH DEY
               </h1>
+              <h2 className="text-xl sm:text-2xl font-semibold text-zinc-700 tracking-tight leading-snug">
+                Building intelligent systems from data, research, and ideas.
+              </h2>
             </div>
 
             <p className="text-base sm:text-lg text-zinc-600 max-w-xl leading-relaxed">
-              Computer Science undergraduate focused on Data Science, AI, analytics, quantitative problem solving, and research-driven products.
+              Computer Science undergraduate at KIIT with research and project internship experience across Python, SQL, statistical modeling, and machine learning. Experienced in developing scalable data pipelines and predictive models for datasets exceeding 100K+ records, reducing research data aggregation latency by 40%. Technical focus spans anomaly detection, time-series forecasting, covariance denoising, portfolio optimization, and quantitative backtesting.
             </p>
 
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
@@ -290,7 +304,7 @@ const App: React.FC = () => {
                 <span className="text-sm font-semibold text-zinc-900 block">
                   Computer Science @ KIIT
                 </span>
-                <span className="text-xs text-zinc-500">Graduating 2026</span>
+                <span className="text-xs text-zinc-500">Graduating Oct 2027 (Expected)</span>
               </div>
 
               <div>
@@ -317,16 +331,33 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. Interactive Thinking Framework */}
+      {/* 5. Education Section */}
+      <section id="education" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-zinc-200/80">
+        <div className="mb-12">
+          <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
+            02 &bull; ACADEMIC FOUNDATIONS
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
+            Education
+          </h2>
+          <p className="text-sm text-zinc-500 mt-1 max-w-xl">
+            Undergraduate coursework, academic records, and institutional honors.
+          </p>
+        </div>
+
+        <EditorialEducation />
+      </section>
+
+      {/* 6. Interactive Thinking Framework */}
       <section className="py-12 max-w-6xl mx-auto px-6 sm:px-8">
         <ThinkingEngine />
       </section>
 
-      {/* 6. Experience Section (Structured Editorial Vertical Timeline) */}
+      {/* 7. Experience Section (Structured Editorial Vertical Timeline) */}
       <section id="experience" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8">
         <div className="mb-12">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
-            02 &bull; CAREER PATH
+            03 &bull; CAREER PATH
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
             Experience
@@ -339,11 +370,11 @@ const App: React.FC = () => {
         <EditorialExperience />
       </section>
 
-      {/* 7. Position of Responsibility Section */}
+      {/* 8. Position of Responsibility Section */}
       <section id="responsibilities" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-zinc-200/80">
         <div className="mb-12">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
-            03 &bull; LEADERSHIP & IMPACT
+            04 &bull; LEADERSHIP & IMPACT
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
             Positions of Responsibility
@@ -356,11 +387,11 @@ const App: React.FC = () => {
         <PositionOfResponsibility />
       </section>
 
-      {/* 8. Projects Section (Asymmetric Editorial Showcase) */}
+      {/* 9. Projects Section (Asymmetric Editorial Showcase) */}
       <section id="projects" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 bg-zinc-50/40 border-y border-zinc-200/80">
         <div className="mb-16">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
-            04 &bull; CODE & SYSTEMS
+            05 &bull; CODE & SYSTEMS
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
             Selected Work
@@ -373,11 +404,11 @@ const App: React.FC = () => {
         <EditorialProjects />
       </section>
 
-      {/* 9. Research Section (Clean Editorial List) */}
+      {/* 10. Research Section (Clean Editorial List) */}
       <section id="research" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8">
         <div className="mb-14">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
-            05 &bull; INTELLECTUAL WORK
+            06 &bull; INTELLECTUAL WORK
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
             Research & Intellectual Work
@@ -390,11 +421,11 @@ const App: React.FC = () => {
         <EditorialResearch />
       </section>
 
-      {/* 10. Skills Section (Organized Categorical Editorial Typography) */}
+      {/* 11. Skills Section (Organized Categorical Editorial Typography) */}
       <section id="skills" className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-zinc-200/80">
         <div className="mb-12">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block mb-2">
-            06 &bull; PROFICIENCIES
+            07 &bull; PROFICIENCIES
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
             Skills & Frameworks
@@ -407,11 +438,11 @@ const App: React.FC = () => {
         <EditorialSkills />
       </section>
 
-      {/* 11. Contact Section */}
+      {/* 12. Contact Section */}
       <section id="contact" className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 border-t border-zinc-200">
         <div className="max-w-2xl space-y-6">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400 block">
-            07 &bull; DIALOGUE
+            08 &bull; DIALOGUE
           </span>
           <h2 className="text-4xl sm:text-5xl font-extrabold text-zinc-950 tracking-tight">
             Have an interesting problem?
