@@ -20,6 +20,7 @@ import {
   Globe
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../constants';
+import { DEDUPLICATED_EXPERIENCE } from './EditorialExperience';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -38,8 +39,6 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
   const previewEmbedUrl = `https://drive.google.com/file/d/${driveFileId}/preview`;
   // Direct Google Drive download/view link
   const directDriveUrl = `https://drive.google.com/file/d/${driveFileId}/view?usp=sharing`;
-  // Alternate Google Docs viewer fallback
-  const docsViewerUrl = `https://docs.google.com/viewer?url=https://drive.google.com/uc?id=${driveFileId}&embedded=true`;
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -85,7 +84,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                 </span>
               </div>
               <p className="text-[11px] font-mono text-stone-400">
-                Data Science &bull; Machine Learning &bull; KIIT 2023–2027
+                Data Science &bull; Quantitative Finance &bull; KIIT 2023–2027
               </p>
             </div>
           </div>
@@ -197,7 +196,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
             </div>
           )}
 
-          {/* TAB 2: LIVE HI-FI RESUME DOCUMENT (100% Guaranteed Render) */}
+          {/* TAB 2: LIVE HI-FI RESUME DOCUMENT (100% Guaranteed Render with Google XYZ format) */}
           {activeTab === 'text' && (
             <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-8 max-w-4xl mx-auto w-full text-stone-200">
               
@@ -207,7 +206,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                   SOURISH DEY
                 </h1>
                 <p className="text-xs sm:text-sm font-mono text-orange-400">
-                  Data Science &bull; Machine Learning &bull; Quantitative Analytics
+                  Data Science &bull; Machine Learning &bull; Quantitative Finance &bull; Analytics Engineering
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs text-stone-300 font-mono pt-2">
                   <a href="mailto:sourish713321@gmail.com" className="hover:text-white flex items-center gap-1">
@@ -238,7 +237,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                   PROFESSIONAL SUMMARY
                 </h2>
                 <p className="text-sm text-stone-300 leading-relaxed font-normal">
-                  Computer Science undergraduate specializing in data science, machine learning, and analytics engineering. Built Python/SQL ETL pipelines, anomaly-detection and forecasting systems, and RAG tools processing 100K+ records. Achieved 92% transaction-anomaly precision and 94% IoT anomaly-detection accuracy. Reduced query and aggregation latency by 40–45% using Scikit-learn, LangChain, Streamlit, Docker, and CI/CD across analytics and IoT-security projects.
+                  Computer Science undergraduate specializing in data science, quantitative analytics, and cloud engineering. Engineered statistical arbitrage models achieving an 18.7% annualized return with a 2.1 Sharpe ratio. Built Python/SQL ETL pipelines processing 100K+ records, saving 35% manual overhead and cutting query latency by 40–42%. Trained unsupervised IoT anomaly detection models with 94.0% accuracy and designed Fin-RAG pipelines with sub-800ms query latency. Holder of 5 granted Indian utility patents.
                 </p>
               </div>
 
@@ -279,58 +278,45 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              {/* Section 3: Professional Experience */}
-              <div className="space-y-4">
+              {/* Section 3: Professional Experience (Core High-Impact Positions) */}
+              <div className="space-y-6">
                 <h2 className="text-xs font-mono uppercase tracking-widest text-orange-400 font-bold border-b border-white/10 pb-1 flex items-center gap-1.5">
-                  <Briefcase size={14} /> EXPERIENCE
+                  <Briefcase size={14} /> PROFESSIONAL EXPERIENCE
                 </h2>
 
-                {/* Infosys Springboard */}
-                <div className="space-y-2">
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <div>
-                      <h3 className="text-sm font-bold text-white">
-                        Infosys Springboard
-                      </h3>
-                      <p className="text-xs font-mono text-orange-300">
-                        Data Analytics &amp; Business Intelligence Project Intern
-                      </p>
-                    </div>
-                    <div className="text-xs font-mono text-stone-400">
-                      Remote &bull; Feb 2026 – Apr 2026
-                    </div>
-                  </div>
-                  <ul className="text-xs text-stone-300 space-y-1.5 list-disc list-inside">
-                    <li>Developed Python and SQL ETL pipelines processing 100K+ records and converted business requirements into reusable, automated data-validation rules.</li>
-                    <li>Automated SQL and Power Query reporting and validation, reducing manual effort by 35% and saving 3+ engineering hours weekly.</li>
-                    <li>Resolved data discrepancies and pipeline failures through root-cause analysis, documenting solutions for cross-functional business reporting.</li>
-                  </ul>
-                </div>
+                <div className="space-y-6">
+                  {DEDUPLICATED_EXPERIENCE.map((exp) => (
+                    <div key={exp.id} className="space-y-2 border-b border-white/5 pb-4 last:border-0">
+                      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                        <div>
+                          <h3 className="text-sm font-bold text-white">
+                            {exp.role} &bull; <span className="text-orange-400 font-normal">{exp.organization}</span>
+                          </h3>
+                        </div>
+                        <div className="text-xs font-mono text-stone-400">
+                          {exp.location} &bull; <span className="text-cyan-400">{exp.duration}</span>
+                        </div>
+                      </div>
 
-                {/* IISER-TVM */}
-                <div className="space-y-2 pt-3 border-t border-white/5">
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <div>
-                      <h3 className="text-sm font-bold text-white">
-                        Indian Institute of Science Education and Research (IISER-TVM)
-                      </h3>
-                      <p className="text-xs font-mono text-orange-300">
-                        Research Intern – Federated Learning &amp; IoT Security
-                      </p>
+                      <div className="flex flex-wrap gap-2 py-1">
+                        {exp.coreMetrics.map((m, mIdx) => (
+                          <span key={mIdx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-cyan-300">
+                            {m.label}: <strong className="text-white">{m.value}</strong>
+                          </span>
+                        ))}
+                      </div>
+
+                      <ul className="text-xs text-stone-300 space-y-1.5 list-disc list-inside">
+                        {exp.bulletPoints.map((pt, pIdx) => (
+                          <li key={pIdx} className="leading-relaxed font-normal">{pt}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <div className="text-xs font-mono text-stone-400">
-                      Thiruvananthapuram, India &bull; Apr 2025 – Jun 2025
-                    </div>
-                  </div>
-                  <ul className="text-xs text-stone-300 space-y-1.5 list-disc list-inside">
-                    <li>Engineered distributed Python ETL pipelines for high-frequency IoT telemetry across edge nodes, improving ingestion throughput by 30%.</li>
-                    <li>Built unsupervised anomaly-detection models with statistical tests and outlier filters, achieving 94% accuracy for IoT security monitoring.</li>
-                    <li>Optimized SQL telemetry aggregation and node-health monitoring for federated learning, reducing multi-node latency by 40%.</li>
-                  </ul>
+                  ))}
                 </div>
               </div>
 
-              {/* Section 4: Projects */}
+              {/* Section 4: Technical Projects */}
               <div className="space-y-4">
                 <h2 className="text-xs font-mono uppercase tracking-widest text-orange-400 font-bold border-b border-white/10 pb-1 flex items-center gap-1.5">
                   <Layers size={14} /> TECHNICAL PROJECTS
