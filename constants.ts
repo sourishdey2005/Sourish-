@@ -7,7 +7,7 @@ export const PERSONAL_INFO = {
   phone: "+91 9064648823",
   github: "https://github.com/sourishdey2005",
   linkedin: "https://www.linkedin.com/in/sourish-dey-20b170206",
-  resumeUrl: "https://drive.google.com/file/d/1sB_GXplJ5_LZu3u3AUks8UclmLCVT1b7/view?usp=drive_link",
+  resumeUrl: "https://drive.google.com/file/d/1COO61ckd2xejY17DrjsTEeDYx_w0XhoW/view?usp=sharing",
   location: "Bhubaneswar, India",
   university: "Kalinga Institute of Industrial Technology (KIIT)"
 };
