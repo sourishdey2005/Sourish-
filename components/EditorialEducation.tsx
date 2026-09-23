@@ -1,5 +1,6 @@
 import React from 'react';
-import { GraduationCap, MapPin, Calendar, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { GraduationCap, MapPin, Calendar, Award, CheckCircle2 } from 'lucide-react';
 
 interface EducationItem {
   institution: string;
@@ -15,90 +16,101 @@ const EDUCATION_ENTRIES: EducationItem[] = [
   {
     institution: "Kalinga Institute of Industrial Technology (KIIT)",
     location: "Bhubaneswar, India",
-    degree: "Bachelor of Technology in Computer Science and Engineering",
-    duration: "Jul 2023 – Oct 2027 (Expected)",
+    degree: "Bachelor of Technology (B.Tech.) in Computer Science and Engineering",
+    duration: "Jul 2023 – Jul 2027 (Expected)",
     statusBadge: "Currently Pursuing",
-    details: "Focusing on data structures, machine learning, statistical modeling, algorithm design, and distributed data systems."
+    details: "Specializing in Data Science, Machine Learning, Analytics Engineering, and Distributed Systems."
   },
   {
     institution: "Hem Sheela Model School",
     location: "Durgapur, West Bengal",
-    degree: "High School & Secondary Education",
+    degree: "Senior Secondary (CBSE – 12th) & Secondary (CBSE – 10th)",
     duration: "2020 – 2023",
     scores: [
-      { label: "Higher Secondary (12th)", value: "90.8%" },
-      { label: "Secondary (10th)", value: "98.0%" }
+      { label: "Senior Secondary (CBSE – 12th)", value: "90.8%" },
+      { label: "Secondary (CBSE – 10th)", value: "98.0%" }
     ],
-    details: "Awarded School Topper for exemplary academic performance in science and mathematics."
+    details: "Graduated with 98.0% CBSE Secondary Distinction and 90.8% Senior Secondary academic standing."
   }
 ];
 
 const EditorialEducation: React.FC = () => {
   return (
-    <div id="education-content" className="border-t border-zinc-200 divide-y divide-zinc-100">
+    <div id="education-content" className="border-t border-white/10 divide-y divide-white/5">
       {EDUCATION_ENTRIES.map((edu, idx) => (
-        <div
+        <motion.div
           key={idx}
           id={`education-item-${idx}`}
-          className="py-8 sm:py-10 transition-colors group cursor-default"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="py-8 sm:py-10 transition-all duration-300 group rounded-xl px-4 sm:px-6 hover:bg-white/5 hover:border hover:border-orange-500/20"
         >
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline">
-            {/* Timeline & Location */}
-            <div className="md:col-span-3">
-              <span className="text-xs font-mono font-bold text-zinc-400 group-hover:text-zinc-950 transition-colors flex items-center gap-1.5">
-                <Calendar size={13} className="text-zinc-400" />
-                {edu.duration}
+            {/* Left: Duration and Location */}
+            <div className="md:col-span-3 space-y-1">
+              <span className="text-xs font-mono text-orange-400 font-semibold block flex items-center gap-1.5">
+                <Calendar size={12} /> {edu.duration}
               </span>
-              <span className="flex items-center gap-1.5 text-xs font-mono text-zinc-500 mt-1">
-                <MapPin size={12} className="text-zinc-400" />
-                {edu.location}
+              <span className="text-[11px] font-mono text-stone-500 flex items-center gap-1">
+                <MapPin size={11} /> {edu.location}
               </span>
               {edu.statusBadge && (
-                <span className="inline-block mt-2.5 px-2 py-0.5 text-[10px] font-mono font-medium rounded-sm bg-blue-50 text-blue-700 border border-blue-200/60">
-                  {edu.statusBadge}
+                <span className="inline-flex items-center gap-1 mt-2 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
+                  <CheckCircle2 size={10} /> {edu.statusBadge}
                 </span>
               )}
             </div>
 
-            {/* Institution & Degree */}
-            <div className="md:col-span-5">
-              <div className="flex items-start gap-2">
-                <GraduationCap size={18} className="text-zinc-400 group-hover:text-blue-600 transition-colors mt-1 shrink-0" />
-                <div>
-                  <h4 className="text-base sm:text-lg font-bold text-zinc-950 group-hover:text-blue-600 transition-colors">
-                    {edu.institution}
-                  </h4>
-                  <p className="text-sm font-medium text-zinc-700 mt-0.5">
-                    {edu.degree}
-                  </p>
-                </div>
+            {/* Center: Institution & Degree */}
+            <div className="md:col-span-5 space-y-2">
+              <div className="flex items-center gap-2">
+                <GraduationCap size={16} className="text-orange-400 shrink-0" />
+                <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-orange-300 transition-colors">
+                  {edu.institution}
+                </h3>
               </div>
-            </div>
-
-            {/* Scores & Highlights */}
-            <div className="md:col-span-4">
-              {edu.scores && (
-                <div className="flex flex-wrap gap-2.5 mb-2">
-                  {edu.scores.map((score, sIdx) => (
-                    <div
-                      key={sIdx}
-                      className="px-2.5 py-1 rounded bg-zinc-50 border border-zinc-200/80 font-mono text-xs text-zinc-700 flex items-center gap-1.5"
-                    >
-                      <Award size={12} className="text-zinc-400" />
-                      <span className="text-zinc-500">{score.label}:</span>
-                      <span className="font-semibold text-zinc-900">{score.value}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <h4 className="text-sm font-medium text-stone-300">
+                {edu.degree}
+              </h4>
               {edu.details && (
-                <p className="text-xs text-zinc-500 leading-relaxed font-sans">
+                <p className="text-xs text-stone-400 leading-relaxed pt-1">
                   {edu.details}
                 </p>
               )}
             </div>
+
+            {/* Right: Academic Performance Badges */}
+            <div className="md:col-span-4 flex flex-wrap gap-2 md:justify-end items-center">
+              {edu.scores ? (
+                edu.scores.map((score, sIdx) => (
+                  <div
+                    key={sIdx}
+                    className="p-3 rounded-xl bg-white/5 border border-white/10 text-right min-w-[120px] backdrop-blur-sm group-hover:border-orange-500/30 transition-colors"
+                  >
+                    <span className="text-[10px] font-mono text-stone-400 block uppercase">
+                      {score.label}
+                    </span>
+                    <span className="text-base sm:text-lg font-bold text-white font-mono flex items-center justify-end gap-1 text-orange-300">
+                      <Award size={13} className="text-[#ff8a1f]" />
+                      {score.value}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-right min-w-[130px] backdrop-blur-sm">
+                  <span className="text-[10px] font-mono text-stone-400 block uppercase">
+                    DEGREE STATUS
+                  </span>
+                  <span className="text-sm font-bold text-white font-mono text-orange-300">
+                    B.Tech In Progress
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

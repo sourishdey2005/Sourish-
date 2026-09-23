@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Award, Shield, Users, Compass } from 'lucide-react';
 
 interface ResponsibilityItem {
   year: string;
@@ -7,123 +9,104 @@ interface ResponsibilityItem {
   oneLineImpact: string;
   details?: string[];
   location?: string;
+  badge?: string;
 }
 
 const RESPONSIBILITIES_DATA: ResponsibilityItem[] = [
   {
-    year: '2025',
-    organization: 'KINETEX LAB KIIT Chapter',
-    role: 'Head of Research and Development',
-    oneLineImpact: 'Orchestrated research roadmaps for 30+ student developers across IoT hardware prototypes and computer vision systems.',
-    details: [
-      'Bridged academic computer science research with physical edge hardware deployment.',
-      'Supervised the filing of patent applications and research publications.',
-      'Spearheaded hands-on hackathons and applied research incubations.'
-    ],
-    location: 'Bhubaneswar, Odisha'
-  },
-  {
-    year: '2025',
-    organization: 'USC.KIIT',
-    role: 'Cloud Automation Executive',
-    oneLineImpact: 'Provisioned declarative Terraform modules and automated multi-tier campus microservices infrastructure with CI/CD.',
-    details: [
-      'Standardized infrastructure-as-code modules reducing manual server provisioning time from hours to minutes.',
-      'Implemented proactive telemetry alerting and container health checks on Kubernetes.',
-      'Mentored junior students on cloud native architectures and zero-downtime rolling deploys.'
-    ],
-    location: 'Hybrid'
-  },
-  {
-    year: '2024',
+    year: '2024 – 2025',
     organization: 'KITPD2S Society',
-    role: 'Secretary & Operation Team Lead',
-    oneLineImpact: 'Directed technological operations for IoT and intellectual property initiatives, managing 5+ tech symposiums with 500+ attendees.',
+    role: 'Operations Lead & Secretary',
+    oneLineImpact: 'Streamlined event execution by coordinating task ownership and team communication across inter-university technical symposia.',
     details: [
-      'Coordinated technical logistics and IP advisory for inter-university innovation summits.',
-      'Managed cross-functional student engineering divisions across software and hardware tracks.'
+      'Streamlined event execution by coordinating task ownership and team communication across multiple technical streams.',
+      'Managed cross-functional student engineering divisions across software and hardware innovation tracks.',
+      'Oversaw technical event execution and participant engagement across 500+ attendees.'
     ],
-    location: 'On-site'
+    location: 'Bhubaneswar, India',
+    badge: 'Operations & Leadership'
   },
   {
-    year: '2024',
-    organization: 'Coding Ninjas KIIT Chapter',
-    role: 'Machine Learning & Technical Team Member',
-    oneLineImpact: 'Conducted hands-on technical sessions and guided peer groups through applied machine learning, cloud deployments, and developer bootcamps.',
+    year: '2025',
+    organization: 'Kinetex Lab',
+    role: 'Research Lead',
+    oneLineImpact: 'Advanced ML research by leading technical discussions and collaborative project planning across IoT and edge intelligence.',
+    details: [
+      'Advanced ML research by leading technical discussions and collaborative project planning.',
+      'Supervised applied prototyping for patent-backed robotic and sensor control systems.',
+      'Mentored junior students on empirical evaluation, model benchmarking, and paper drafting.'
+    ],
+    location: 'KIIT Chapter',
+    badge: 'R&D Direction'
+  },
+  {
+    year: '2024 – 2025',
+    organization: 'CN KIIT & USC KIIT',
+    role: 'Core Technical Member',
+    oneLineImpact: 'Supported ML and cloud initiatives through technical implementation, developer workshops, and peer collaboration.',
     details: [
       'Delivered workshops on machine learning fundamentals, data wrangling, and model evaluation.',
-      'Fostered peer-to-peer developer training and project review sessions.'
+      'Assisted in campus cloud automation initiatives and distributed computing infrastructure.'
     ],
-    location: 'Bhubaneswar, Odisha'
+    location: 'Bhubaneswar, India',
+    badge: 'Tech Mentorship'
   }
 ];
 
 const PositionOfResponsibility: React.FC = () => {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-
   return (
-    <div className="border-t border-zinc-200 divide-y divide-zinc-100">
-      {RESPONSIBILITIES_DATA.map((item, idx) => {
-        const isHovered = hoveredIdx === idx;
-
-        return (
-          <div
-            key={idx}
-            onMouseEnter={() => setHoveredIdx(idx)}
-            onMouseLeave={() => setHoveredIdx(null)}
-            className="py-7 sm:py-9 transition-colors group cursor-default"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-baseline">
-              {/* Year & Location */}
-              <div className="md:col-span-2">
-                <span className="text-xs font-mono font-bold text-zinc-400 group-hover:text-zinc-950 transition-colors">
-                  {item.year}
+    <div className="border-t border-white/10 divide-y divide-white/5">
+      {RESPONSIBILITIES_DATA.map((resp, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.55, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="py-8 sm:py-10 transition-all duration-300 group rounded-xl px-4 sm:px-6 hover:bg-white/5 hover:border hover:border-orange-500/20"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline">
+            {/* Year & Badge */}
+            <div className="md:col-span-3 space-y-1">
+              <span className="text-xs font-mono text-orange-400 font-semibold block">
+                {resp.year}
+              </span>
+              {resp.badge && (
+                <span className="inline-block mt-2 px-2 py-0.5 rounded-full text-[10px] font-mono bg-orange-950/60 text-orange-300 border border-orange-500/20">
+                  {resp.badge}
                 </span>
-                {item.location && (
-                  <span className="block text-[11px] font-mono text-zinc-400">
-                    {item.location}
-                  </span>
-                )}
-              </div>
+              )}
+            </div>
 
-              {/* Organization & Role */}
-              <div className="md:col-span-4">
-                <h4 className="text-base sm:text-lg font-bold text-zinc-950 group-hover:text-blue-600 transition-colors">
-                  {item.organization}
-                </h4>
-                <p className="text-xs font-medium text-zinc-500 mt-0.5">
-                  {item.role}
-                </p>
-              </div>
+            {/* Role & Organization */}
+            <div className="md:col-span-4 space-y-1">
+              <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-orange-300 transition-colors">
+                {resp.role}
+              </h3>
+              <h4 className="text-xs font-mono uppercase tracking-wider text-stone-400 font-semibold">
+                {resp.organization}
+              </h4>
+            </div>
 
-              {/* One-Line Impact */}
-              <div className="md:col-span-6">
-                <p className="text-sm text-zinc-700 leading-relaxed">
-                  "{item.oneLineImpact}"
-                </p>
-
-                {/* Subtle detail expansion on hover */}
-                {item.details && (
-                  <div
-                    className={`overflow-hidden transition-all duration-300 ${
-                      isHovered ? 'max-h-48 mt-3 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <ul className="space-y-1 text-xs text-zinc-500 pt-2 border-t border-zinc-100 font-mono">
-                      {item.details.map((bullet, bIdx) => (
-                        <li key={bIdx} className="flex items-start gap-2">
-                          <span className="text-zinc-300">&rarr;</span>
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+            {/* Impact */}
+            <div className="md:col-span-5 space-y-2">
+              <p className="text-sm text-stone-300 leading-relaxed">
+                {resp.oneLineImpact}
+              </p>
+              {resp.details && (
+                <div className="pt-2 border-t border-white/5 space-y-1">
+                  {resp.details.map((detail, dIdx) => (
+                    <div key={dIdx} className="text-xs text-stone-400 flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 shrink-0" />
+                      <span>{detail}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-        );
-      })}
+        </motion.div>
+      ))}
     </div>
   );
 };

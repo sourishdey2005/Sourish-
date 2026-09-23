@@ -4,11 +4,11 @@ import { Experience, Project, Publication, Certification, Education, Honor } fro
 export const PERSONAL_INFO = {
   name: "Sourish Dey",
   email: "sourish713321@gmail.com",
-  phone: "9064648823",
+  phone: "+91 9064648823",
   github: "https://github.com/sourishdey2005",
-  linkedin: "https://www.linkedin.com/in/sourish-dey/",
+  linkedin: "https://www.linkedin.com/in/sourish-dey-20b170206",
   resumeUrl: "https://drive.google.com/file/d/1sB_GXplJ5_LZu3u3AUks8UclmLCVT1b7/view?usp=drive_link",
-  location: "Bhubaneswar, Odisha, India",
+  location: "Bhubaneswar, India",
   university: "Kalinga Institute of Industrial Technology (KIIT)"
 };
 

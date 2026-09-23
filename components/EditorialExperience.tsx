@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Briefcase, ArrowUpRight, MapPin, Calendar, CheckCircle2 } from 'lucide-react';
 
 interface ExperienceItem {
   year: string;
@@ -7,44 +9,48 @@ interface ExperienceItem {
   oneLineImpact: string;
   details?: string[];
   location?: string;
+  badge?: string;
 }
 
 const EXPERIENCES_DATA: ExperienceItem[] = [
   {
-    year: '2026',
-    organization: 'H&P Projects',
-    role: 'Data Science and Analysis Intern',
-    oneLineImpact: 'Cleaned and structured temple management datasets, uncovering donation trends and producing automated executive financial monitors.',
-    details: [
-      'Engineered automated statistical data cleansing pipelines for high-variance donation and expense logs.',
-      'Constructed intuitive visual monitors enabling stakeholder data-driven capital allocation.',
-      'Identified temporal seasonality spikes in regional temple contributions.'
-    ],
-    location: 'Remote'
-  },
-  {
-    year: '2026',
+    year: 'Feb 2026 – Apr 2026',
     organization: 'Infosys Springboard',
-    role: 'Virtual Intern (Data Science & ML)',
-    oneLineImpact: 'Built analytics workflows and BI dashboards that reduced manual enterprise reporting effort by 35%.',
+    role: 'Data Analytics & Business Intelligence Project Intern',
+    oneLineImpact: 'Developed Python and SQL ETL pipelines processing 100K+ records and converted business requirements into reusable data-validation rules.',
     details: [
-      'Developed end-to-end data processing pipelines and predictive regression models for enterprise simulation workloads.',
-      'Synthesized business intelligence dashboards replacing fragmented spreadsheet reconciliation.',
-      'Benchmarked machine learning model performance against industry baseline datasets.'
+      'Developed Python and SQL ETL pipelines processing 100K+ records and converted business requirements into reusable, automated data-validation rules.',
+      'Automated SQL and Power Query reporting and validation, reducing manual effort by 35% and saving 3+ engineering hours weekly.',
+      'Resolved data discrepancies and pipeline failures through root-cause analysis, documenting solutions for cross-functional business reporting.'
     ],
-    location: 'Remote'
+    location: 'Remote',
+    badge: 'Enterprise ETL & BI'
   },
   {
     year: 'Apr 2025 – Jun 2025',
     organization: 'Indian Institute of Science Education and Research (IISER-TVM)',
     role: 'Research Intern – Federated Learning & IoT Security',
-    oneLineImpact: 'Improved data ingestion efficiency by 30% and achieved 94% anomaly detection accuracy across distributed edge telemetry nodes.',
+    oneLineImpact: 'Engineered distributed Python ETL pipelines for high-frequency IoT telemetry, improving throughput by 30% and achieving 94% anomaly detection accuracy.',
     details: [
-      'Improved data ingestion efficiency by 30% by building modular Python pipelines with statistical modeling and time-series processing for distributed sensor telemetry.',
-      'Achieved 94% anomaly detection accuracy on high-frequency sensor data by applying outlier detection and hypothesis testing alongside machine learning across distributed edge nodes.',
-      'Reduced data aggregation latency by 40% by automating multi-node analysis and reporting with Python and SQL, improving data quality and device-performance monitoring.'
+      'Engineered distributed Python ETL pipelines for high-frequency IoT telemetry across edge nodes, improving ingestion throughput by 30%.',
+      'Built unsupervised anomaly-detection models with statistical tests and outlier filters, achieving 94% accuracy for IoT security monitoring.',
+      'Optimized SQL telemetry aggregation and node-health monitoring for federated learning, reducing multi-node latency by 40%.'
     ],
-    location: 'Thiruvananthapuram, India'
+    location: 'Thiruvananthapuram, India',
+    badge: 'Research Fellowship'
+  },
+  {
+    year: '2025 – 2026',
+    organization: 'H&P Projects',
+    role: 'Data Science & Analytics Intern',
+    oneLineImpact: 'Automated statistical data cleansing pipelines for high-variance transaction logs, uncovering donation trends and producing automated executive financial monitors.',
+    details: [
+      'Engineered automated statistical data cleansing pipelines for high-variance financial and operational logs.',
+      'Constructed intuitive visual monitors enabling stakeholder data-driven capital allocation.',
+      'Mitigated transaction reporting discrepancies by implementing automated outlier filters.'
+    ],
+    location: 'Remote',
+    badge: 'Statistical Modeling'
   }
 ];
 
@@ -52,66 +58,71 @@ const EditorialExperience: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
-    <div className="border-t border-zinc-200 divide-y divide-zinc-100">
+    <div className="border-t border-white/10 divide-y divide-white/5">
       {EXPERIENCES_DATA.map((exp, idx) => {
         const isHovered = hoveredIdx === idx;
 
         return (
-          <div
+          <motion.div
             key={idx}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
             onMouseEnter={() => setHoveredIdx(idx)}
             onMouseLeave={() => setHoveredIdx(null)}
-            className="py-7 sm:py-9 transition-colors group cursor-default"
+            className={`py-8 sm:py-10 transition-all duration-300 group rounded-xl px-4 sm:px-6 ${
+              isHovered ? 'bg-white/5 border border-orange-500/20 shadow-xl shadow-orange-950/20' : 'border border-transparent'
+            }`}
           >
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-baseline">
-              {/* Year */}
-              <div className="md:col-span-2">
-                <span className="text-xs font-mono font-bold text-zinc-400 group-hover:text-zinc-950 transition-colors">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline">
+              {/* Year & Location */}
+              <div className="md:col-span-3 space-y-1">
+                <span className="text-xs font-mono text-orange-400 font-semibold block">
                   {exp.year}
                 </span>
                 {exp.location && (
-                  <span className="block text-[11px] font-mono text-zinc-400">
-                    {exp.location}
+                  <span className="text-[11px] font-mono text-stone-500 flex items-center gap-1">
+                    <MapPin size={11} /> {exp.location}
+                  </span>
+                )}
+                {exp.badge && (
+                  <span className="inline-block mt-2 px-2 py-0.5 rounded-full text-[10px] font-mono bg-orange-950/60 text-orange-300 border border-orange-500/20">
+                    {exp.badge}
                   </span>
                 )}
               </div>
 
-              {/* Organization & Role */}
-              <div className="md:col-span-4">
-                <h4 className="text-base sm:text-lg font-bold text-zinc-950 group-hover:text-blue-600 transition-colors">
+              {/* Role & Organization */}
+              <div className="md:col-span-4 space-y-1">
+                <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-orange-300 transition-colors">
+                  {exp.role}
+                </h3>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-stone-400 font-semibold">
                   {exp.organization}
                 </h4>
-                <p className="text-xs font-medium text-zinc-500 mt-0.5">
-                  {exp.role}
-                </p>
               </div>
 
-              {/* One-Line Impact Statement */}
-              <div className="md:col-span-6">
-                <p className="text-sm text-zinc-700 leading-relaxed">
-                  "{exp.oneLineImpact}"
+              {/* Impact / Key Accomplishment */}
+              <div className="md:col-span-5 space-y-3">
+                <p className="text-sm text-stone-300 leading-relaxed">
+                  {exp.oneLineImpact}
                 </p>
 
-                {/* Subtle detail expansion on hover */}
+                {/* Details Accordion or Bullet Highlights */}
                 {exp.details && (
-                  <div
-                    className={`overflow-hidden transition-all duration-300 ${
-                      isHovered ? 'max-h-48 mt-3 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <ul className="space-y-1 text-xs text-zinc-500 pt-2 border-t border-zinc-100 font-mono">
-                      {exp.details.map((item, dIdx) => (
-                        <li key={dIdx} className="flex items-start gap-2">
-                          <span className="text-zinc-300">&rarr;</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="pt-2 border-t border-white/5 space-y-1.5">
+                    {exp.details.map((detail, dIdx) => (
+                      <div key={dIdx} className="text-xs text-stone-400 flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 shrink-0" />
+                        <span>{detail}</span>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         );
       })}
     </div>
