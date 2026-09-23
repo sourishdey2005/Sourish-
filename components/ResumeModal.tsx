@@ -27,7 +27,7 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   // Transform Google Drive URL into high-compatibility preview URL
-  const previewUrl = "https://drive.google.com/file/d/1sB_GXplJ5_LZu3u3AUks8UclmLCVT1b7/preview";
+  const previewUrl = "https://drive.google.com/file/d/1COO61ckd2xejY17DrjsTEeDYx_w0XhoW/view?usp=sharing";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn">
