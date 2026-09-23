@@ -12,21 +12,6 @@ import EditorialEducation from './components/EditorialEducation';
 import ResumeModal from './components/ResumeModal';
 import { PERSONAL_INFO } from './constants';
 
-// Shared scroll-in animation variants for framer-motion
-const sectionVariants = {
-  initial: { opacity: 0, y: 36 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.15 },
-  transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] }
-};
-
-const headerFadeVariants = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.5, ease: "easeOut" }
-};
-
 const App: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -245,7 +230,7 @@ const App: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* 4. About Section (Split Editorial Layout) with Framer Motion */}
+      {/* 4. About Section (Split Editorial Layout) */}
       <motion.section 
         id="about" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8"
@@ -312,7 +297,7 @@ const App: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* 5. Education Section with Framer Motion */}
+      {/* 5. Education Section */}
       <motion.section 
         id="education" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
@@ -336,7 +321,7 @@ const App: React.FC = () => {
         <EditorialEducation />
       </motion.section>
 
-      {/* 6. Interactive Thinking Framework with Framer Motion */}
+      {/* 6. Interactive Thinking Framework */}
       <motion.section 
         className="py-12 max-w-6xl mx-auto px-6 sm:px-8"
         initial={{ opacity: 0, y: 35 }}
@@ -347,7 +332,7 @@ const App: React.FC = () => {
         <ThinkingEngine />
       </motion.section>
 
-      {/* 7. Experience Section with Framer Motion */}
+      {/* 7. Experience Section */}
       <motion.section 
         id="experience" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
@@ -371,7 +356,7 @@ const App: React.FC = () => {
         <EditorialExperience />
       </motion.section>
 
-      {/* 8. Position of Responsibility Section with Framer Motion */}
+      {/* 8. Position of Responsibility Section */}
       <motion.section 
         id="responsibilities" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
@@ -395,7 +380,7 @@ const App: React.FC = () => {
         <PositionOfResponsibility />
       </motion.section>
 
-      {/* 9. Technical Projects Section with Framer Motion */}
+      {/* 9. Technical Projects Section (Stacking Cards Effect) */}
       <motion.section 
         id="projects" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
@@ -412,14 +397,14 @@ const App: React.FC = () => {
             Technical Projects
           </h2>
           <p className="text-sm text-stone-400 mt-1 max-w-xl">
-            Quantitative finance engines, technical analysis platforms, and Bayesian portfolio optimizers.
+            Quantitative finance engines, technical analysis platforms, and Bayesian portfolio optimizers. Cards stack progressively as you scroll.
           </p>
         </div>
 
         <EditorialProjects />
       </motion.section>
 
-      {/* 10. Research & Patents Section with Framer Motion */}
+      {/* 10. Research & Patents Section */}
       <motion.section 
         id="research" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
@@ -443,31 +428,15 @@ const App: React.FC = () => {
         <EditorialResearch />
       </motion.section>
 
-      {/* 11. Technical Skills Section with Framer Motion */}
-      <motion.section 
+      {/* 11. Technical Skills Section — Pinned Sticky Horizontal Scroll Showcase */}
+      <section 
         id="skills" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full border-t border-white/10"
       >
-        <div className="mb-12">
-          <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            07 &bull; PROFICIENCIES
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Technical Skills &amp; Certifications
-          </h2>
-          <p className="text-sm text-stone-400 mt-1 max-w-xl">
-            Programming, machine learning, generative AI, cloud, and industry certifications.
-          </p>
-        </div>
-
         <EditorialSkills />
-      </motion.section>
+      </section>
 
-      {/* 12. Contact Section with Framer Motion */}
+      {/* 12. Contact Section */}
       <motion.section 
         id="contact" 
         className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
