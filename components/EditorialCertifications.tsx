@@ -24,283 +24,276 @@ export interface CertificateItem {
 export const CERTIFICATES_DATA: CertificateItem[] = [
   {
     id: 'cert-1',
+    title: 'IBM AI Engineering Professional Certificate',
+    issuer: 'IBM & Coursera',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790235174/Ai_Enginnering_bqrhme.jpg'
+  },
+  {
+    id: 'cert-2',
+    title: 'IBM Data Analyst Professional Certificate',
+    issuer: 'IBM',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790234419/IBM_Data_Analyst_ynhhqt.jpg'
+  },
+  {
+    id: 'cert-3',
+    title: 'IBM Business Analyst Professional Certificate',
+    issuer: 'IBM',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790234402/IBM_Busieness_Aanalyst_wbhwd4.jpg'
+  },
+  {
+    id: 'cert-4',
+    title: 'Professional Credential & Technical Achievement',
+    issuer: 'Industry Assessment',
+    category: 'Professional & Industry',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790234395/WhatsApp_Image_2026-09-23_at_9.32.38_AM_vjaljz.jpg'
+  },
+  {
+    id: 'cert-5',
+    title: 'Cloud Infrastructure & High-Performance Computing',
+    issuer: 'Technical Certification Authority',
+    category: 'Cloud & Architecture',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790234347/11_imifdc.jpg'
+  },
+  {
+    id: 'cert-6',
+    title: 'Advanced Machine Learning & Applied AI Systems',
+    issuer: 'Specialized AI Program',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790234347/13_vyfmy9.jpg'
+  },
+  {
+    id: 'cert-7',
+    title: 'Deep Neural Architectures & Model Optimization',
+    issuer: 'Specialized Machine Learning Program',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790234346/12_hziu4h.jpg'
+  },
+  {
+    id: 'cert-8',
+    title: 'Statistical Inference & Computational Analytics',
+    issuer: 'Verified Academic & Industry Credential',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790234346/10_i6jynd.jpg'
+  },
+  {
+    id: 'cert-9',
     title: 'Advanced Machine Learning & Deep Neural Architectures',
     issuer: 'DeepLearning.AI & Coursera',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768378490/b4c172cd-453d-44cd-8877-d66984c54d90_hwxtlt.jpg'
   },
   {
-    id: 'cert-2',
+    id: 'cert-10',
     title: 'IBM Data Science Professional Specialization',
     issuer: 'IBM',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768378487/919f92f7-5951-4b7f-b9ca-42fef49b609c_vtdh0z.jpg'
   },
   {
-    id: 'cert-3',
+    id: 'cert-11',
     title: 'Python for Data Science, AI & Development',
     issuer: 'IBM Skills Network',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768378181/e1f1a90c-854f-4cd8-8210-f725a6b6a12a_r9dffl.jpg'
   },
   {
-    id: 'cert-4',
+    id: 'cert-12',
     title: 'Deep Learning with TensorFlow & Keras',
     issuer: 'TensorFlow',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768378142/b3adb396-7ebe-4ea2-99f5-7e997da85069_lzijec.jpg'
   },
   {
-    id: 'cert-5',
+    id: 'cert-13',
     title: 'Google Cloud Platform Fundamentals: Core Infrastructure',
     issuer: 'Google Cloud',
     category: 'Cloud & Architecture',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768377789/fb50e9e9-c1dc-488f-9cd1-4b6c53fce23e_mkt3xh.jpg'
   },
   {
-    id: 'cert-6',
+    id: 'cert-14',
     title: 'AWS Academy Cloud Architecting & Data Engineering',
     issuer: 'Amazon Web Services',
     category: 'Cloud & Architecture',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768377763/0b42da04-d96c-4b9f-95e6-78956dcda02b_ajcs3k.jpg'
   },
   {
-    id: 'cert-7',
+    id: 'cert-15',
     title: 'Zero Trust Certified Associate (ZTCA)',
     issuer: 'Zscaler Academy',
     category: 'Cloud & Architecture',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768377760/a048c3e5-0550-4362-9436-13a52c7b13e0_n5c3qf.jpg'
   },
   {
-    id: 'cert-8',
-    title: 'Applied Data Science with Python Specialization',
-    issuer: 'University of Michigan / Coursera',
-    category: 'AI & Data Science',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768377742/46444d06-d3fe-48a6-86ac-c5b294221882_zqtd8l.jpg'
-  },
-  {
-    id: 'cert-9',
-    title: 'Image Processing Onramp & MATLAB Engineering',
-    issuer: 'MathWorks',
-    category: 'AI & Data Science',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768377739/bd3a5b04-8e7a-49a8-8588-d623e1eb8a86_eimiij.jpg'
-  },
-  {
-    id: 'cert-10',
+    id: 'cert-16',
     title: 'Oracle Cloud Infrastructure (OCI) Foundations Associate',
     issuer: 'Oracle University',
     category: 'Cloud & Architecture',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376497/69aaa0dd-7d04-481c-bd06-ae07a9c58fd7_nlexsd.jpg'
   },
   {
-    id: 'cert-11',
+    id: 'cert-17',
     title: 'Data Analysis with Python Certification',
     issuer: 'freeCodeCamp',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376485/eb2a82d6-8e14-4e59-a317-953b3c53aeaa_hp8ps9.jpg'
   },
   {
-    id: 'cert-12',
+    id: 'cert-18',
     title: 'Machine Learning with Python Certification',
     issuer: 'freeCodeCamp',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376475/8b073af5-856d-4f0c-bbe9-11b03b213f36_ggcivy.jpg'
   },
   {
-    id: 'cert-13',
+    id: 'cert-19',
     title: 'McKinsey Forward Program Credential',
     issuer: 'McKinsey & Company',
     category: 'Professional & Industry',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376280/f978da1a-7c72-42cc-8cbd-c97cd85ce853_cw7zfy.jpg'
   },
   {
-    id: 'cert-14',
+    id: 'cert-20',
     title: 'Celonis Process Mining Fundamentals',
     issuer: 'Celonis Academy',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376269/cecb2c7f-b3f8-42c3-b804-835b539cac6b_yalvse.jpg'
   },
   {
-    id: 'cert-15',
-    title: 'Infosys Springboard Data Analytics & BI Certification',
-    issuer: 'Infosys',
-    category: 'Professional & Industry',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768376265/0f547785-bb73-45bb-9f17-e67bf078900f_wo0set.jpg'
-  },
-  {
-    id: 'cert-16',
+    id: 'cert-21',
     title: 'AI Data Analyst Trajectory & Behavioral ML',
     issuer: 'Excelerate',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375524/4832d3c4-6ba1-4aaa-8577-e9d1dfd2a186_d1t6e9.jpg'
   },
   {
-    id: 'cert-17',
+    id: 'cert-22',
     title: 'Predictive Modeling & Statistical Inference Intern Credential',
     issuer: 'Uptricks Services Pvt. Ltd.',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375523/22212bbd-55e3-497a-8953-861c12407510_judjaw.jpg'
   },
   {
-    id: 'cert-18',
+    id: 'cert-23',
     title: 'Quantitative Arbitrage & High-Frequency Signals',
     issuer: 'H & P Projects',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375367/a94de537-d9a6-4d17-ab1f-0cd328bb004c_h1hlwr.jpg'
   },
   {
-    id: 'cert-19',
+    id: 'cert-24',
     title: 'Distributed IoT Sensor Telemetry & Anomaly Systems',
     issuer: 'IISER-TVM Research',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375365/1835488d-ca6d-4e14-9402-081b8c86e25b_tjjlab.jpg'
   },
   {
-    id: 'cert-20',
+    id: 'cert-25',
     title: 'Data Wrangling & Vectorized Pipeline Automation',
     issuer: 'Codec Technologies India',
     category: 'Professional & Industry',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768375362/b2e9f0b3-37cb-46d8-bd1d-07c374889d14_ijhcg9.jpg'
   },
   {
-    id: 'cert-21',
+    id: 'cert-26',
     title: 'Large-Scale Web Scraping & NLP Corpus Curation',
     issuer: 'Overload Ware Labs AI (OWL AI)',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768374974/747c66b3-ba95-4b3e-ac65-f5cda20d6263_m4ewgw.jpg'
   },
   {
-    id: 'cert-22',
+    id: 'cert-27',
     title: 'Business Analytics & Hypothesis Testing Automation',
     issuer: 'Coding Samurai',
     category: 'Professional & Industry',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768374966/d9cd6d94-a9f5-4214-8e99-63af89c298a1_qavnfu.jpg'
   },
   {
-    id: 'cert-23',
+    id: 'cert-28',
     title: 'KIIT University Student Community Cloud Automation',
     issuer: 'USC.KIIT',
     category: 'Cloud & Architecture',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768374955/d25ceea8-d0fa-4fa9-ac79-834892105126_ysrbry.jpg'
   },
   {
-    id: 'cert-24',
+    id: 'cert-29',
     title: 'Executive Cyber Defense & Threat Analysis',
     issuer: 'CyberVault KIIT',
     category: 'Cloud & Architecture',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768374600/072bd8d0-24c0-4060-85f0-d943cd777d0b_efbyyx.jpg'
   },
   {
-    id: 'cert-25',
+    id: 'cert-30',
     title: 'Secretary & Operations Leadership Excellence',
     issuer: 'KITPD2S Society',
     category: 'Professional & Industry',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768374300/bb0ac7e8-0831-4ac6-8c4d-599396414524_fe28hy.jpg'
   },
   {
-    id: 'cert-26',
+    id: 'cert-31',
     title: 'Professional Networking & Technical Recognition',
     issuer: 'LinkedIn Professional Credential',
     category: 'Professional & Industry',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373830/Screenshot_20260114_120229_LinkedIn_rfqzrp.jpg'
   },
   {
-    id: 'cert-27',
-    title: 'Advanced Computational Analytics Certification',
-    issuer: 'LinkedIn Verified Assessment',
-    category: 'AI & Data Science',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373830/Screenshot_20260114_120242_LinkedIn_gpjt6j.jpg'
-  },
-  {
-    id: 'cert-28',
-    title: 'Cloud Architecture & DevOps Systems Verification',
-    issuer: 'LinkedIn Learning & Skill Assessment',
-    category: 'Cloud & Architecture',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373830/Screenshot_20260114_120408_LinkedIn_o0zgzs.jpg'
-  },
-  {
-    id: 'cert-29',
-    title: 'Kinetex Lab R&D Technical Research Milestone',
-    issuer: 'Kinetex Lab Chapter',
-    category: 'Professional & Industry',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373828/image_78f30a48-eb0e-4b61-9983-246a9b7e605e20260114_122402_cvarem.jpg'
-  },
-  {
-    id: 'cert-30',
-    title: 'Neural Networks & Deep Learning Implementation',
-    issuer: 'DeepLearning.AI',
-    category: 'AI & Data Science',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373593/Screenshot_20260114_120131_LinkedIn_l1jrpd.jpg'
-  },
-  {
-    id: 'cert-31',
-    title: 'Improving Deep Neural Networks: Hyperparameter Tuning & Regularization',
-    issuer: 'DeepLearning.AI',
-    category: 'AI & Data Science',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373594/Screenshot_20260114_120111_LinkedIn_xeymci.jpg'
-  },
-  {
     id: 'cert-32',
-    title: 'Structuring Machine Learning Projects & Benchmarking',
-    issuer: 'DeepLearning.AI',
-    category: 'AI & Data Science',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373594/Screenshot_20260114_120146_LinkedIn_oodrn2.jpg'
+    title: 'Agile Cloud Infrastructure & Containerized CI/CD',
+    issuer: 'Coding Ninjas & Cloud Community',
+    category: 'Cloud & Architecture',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373821/Screenshot_20260114_122521_LinkedIn_ci6pbn.jpg'
   },
   {
     id: 'cert-33',
-    title: 'Enterprise Process Automation & Data Modeling',
-    issuer: 'Professional Technical Assessment',
-    category: 'Professional & Industry',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373594/Screenshot_20260114_120242_LinkedIn_jostja.jpg'
-  },
-  {
-    id: 'cert-34',
-    title: 'Statistical Hypothesis Testing & Quantitative Validation',
-    issuer: 'Verified Industry Credential',
-    category: 'AI & Data Science',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373594/Screenshot_20260114_120210_LinkedIn_tdkezn.jpg'
-  },
-  {
-    id: 'cert-35',
-    title: 'Full-Stack Data Engineering & Cloud Data Lakes',
-    issuer: 'Professional Technical Assessment',
-    category: 'Cloud & Architecture',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373595/Screenshot_20260114_120408_LinkedIn_yt0anw.jpg'
-  },
-  {
-    id: 'cert-36',
-    title: 'Research Fellowship & Empirical Benchmarking Certificate',
-    issuer: 'Academic & Research Society',
-    category: 'Professional & Industry',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373820/image_b7073090-6c81-45ec-b3d8-6f8f1d2c64f420260114_122605_lgbbzd.jpg'
-  },
-  {
-    id: 'cert-37',
     title: 'IoT & Autonomous Systems Prototyping Honor',
     issuer: 'KIIT Chapter & Kinetex Lab',
     category: 'Cloud & Architecture',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373820/image_bd337beb-2601-4922-8800-dc1163d124e020260114_122603_qmqcf9.jpg'
   },
   {
-    id: 'cert-38',
-    title: 'TensorFlow Developer Specialization & Model Deployment',
-    issuer: 'Google Developers & Coursera',
+    id: 'cert-34',
+    title: 'Research Fellowship & Empirical Benchmarking Certificate',
+    issuer: 'Academic & Research Society',
+    category: 'Professional & Industry',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373820/image_b7073090-6c81-45ec-b3d8-6f8f1d2c64f420260114_122605_lgbbzd.jpg'
+  },
+  {
+    id: 'cert-35',
+    title: 'Scientific Computing with Python Certification',
+    issuer: 'freeCodeCamp',
     category: 'AI & Data Science',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373821/Screenshot_20260114_122546_LinkedIn_b01s3v.jpg'
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790235606/Scientific_Computing_xx1orm.jpg'
+  },
+  {
+    id: 'cert-36',
+    title: 'Machine Learning with Python Certification',
+    issuer: 'freeCodeCamp',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790235605/Machine_Learning_gbrkkd.jpg'
+  },
+  {
+    id: 'cert-37',
+    title: 'Responsive Web Design Certification',
+    issuer: 'freeCodeCamp',
+    category: 'Professional & Industry',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790235605/Responsive_Web_Design_fnveyi.jpg'
+  },
+  {
+    id: 'cert-38',
+    title: 'Data Visualization Certification',
+    issuer: 'freeCodeCamp',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790235604/Data_VisualisationV8_skyyo1.jpg'
   },
   {
     id: 'cert-39',
-    title: 'Foundations of Modern Distributed Systems & Cloud Security',
-    issuer: 'Technical Certification Authority',
-    category: 'Cloud & Architecture',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373821/image_61cb0f46-8602-43a8-a50f-11064416c35320260114_122426_wv9af3.jpg'
-  },
-  {
-    id: 'cert-40',
-    title: 'Agile Cloud Infrastructure & Containerized CI/CD',
-    issuer: 'Coding Ninjas & Cloud Community',
-    category: 'Cloud & Architecture',
-    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768373821/Screenshot_20260114_122521_LinkedIn_ci6pbn.jpg'
+    title: 'Data Analysis with Python Certification',
+    issuer: 'freeCodeCamp',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790235603/Data_Analysis_eppi6t.jpg'
   }
 ];
 
@@ -390,7 +383,7 @@ const EditorialCertifications: React.FC = () => {
               08 &bull; LICENSES &amp; CERTIFICATIONS
             </span>
             <span className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-orange-950/80 text-orange-300 border border-orange-500/30">
-              Infinite Marquee &bull; 40 Verified Assets
+              Infinite Marquee &bull; 39 Verified Assets
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight flex items-center gap-3">
@@ -449,10 +442,10 @@ const EditorialCertifications: React.FC = () => {
               <div
                 key={`${cert.id}-loop-${index}`}
                 onClick={() => setSelectedCert(cert)}
-                className="cert-auto-card group relative w-[310px] sm:w-[360px] h-[460px] sm:h-[490px] rounded-2xl bg-[#140501] border border-white/10 hover:border-orange-500/70 p-4 sm:p-5 flex flex-col justify-between shrink-0 shadow-2xl shadow-black/90 hover:shadow-orange-950/60 transition-all duration-500 cursor-pointer overflow-hidden transform-gpu"
+                className="cert-auto-card group relative w-[300px] sm:w-[360px] h-[220px] sm:h-[260px] rounded-2xl bg-[#140501] border border-white/10 hover:border-orange-500/70 p-2 sm:p-2.5 shrink-0 shadow-2xl shadow-black/90 hover:shadow-orange-950/60 transition-all duration-500 cursor-pointer overflow-hidden transform-gpu"
               >
-                {/* Image Frame with Clean High-Fidelity Aspect */}
-                <div className="relative w-full h-[300px] sm:h-[325px] rounded-xl overflow-hidden bg-black/75 border border-white/10 group-hover:border-orange-500/40">
+                {/* Certificate Image Frame */}
+                <div className="relative w-full h-full rounded-xl overflow-hidden bg-black/80 border border-white/10 group-hover:border-orange-500/40">
                   <img
                     src={cert.imageUrl}
                     alt={cert.title}
@@ -460,30 +453,9 @@ const EditorialCertifications: React.FC = () => {
                     className="w-full h-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   {/* Hover Overlay with Clean Zoom Indicator */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#ff3d00] text-white text-xs font-mono font-medium backdrop-blur-sm shadow-xl">
                       <ZoomIn size={13} /> View Credential
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Metadata */}
-                <div className="space-y-1.5 pt-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-orange-950/70 text-orange-300 border border-orange-500/25 font-semibold truncate max-w-[200px]">
-                      {cert.issuer}
-                    </span>
-                    <span className="text-[10px] font-mono text-stone-400">
-                      #{originalIndex}
-                    </span>
-                  </div>
-                  <h4 className="text-sm sm:text-base font-bold text-white group-hover:text-orange-300 transition-colors line-clamp-2 leading-snug">
-                    {cert.title}
-                  </h4>
-                  <div className="flex items-center justify-between text-[11px] font-mono text-stone-400 pt-1">
-                    <span>{cert.category}</span>
-                    <span className="text-orange-400 group-hover:translate-x-1.5 transition-transform duration-300">
-                      &rarr;
                     </span>
                   </div>
                 </div>
