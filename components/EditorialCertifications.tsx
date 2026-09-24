@@ -294,6 +294,13 @@ export const CERTIFICATES_DATA: CertificateItem[] = [
     issuer: 'freeCodeCamp',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790235603/Data_Analysis_eppi6t.jpg'
+  },
+  {
+    id: 'cert-40',
+    title: 'Python for Computer Vision with OpenCV and Deep Learning',
+    issuer: 'DeepLearning & Computer Vision Authority',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790235987/Python_for_CV_teetep.jpg'
   }
 ];
 
@@ -383,7 +390,7 @@ const EditorialCertifications: React.FC = () => {
               08 &bull; LICENSES &amp; CERTIFICATIONS
             </span>
             <span className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-orange-950/80 text-orange-300 border border-orange-500/30">
-              Infinite Marquee &bull; 39 Verified Assets
+              Infinite Marquee &bull; 40 Verified Assets
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight flex items-center gap-3">
