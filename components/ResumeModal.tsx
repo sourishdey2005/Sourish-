@@ -325,6 +325,33 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                 <div className="space-y-3">
                   <div>
                     <h3 className="text-sm font-bold text-white">
+                      HawkEye Alpha &bull; <span className="font-mono text-xs font-normal text-orange-300">Python, Numba, XGBoost, LightGBM, SHAP, Statsmodels, Streamlit</span>
+                    </h3>
+                    <p className="text-xs text-stone-300 mt-1">
+                      Architected high-frequency order flow engine using Univariate &amp; Multivariate Hawkes Processes with Numba-accelerated MLE calibration. Engineered predictive alpha pipeline combining Point Process intensity and gradient-boosted ML (XGBoost, LightGBM, RF) with SHAP interpretability and OFI signals, evaluated across 1,000 Monte Carlo stress scenarios with 100+ interactive charts.
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-white/5">
+                    <h3 className="text-sm font-bold text-white">
+                      Ankahee &bull; <span className="font-mono text-xs font-normal text-orange-300">Next.js (App Router), TypeScript, Convex, Clerk, Google Genkit (Gemini)</span>
+                    </h3>
+                    <p className="text-xs text-stone-300 mt-1">
+                      Architected real-time ephemeral social platform with zero-footprint data lifecycles, automated 24-hour decay TTL cron jobs in Convex, AI sentiment parsing via Google Genkit (Gemini), and sub-100ms reactive event synchronization with Clerk anonymous authentication.
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-white/5">
+                    <h3 className="text-sm font-bold text-white">
+                      QuantDCX &bull; <span className="font-mono text-xs font-normal text-orange-300">Python, Streamlit, Plotly, Pandas, NumPy, SciPy (SLSQP), CoinDCX REST APIs</span>
+                    </h3>
+                    <p className="text-xs text-stone-300 mt-1">
+                      Architected production cryptocurrency analytics terminal consuming live tick, trade-tape, and OHLCV feeds across 100+ spot pairs. Engineered order-book depth charts, bid/ask imbalance heatmaps, SciPy SLSQP efficient frontier asset allocation, and 20+ quantitative indicators evaluated across 6 tokens simultaneously.
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-white/5">
+                    <h3 className="text-sm font-bold text-white">
                       EigenPortfolio Terminal &bull; <span className="font-mono text-xs font-normal text-orange-300">Python, Streamlit, NumPy, Pandas, Plotly</span>
                     </h3>
                     <p className="text-xs text-stone-300 mt-1">

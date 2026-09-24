@@ -8,11 +8,9 @@ import {
   Terminal, 
   Code2, 
   Server, 
-  Award, 
   CheckCircle2, 
   ArrowRight,
   ShieldCheck,
-  Cpu,
   Flame
 } from 'lucide-react';
 
@@ -131,11 +129,10 @@ const EditorialSkills: React.FC = () => {
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
-    // Robust GSAP initialization check for React component mount & DOM layout stabilization
     let ctx: gsap.Context | null = null;
     let timer: NodeJS.Timeout | null = null;
 
-    // Safety timeout to ensure DOM dimensions and parent containers have fully painted
+    // Small delay ensures DOM renders, fonts load, and dimensions are fully established
     timer = setTimeout(() => {
       if (!triggerRef.current || !trackRef.current) return;
 
@@ -144,51 +141,46 @@ const EditorialSkills: React.FC = () => {
         const trigger = triggerRef.current;
         if (!track || !trigger) return;
 
-        // Calculate total scroll distance needed: track scroll width minus client visible width
-        const getScrollDistance = () => {
-          return track.scrollWidth - window.innerWidth;
-        };
+        // Dynamic horizontal scroll calculation
+        const getDistance = () => track.scrollWidth - window.innerWidth;
 
-        const distance = getScrollDistance();
-
-        // If on small viewport or if contents fit, provide graceful fallback
-        if (distance > 40) {
-          gsap.to(track, {
-            x: () => -distance,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: trigger,
-              pin: true,
-              scrub: 1,
-              start: 'top top',
-              end: () => `+=${distance + 350}`,
-              invalidateOnRefresh: true,
-              anticipatePin: 1
-            }
-          });
-        }
+        gsap.to(track, {
+          x: () => -getDistance(),
+          ease: 'none',
+          scrollTrigger: {
+            id: 'skills-horizontal-scroll',
+            trigger: trigger,
+            pin: true,
+            scrub: 1,
+            start: 'top top',
+            end: () => `+=${Math.max(getDistance(), 600)}`,
+            invalidateOnRefresh: true,
+            anticipatePin: 1
+          }
+        });
       }, triggerRef);
 
-      // Force refresh scroll trigger to account for any deferred fonts/styles
+      // Force a calculation refresh across all active ScrollTriggers
       ScrollTrigger.refresh();
-    }, 120);
+    }, 150);
+
+    const onResize = () => {
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener('resize', onResize);
 
     return () => {
       if (timer) clearTimeout(timer);
+      window.removeEventListener('resize', onResize);
       if (ctx) ctx.revert();
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === triggerRef.current) {
-          st.kill();
-        }
-      });
     };
   }, []);
 
   return (
     <div ref={sectionRef} className="relative w-full">
       {/* 
-        Sticky GSAP Horizontal Section 
-        Locks vertical scroll and animates the gallery track horizontally
+        Sticky GSAP Horizontal Section:
+        Vertical scroll is locked, translating the track horizontally to showcase skills & certifications
       */}
       <div 
         ref={triggerRef} 
@@ -222,77 +214,78 @@ const EditorialSkills: React.FC = () => {
         <div className="relative flex-1 flex items-center overflow-visible py-4">
           <div 
             ref={trackRef} 
-            className="flex items-stretch gap-6 pl-6 sm:pl-12 pr-12 will-change-transform"
+            className="flex items-stretch gap-6 pl-6 sm:pl-12 pr-16 w-max will-change-transform"
           >
             {/* 1. Introductory Overview Card */}
             <div className="w-[320px] sm:w-[380px] shrink-0 p-7 rounded-2xl bg-gradient-to-br from-[#200800] to-[#120400] border border-orange-500/40 shadow-2xl shadow-black/80 flex flex-col justify-between">
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-widest text-orange-400 bg-orange-950/80 px-2.5 py-1 rounded-full border border-orange-500/30 inline-block mb-4">
-                  Domain Stack Overview
+                  COMPREHENSIVE CAPABILITIES
                 </span>
-                <h3 className="text-2xl font-bold text-white leading-tight mb-3">
-                  High-Impact Analytical &amp; Engineering Disciplines
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-3">
+                  Production Engineering Stack
                 </h3>
-                <p className="text-xs text-stone-300 leading-relaxed">
-                  Specialized across mathematical computing, high-frequency anomaly detection, enterprise ETL automation, and grounded retrieval engines.
+                <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                  Engineered across quantitative finance, large-scale statistical pipelines, deep learning vision models, zero-hallucination RAG frameworks, and distributed enterprise CI/CD.
                 </p>
+
+                <div className="mt-6 pt-5 border-t border-white/10 space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-mono text-stone-400">
+                    <CheckCircle2 size={13} className="text-emerald-400" />
+                    <span>Python &bull; SQL &bull; R &bull; C</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-mono text-stone-400">
+                    <CheckCircle2 size={13} className="text-emerald-400" />
+                    <span>FAISS &bull; LangChain &bull; LoRA</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs font-mono text-stone-400">
+                    <CheckCircle2 size={13} className="text-emerald-400" />
+                    <span>AWS &bull; GCP &bull; Oracle &bull; Docker</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="space-y-3 pt-6 border-t border-white/10">
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-stone-400">Total Skill Domains:</span>
-                  <span className="text-white font-bold">6 Key Disciplines</span>
-                </div>
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-stone-400">Industry Certifications:</span>
-                  <span className="text-emerald-400 font-bold">11 Accreditations</span>
-                </div>
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-stone-400">Production Latency:</span>
-                  <span className="text-orange-400 font-bold">40–45% Reduction</span>
-                </div>
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-stone-400">
+                <span>6 Core Disciplines</span>
+                <span className="text-orange-400 font-semibold flex items-center gap-1">
+                  Pan Right <ArrowRight size={12} />
+                </span>
               </div>
             </div>
 
-            {/* 2. Categorized Skill Cards */}
+            {/* 2. Six Detailed Skill Domain Cards */}
             {CATEGORIES.map((cat, idx) => {
               const Icon = cat.icon;
+
               return (
-                <div
+                <div 
                   key={cat.id}
-                  className="w-[340px] sm:w-[420px] shrink-0 p-7 rounded-2xl bg-gradient-to-br from-[#180602] via-[#140401] to-[#0d0200] border border-orange-500/25 hover:border-orange-500/50 shadow-2xl shadow-black/80 transition-all duration-300 flex flex-col justify-between group hover:shadow-orange-950/40"
+                  className="w-[340px] sm:w-[420px] shrink-0 p-7 rounded-2xl bg-[#140501] border border-white/10 hover:border-orange-500/40 shadow-xl shadow-black/80 flex flex-col justify-between group transition-all duration-300"
                 >
                   <div>
-                    {/* Header */}
+                    {/* Card Header */}
                     <div className="flex items-center justify-between gap-3 mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#ff3d00]/20 to-[#ff8a1f]/20 border border-orange-500/30 flex items-center justify-center text-orange-400 group-hover:scale-105 transition-transform">
-                          <Icon size={18} />
-                        </div>
-                        <div>
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-orange-400 block font-semibold">
-                            Module #{String(idx + 1).padStart(2, '0')}
-                          </span>
-                          <span className="text-xs font-mono text-stone-400">
-                            {cat.badge}
-                          </span>
-                        </div>
+                      <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 group-hover:scale-105 transition-transform">
+                        <Icon size={20} />
                       </div>
-
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-stone-300">
-                        {cat.skills.length} competencies
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/5 text-stone-300 border border-white/10">
+                          {cat.badge}
+                        </span>
+                        <span className="text-xs font-mono text-stone-400">
+                          0{idx + 1}
+                        </span>
+                      </div>
                     </div>
 
-                    <h4 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-orange-300 transition-colors">
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-orange-300 transition-colors">
                       {cat.title}
-                    </h4>
-
-                    <p className="text-xs text-stone-300 leading-relaxed mb-5">
+                    </h3>
+                    <p className="text-xs text-stone-400 leading-relaxed mb-5">
                       {cat.note}
                     </p>
 
-                    {/* Skill Tags */}
+                    {/* Skill Pill Grid */}
                     <div className="flex flex-wrap gap-1.5">
                       {cat.skills.map((skill) => (
                         <span

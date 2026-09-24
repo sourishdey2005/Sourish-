@@ -8,6 +8,7 @@ import EditorialExperience from './components/EditorialExperience';
 import PositionOfResponsibility from './components/PositionOfResponsibility';
 import EditorialResearch from './components/EditorialResearch';
 import EditorialSkills from './components/EditorialSkills';
+import EditorialCertifications from './components/EditorialCertifications';
 import EditorialEducation from './components/EditorialEducation';
 import ResumeModal from './components/ResumeModal';
 import { PERSONAL_INFO } from './constants';
@@ -72,6 +73,9 @@ const App: React.FC = () => {
             </a>
             <a href="#skills" className="hover:text-white transition-colors">
               Skills
+            </a>
+            <a href="#certifications" className="hover:text-white transition-colors">
+              Certifications
             </a>
             <a href="#contact" className="hover:text-[#ff8a1f] transition-colors">
               Contact
@@ -157,6 +161,13 @@ const App: React.FC = () => {
               className="block hover:text-white"
             >
               Skills
+            </a>
+            <a
+              href="#certifications"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block hover:text-white"
+            >
+              Certifications
             </a>
             <button
               onClick={() => {
@@ -380,14 +391,10 @@ const App: React.FC = () => {
         <PositionOfResponsibility />
       </motion.section>
 
-      {/* 9. Technical Projects Section (Stacking Cards Effect) */}
-      <motion.section 
+      {/* 9. Technical Projects Section */}
+      <section 
         id="projects" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="mb-16">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
@@ -397,12 +404,12 @@ const App: React.FC = () => {
             Technical Projects
           </h2>
           <p className="text-sm text-stone-400 mt-1 max-w-xl">
-            Quantitative finance engines, technical analysis platforms, and Bayesian portfolio optimizers. Cards stack progressively as you scroll.
+            Quantitative finance engines, high-frequency order book terminals, ephemeral social architectures, and Bayesian portfolio optimizers.
           </p>
         </div>
 
         <EditorialProjects />
-      </motion.section>
+      </section>
 
       {/* 10. Research & Patents Section */}
       <motion.section 
@@ -436,7 +443,15 @@ const App: React.FC = () => {
         <EditorialSkills />
       </section>
 
-      {/* 12. Contact Section */}
+      {/* 12. Certifications Section — Pinned Sticky Horizontal Scroll Gallery */}
+      <section 
+        id="certifications" 
+        className="relative w-full border-t border-white/10"
+      >
+        <EditorialCertifications />
+      </section>
+
+      {/* 13. Contact Section */}
       <motion.section 
         id="contact" 
         className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
