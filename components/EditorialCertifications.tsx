@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { 
   Award, 
@@ -20,7 +21,7 @@ export interface CertificateItem {
   imageUrl: string;
 }
 
-// 40 Verified Credentials from Cloudinary
+// 44 Verified Credentials from Cloudinary
 export const CERTIFICATES_DATA: CertificateItem[] = [
   {
     id: 'cert-1',
@@ -301,6 +302,34 @@ export const CERTIFICATES_DATA: CertificateItem[] = [
     issuer: 'DeepLearning & Computer Vision Authority',
     category: 'AI & Data Science',
     imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790235987/Python_for_CV_teetep.jpg'
+  },
+  {
+    id: 'cert-41',
+    title: 'Neural Networks and Deep Learning',
+    issuer: 'DeepLearning.AI & Coursera',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790261810/Neural_Network_and_DL_hzsiae.jpg'
+  },
+  {
+    id: 'cert-42',
+    title: 'Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization',
+    issuer: 'DeepLearning.AI & Coursera',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790261812/Deep_Learning_Optimisatino_tvcz53.jpg'
+  },
+  {
+    id: 'cert-43',
+    title: 'Digital Image Processing & Computer Vision',
+    issuer: 'Northwestern University & Coursera',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790261816/Image_Processing_djhzwt.jpg'
+  },
+  {
+    id: 'cert-44',
+    title: 'Fundamentals of Digital Image and Video Processing',
+    issuer: 'Northwestern University & Coursera',
+    category: 'AI & Data Science',
+    imageUrl: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1790261820/FUndamental_Of_Digital_Image_and_Video_processing_w6zdun.jpg'
   }
 ];
 
@@ -314,6 +343,21 @@ const EditorialCertifications: React.FC = () => {
 
   const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
+
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedCert(null);
+      }
+    };
+    if (selectedCert) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedCert]);
 
   useLayoutEffect(() => {
     let ctx: gsap.Context | null = null;
@@ -382,7 +426,13 @@ const EditorialCertifications: React.FC = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-orange-600/10 blur-[130px] pointer-events-none rounded-full" />
 
       {/* Section Header */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6 relative z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-7xl mx-auto px-6 sm:px-12 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6 relative z-10"
+      >
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="w-2 h-2 rounded-full bg-[#ff3d00] animate-pulse" />
@@ -390,7 +440,7 @@ const EditorialCertifications: React.FC = () => {
               08 &bull; LICENSES &amp; CERTIFICATIONS
             </span>
             <span className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-orange-950/80 text-orange-300 border border-orange-500/30">
-              Infinite Marquee &bull; 40 Verified Assets
+              Infinite Marquee &bull; {CERTIFICATES_DATA.length} Verified Assets
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight flex items-center gap-3">
@@ -422,10 +472,14 @@ const EditorialCertifications: React.FC = () => {
             )}
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Infinite Seamless Looping Marquee Track with Subtle 3D Perspective */}
-      <div 
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         className="relative w-full overflow-hidden py-6"
         style={{ perspective: '1200px' }}
         onMouseEnter={() => tweenRef.current?.pause()}
@@ -470,71 +524,46 @@ const EditorialCertifications: React.FC = () => {
             );
           })}
         </div>
-      </div>
+      </motion.div>
 
-      {/* Fullscreen Certificate Inspection Modal */}
+      {/* Fullscreen Certificate Inspection Modal - Pure Image Display (No Text) */}
       {selectedCert && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/95 backdrop-blur-md animate-fadeIn"
           onClick={() => setSelectedCert(null)}
         >
           <div 
-            className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl bg-[#140602] border border-orange-500/30 shadow-2xl shadow-orange-950/80 overflow-hidden"
+            className="relative max-w-5xl max-h-[94vh] w-auto flex flex-col items-center justify-center rounded-2xl bg-black/90 border border-white/10 shadow-2xl overflow-hidden p-2 sm:p-3"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#1c0802] border-b border-orange-500/20">
-              <div className="flex items-center gap-2.5 truncate pr-4">
-                <Award size={18} className="text-orange-400 shrink-0" />
-                <div>
-                  <h3 className="text-sm sm:text-base font-bold text-white truncate">
-                    {selectedCert.title}
-                  </h3>
-                  <p className="text-[11px] font-mono text-stone-400">
-                    {selectedCert.issuer} &bull; {selectedCert.category}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                <a
-                  href={selectedCert.imageUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-stone-300 hover:text-white border border-white/10 transition-colors inline-flex items-center gap-1 text-xs font-mono"
-                  title="Open original high-res image in new tab"
-                >
-                  <ExternalLink size={14} />
-                  <span className="hidden sm:inline">Open Full Image</span>
-                </a>
-                <button
-                  onClick={() => setSelectedCert(null)}
-                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-stone-300 hover:text-white border border-white/10 transition-colors cursor-pointer"
-                  aria-label="Close modal"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-            </div>
-
-            {/* Modal Image Viewport */}
-            <div className="flex-1 overflow-auto p-4 sm:p-6 bg-[#0a0200] flex items-center justify-center">
-              <img
-                src={selectedCert.imageUrl}
-                alt={selectedCert.title}
-                className="max-w-full max-h-[72vh] object-contain rounded-lg border border-white/10 shadow-2xl"
-              />
-            </div>
-
-            {/* Modal Footer */}
-            <div className="px-5 py-3 bg-[#160601] border-t border-white/10 flex items-center justify-between text-xs font-mono text-stone-400">
-              <span>Cloudinary CDN Verified Asset</span>
+            {/* Minimal Floating Controls (No text labels) */}
+            <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+              <a
+                href={selectedCert.imageUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full bg-black/75 hover:bg-white/20 text-white/80 hover:text-white border border-white/20 backdrop-blur-md transition-all shadow-lg cursor-pointer"
+                title="Open full size in new tab"
+                aria-label="Open full image in new tab"
+              >
+                <ExternalLink size={18} />
+              </a>
               <button
                 onClick={() => setSelectedCert(null)}
-                className="text-orange-400 hover:text-white underline cursor-pointer"
+                className="p-2 rounded-full bg-black/75 hover:bg-white/20 text-white/80 hover:text-white border border-white/20 backdrop-blur-md transition-all shadow-lg cursor-pointer"
+                aria-label="Close modal"
               >
-                Dismiss &times;
+                <X size={20} />
               </button>
+            </div>
+
+            {/* Modal Image Viewport - clean, pure image display without text */}
+            <div className="flex items-center justify-center overflow-auto max-h-[90vh]">
+              <img
+                src={selectedCert.imageUrl}
+                alt="Certificate"
+                className="max-w-full max-h-[88vh] object-contain rounded-xl shadow-2xl"
+              />
             </div>
           </div>
         </div>

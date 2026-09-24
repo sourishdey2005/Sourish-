@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { 
   ArrowUpRight, 
   Github, 
@@ -177,23 +178,21 @@ const FEATURED_PROJECTS: EditorialProject[] = [
 
 const EditorialProjects: React.FC = () => {
   return (
-    <div className="relative space-y-16 sm:space-y-24 pb-32 sm:pb-48">
+    <div className="relative pb-28 sm:pb-36">
       {FEATURED_PROJECTS.map((project, idx) => {
         const isReversed = idx % 2 === 1;
 
         return (
           <div
             key={project.id}
-            className="sticky transition-all duration-300"
+            className="sticky transition-all duration-200 mb-20 sm:mb-28 last:mb-0"
             style={{
-              top: `calc(clamp(4.25rem, 7vh, 5.5rem) + ${idx * 14}px)`,
+              top: `calc(clamp(4.25rem, 6.5vh, 5.25rem) + ${idx * 14}px)`,
               zIndex: 10 + idx,
             }}
           >
             {/* Project Card Shell with Stacking Card Deck Elevation & Glowing Amber Glass Border */}
-            <article
-              className="p-6 sm:p-8 lg:p-10 rounded-2xl bg-[#130501] bg-gradient-to-br from-[#180702] via-[#130501] to-[#0c0200] border border-orange-500/35 shadow-[0_-8px_25px_rgba(0,0,0,0.85),0_25px_50px_-10px_rgba(0,0,0,0.95),0_0_20px_rgba(255,61,0,0.12)] hover:border-orange-500/65 transition-all duration-300 backdrop-blur-xl group"
-            >
+            <article className="p-6 sm:p-8 lg:p-10 rounded-2xl bg-[#120401] bg-gradient-to-br from-[#1a0702] via-[#120401] to-[#0a0200] border border-orange-500/40 shadow-[0_-16px_36px_rgba(0,0,0,0.9),0_25px_50px_-10px_rgba(0,0,0,0.95),0_0_25px_rgba(255,61,0,0.12)] hover:border-orange-500/70 transition-all duration-300 group">
               <div
                 className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start ${
                   isReversed ? 'lg:flex-row-reverse' : ''
@@ -204,14 +203,19 @@ const EditorialProjects: React.FC = () => {
                   {/* Category & Serial Number */}
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#ff3d00]" />
+                      <span className="w-2 h-2 rounded-full bg-[#ff3d00] shadow-[0_0_8px_#ff3d00]" />
                       <span className="text-[11px] font-mono uppercase tracking-wider text-orange-400 font-bold">
                         {project.category}
                       </span>
                     </div>
-                    <span className="text-xl sm:text-2xl font-serif italic text-white/20 group-hover:text-orange-500/40 transition-colors">
-                      /{project.number}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-orange-950/60 text-orange-300/80 border border-orange-500/20">
+                        Card {idx + 1} / {FEATURED_PROJECTS.length}
+                      </span>
+                      <span className="text-xl sm:text-2xl font-serif italic text-white/30 group-hover:text-orange-400 transition-colors">
+                        /{project.number}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Project Title */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowUpRight, Sparkles, Flame, Eye } from 'lucide-react';
 import { PERSONAL_INFO } from '../constants';
 
@@ -30,7 +31,12 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
 
       <div className="relative max-w-6xl mx-auto px-6 sm:px-8">
         {/* Top Eyebrow: "Hub support..." over hairline rule with flame dot */}
-        <div className="flex items-center gap-3 mb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex items-center gap-3 mb-8"
+        >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-950/40 border border-orange-500/20 text-orange-200 text-xs font-mono backdrop-blur-md">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff5500] opacity-75"></span>
@@ -42,12 +48,17 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
           <span className="hidden md:inline-block text-[11px] font-mono tracking-widest uppercase text-stone-400">
             SOURISH DEY &bull; B.TECH CS KIIT
           </span>
-        </div>
+        </motion.div>
 
         {/* Two-Column Grid: Fluxora Inspired Display Hero */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* Left Column: 4-Line Display Headline + Lede + Pill CTA + Social Proof Avatars */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-6 sm:space-y-8"
+          >
             <div className="space-y-2">
               <div className="text-xs sm:text-sm font-mono tracking-widest text-[#ff8a1f] font-semibold flex items-center gap-2 uppercase">
                 <Flame size={14} className="text-[#ff3d00]" />
@@ -127,10 +138,15 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
                 <span className="text-stone-400 text-[11px] font-mono">4+ Publications &bull; 3 Granted Patents &bull; 40% Latency Drop</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Visual Frame + Glass Stat Cards + Interactive Ghost Analytics Card */}
-          <div className="lg:col-span-5 relative">
+          <motion.div 
+            initial={{ opacity: 0, y: 28, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 relative"
+          >
             {/* Visual Glass Frame for Sourish Dey */}
             <div className="relative rounded-3xl border border-orange-500/20 bg-gradient-to-b from-stone-900/80 to-[#1b0800]/90 p-3 sm:p-4 backdrop-blur-xl shadow-2xl shadow-orange-950/50">
               {/* Telemetry Header */}
@@ -161,7 +177,7 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

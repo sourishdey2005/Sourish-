@@ -191,9 +191,13 @@ const PositionOfResponsibility: React.FC = () => {
             const isActive = activeIdx === idx;
 
             return (
-              <div
+              <motion.div
                 key={resp.id}
                 data-resp-card={idx}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.55, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className="relative transition-all duration-300 group"
               >
                 {/* SVG Milestone Connector Node Anchor */}
@@ -263,7 +267,7 @@ const PositionOfResponsibility: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

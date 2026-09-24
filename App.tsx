@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Download, Menu, X, ArrowUpRight, FileText, Phone } from 'lucide-react';
+import { Github, Linkedin, Mail, Download, Menu, X, ArrowUpRight, FileText, Phone, Layers } from 'lucide-react';
 import FluxoraHero from './components/FluxoraHero';
 import ThinkingEngine from './components/ThinkingEngine';
 import EditorialProjects from './components/EditorialProjects';
@@ -197,8 +197,8 @@ const App: React.FC = () => {
         className="border-y border-orange-950/40 bg-gradient-to-r from-[#140501] via-[#1b0800] to-[#140501]"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="max-w-6xl mx-auto px-6 sm:px-8 py-10 sm:py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
@@ -244,10 +244,10 @@ const App: React.FC = () => {
       {/* 4. About Section (Split Editorial Layout) */}
       <motion.section 
         id="about" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8"
-        initial={{ opacity: 0, y: 40 }}
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 'some' }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -311,10 +311,10 @@ const App: React.FC = () => {
       {/* 5. Education Section */}
       <motion.section 
         id="education" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
-        initial={{ opacity: 0, y: 40 }}
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 'some' }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="mb-12">
@@ -335,10 +335,10 @@ const App: React.FC = () => {
       {/* 6. Interactive Thinking Framework */}
       <motion.section 
         className="py-12 max-w-6xl mx-auto px-6 sm:px-8"
-        initial={{ opacity: 0, y: 35 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 'some' }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
         <ThinkingEngine />
       </motion.section>
@@ -346,10 +346,10 @@ const App: React.FC = () => {
       {/* 7. Experience Section */}
       <motion.section 
         id="experience" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
-        initial={{ opacity: 0, y: 40 }}
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 'some' }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="mb-12">
@@ -370,10 +370,10 @@ const App: React.FC = () => {
       {/* 8. Position of Responsibility Section */}
       <motion.section 
         id="responsibilities" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
-        initial={{ opacity: 0, y: 40 }}
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 'some' }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="mb-12">
@@ -394,19 +394,31 @@ const App: React.FC = () => {
       {/* 9. Technical Projects Section */}
       <section 
         id="projects" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
       >
-        <div className="mb-16">
-          <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            05 &bull; CODE & SYSTEMS
-          </span>
+        <motion.div 
+          className="mb-14 sm:mb-16"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 'some' }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
+            <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block">
+              05 &bull; CODE &amp; SYSTEMS
+            </span>
+            <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-orange-950/60 border border-orange-500/30 text-orange-300 flex items-center gap-1.5 shadow-sm shadow-orange-950/40">
+              <Layers size={12} className="text-[#ff3d00]" />
+              <span>Stacking Card Deck &bull; Scroll to Stack (7 Systems)</span>
+            </span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Technical Projects
           </h2>
           <p className="text-sm text-stone-400 mt-1 max-w-xl">
             Quantitative finance engines, high-frequency order book terminals, ephemeral social architectures, and Bayesian portfolio optimizers.
           </p>
-        </div>
+        </motion.div>
 
         <EditorialProjects />
       </section>
@@ -414,10 +426,10 @@ const App: React.FC = () => {
       {/* 10. Research & Patents Section */}
       <motion.section 
         id="research" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
-        initial={{ opacity: 0, y: 40 }}
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 'some' }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="mb-14">
@@ -438,7 +450,7 @@ const App: React.FC = () => {
       {/* 11. Technical Skills Section — Pinned Sticky Horizontal Scroll Showcase */}
       <section 
         id="skills" 
-        className="relative w-full border-t border-white/10"
+        className="relative w-full border-t border-white/10 scroll-mt-20"
       >
         <EditorialSkills />
       </section>
@@ -446,7 +458,7 @@ const App: React.FC = () => {
       {/* 12. Certifications Section — Pinned Sticky Horizontal Scroll Gallery */}
       <section 
         id="certifications" 
-        className="relative w-full border-t border-white/10"
+        className="relative w-full border-t border-white/10 scroll-mt-20"
       >
         <EditorialCertifications />
       </section>
@@ -454,10 +466,10 @@ const App: React.FC = () => {
       {/* 13. Contact Section */}
       <motion.section 
         id="contact" 
-        className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10"
-        initial={{ opacity: 0, y: 40 }}
+        className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 'some' }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="max-w-2xl space-y-6">
@@ -517,7 +529,13 @@ const App: React.FC = () => {
       </motion.section>
 
       {/* 13. Minimal Dark Footer */}
-      <footer className="border-t border-white/10 py-8 bg-[#0a0200]">
+      <motion.footer 
+        className="border-t border-white/10 py-8 bg-[#0a0200]"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
         <div className="max-w-6xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-mono">
           <div>
             Sourish Dey &bull; Data Scientist &amp; ML Engineer &bull; &copy; 2026
@@ -554,7 +572,7 @@ const App: React.FC = () => {
             </a>
           </div>
         </div>
-      </footer>
+      </motion.footer>
 
       {/* Interactive Resume PDF Modal */}
       <ResumeModal

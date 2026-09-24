@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
@@ -531,7 +532,13 @@ const EditorialSkills: React.FC = () => {
         className="relative h-screen w-full overflow-hidden flex flex-col justify-center bg-[#0d0300] border-y border-orange-950/60"
       >
         {/* Top Sticky Header inside pinned canvas */}
-        <div className="max-w-7xl w-full mx-auto px-6 sm:px-10 pt-8 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4 shrink-0">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-7xl w-full mx-auto px-6 sm:px-10 pt-8 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4 shrink-0"
+        >
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full bg-[#ff3d00] animate-pulse" />
@@ -552,7 +559,7 @@ const EditorialSkills: React.FC = () => {
             <span>Scroll vertically to pan</span>
             <ArrowRight size={13} className="text-orange-400 animate-bounce-x" />
           </div>
-        </div>
+        </motion.div>
 
         {/* Horizontal Track Container */}
         <div className="relative flex-1 flex items-center overflow-visible py-4">
@@ -561,7 +568,13 @@ const EditorialSkills: React.FC = () => {
             className="flex items-stretch gap-6 pl-6 sm:pl-12 pr-16 w-max will-change-transform"
           >
             {/* 1. Introductory Overview Card */}
-            <div className="w-[320px] sm:w-[380px] shrink-0 p-7 rounded-2xl bg-gradient-to-br from-[#200800] to-[#120400] border border-orange-500/40 shadow-2xl shadow-black/80 flex flex-col justify-between">
+            <motion.div 
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="w-[320px] sm:w-[380px] shrink-0 p-7 rounded-2xl bg-gradient-to-br from-[#200800] to-[#120400] border border-orange-500/40 shadow-2xl shadow-black/80 flex flex-col justify-between"
+            >
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-widest text-orange-400 bg-orange-950/80 px-2.5 py-1 rounded-full border border-orange-500/30 inline-block mb-4">
                   COMPREHENSIVE CAPABILITIES
@@ -595,7 +608,7 @@ const EditorialSkills: React.FC = () => {
                   Pan Right <ArrowRight size={12} />
                 </span>
               </div>
-            </div>
+            </motion.div>
 
             {/* 2. Six Detailed Skill Domain Cards */}
             {CATEGORIES.map((cat, idx) => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Database, Brain, Sparkles, Binary, Cpu, Layers } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Database, Brain, Sparkles, Binary, Cpu } from 'lucide-react';
 
 interface ThinkingDomain {
   id: string;
@@ -105,51 +106,60 @@ const ThinkingEngine: React.FC = () => {
       </div>
 
       {/* Node Detail Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start bg-black/40 p-6 rounded-xl border border-white/10 backdrop-blur-md">
-        <div className="lg:col-span-7 space-y-3">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono font-medium text-orange-300 uppercase tracking-wider bg-orange-950/60 border border-orange-500/30 px-2.5 py-0.5 rounded-full">
-              Domain / {activeDomain.label}
-            </span>
-          </div>
-          <h4 className="text-lg sm:text-xl font-bold text-white">
-            {activeDomain.headline}
-          </h4>
-          <p className="text-sm text-stone-300 leading-relaxed">
-            {activeDomain.description}
-          </p>
+      <AnimatePresence mode="wait">
+        <motion.div 
+          key={activeDomain.id}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start bg-black/40 p-6 rounded-xl border border-white/10 backdrop-blur-md"
+        >
+          <div className="lg:col-span-7 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-mono font-medium text-orange-300 uppercase tracking-wider bg-orange-950/60 border border-orange-500/30 px-2.5 py-0.5 rounded-full">
+                Domain / {activeDomain.label}
+              </span>
+            </div>
+            <h4 className="text-lg sm:text-xl font-bold text-white">
+              {activeDomain.headline}
+            </h4>
+            <p className="text-sm text-stone-300 leading-relaxed">
+              {activeDomain.description}
+            </p>
 
-          <div className="pt-3 border-t border-white/10">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block mb-2">
-              Core Technical Methodologies
-            </span>
-            <ul className="space-y-2">
-              {activeDomain.principles.map((item, idx) => (
-                <li key={idx} className="text-xs text-stone-300 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#ff8a1f] shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="lg:col-span-5 bg-white/5 p-4 rounded-xl border border-white/10 flex flex-col justify-between h-full space-y-4">
-          <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-orange-400 block mb-1">
-              Demonstrated Empirical Benchmark
-            </span>
-            <div className="text-base font-bold text-white leading-snug font-mono">
-              {activeDomain.metrics}
+            <div className="pt-3 border-t border-white/10">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block mb-2">
+                Core Technical Methodologies
+              </span>
+              <ul className="space-y-2">
+                {activeDomain.principles.map((item, idx) => (
+                  <li key={idx} className="text-xs text-stone-300 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#ff8a1f] shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          <div className="pt-3 border-t border-white/10 text-[11px] font-mono text-stone-400 flex items-center justify-between">
-            <span>Status: Verified &bull; Scalable</span>
-            <span className="text-emerald-400">BENCHMARKED</span>
+          <div className="lg:col-span-5 bg-white/5 p-4 rounded-xl border border-white/10 flex flex-col justify-between h-full space-y-4">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-orange-400 block mb-1">
+                Demonstrated Empirical Benchmark
+              </span>
+              <div className="text-base font-bold text-white leading-snug font-mono">
+                {activeDomain.metrics}
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/10 text-[11px] font-mono text-stone-400 flex items-center justify-between">
+              <span>Status: Verified &bull; Scalable</span>
+              <span className="text-emerald-400">BENCHMARKED</span>
+            </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
