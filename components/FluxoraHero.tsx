@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Download, ArrowUpRight, Sparkles, Terminal, FileCode2, ShieldCheck, Flame, Compass, Eye } from 'lucide-react';
+import React from 'react';
+import { ArrowUpRight, Sparkles, Flame, Eye } from 'lucide-react';
 import { PERSONAL_INFO } from '../constants';
 
 interface FluxoraHeroProps {
@@ -7,8 +7,6 @@ interface FluxoraHeroProps {
 }
 
 const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'metrics'>('overview');
-
   return (
     <section className="relative overflow-hidden bg-[#120400] text-stone-100 pt-32 sm:pt-40 pb-20 sm:pb-28 border-b border-orange-950/40">
       {/* Ambient Flame & Molten Orange Glow Overlays */}
@@ -154,74 +152,12 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
                 />
 
                 {/* Cyber/Ember Overlay Gradient at base */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#120400] via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#120400]/60 via-transparent to-transparent pointer-events-none" />
 
                 {/* Overlaid Pill Badges inside the viewport */}
                 <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[10px] font-mono text-stone-200 flex items-center gap-1.5">
                   <Sparkles size={11} className="text-[#ff8a1f]" />
                   <span>AI &bull; QUANT &bull; RESEARCH</span>
-                </div>
-
-                <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/75 backdrop-blur-md border border-orange-500/20 text-xs">
-                  <div className="flex justify-between items-center text-[10px] font-mono text-orange-300 mb-1">
-                    <span>PORTFOLIO DOMAIN</span>
-                    <span>ONLINE &bull; BHUBANESWAR</span>
-                  </div>
-                  <div className="font-semibold text-white truncate">
-                    Intelligent Data Systems &amp; High-Throughput Pipelines
-                  </div>
-                </div>
-              </div>
-
-              {/* Two Floating Glass Stat Cards below image (Fluxora style) */}
-              <div className="grid grid-cols-2 gap-2.5 mt-3">
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
-                  <div className="text-xl sm:text-2xl font-mono font-extrabold text-white">
-                    100K+
-                  </div>
-                  <div className="text-[11px] font-medium text-stone-400 mt-0.5">
-                    Records Analyzed
-                  </div>
-                  <div className="text-[10px] font-mono text-orange-400 mt-1">
-                    &uarr; 40% pipeline speed
-                  </div>
-                </div>
-
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
-                  <div className="text-xl sm:text-2xl font-mono font-extrabold text-white">
-                    98.0%
-                  </div>
-                  <div className="text-[11px] font-medium text-stone-400 mt-0.5">
-                    Secondary Merit / 94% Model Acc
-                  </div>
-                  <div className="text-[10px] font-mono text-emerald-400 mt-1">
-                    &bull; IISER Research
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Ghost Analytics Panel for wide viewports (≥1120px) — Fluxora signature */}
-            <div className="hidden xl:block absolute -right-16 -bottom-8 w-64 p-3.5 rounded-2xl bg-black/80 border border-orange-500/30 backdrop-blur-xl shadow-2xl text-xs font-mono text-stone-300">
-              <div className="flex items-center justify-between text-[10px] text-stone-400 pb-2 border-b border-white/10 mb-2">
-                <span className="flex items-center gap-1.5 text-orange-400">
-                  <Terminal size={11} />
-                  <span>METRICS_KERNEL</span>
-                </span>
-                <span className="text-emerald-400">ACTIVE</span>
-              </div>
-              <div className="space-y-1.5 text-[11px]">
-                <div className="flex justify-between">
-                  <span className="text-stone-400">Patents Granted:</span>
-                  <span className="text-white font-semibold">3 Filed/Granted</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-400">Publications:</span>
-                  <span className="text-white font-semibold">4 Peer-Reviewed</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-400">Latency Cut:</span>
-                  <span className="text-orange-300 font-semibold">-40% Query Time</span>
                 </div>
               </div>
             </div>
