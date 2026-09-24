@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight, Sparkles, Flame, Eye } from 'lucide-react';
 import { PERSONAL_INFO } from '../constants';
 
@@ -7,26 +7,81 @@ interface FluxoraHeroProps {
   onOpenResume?: () => void;
 }
 
+// System Boot Cinematic Sequence Variants
+const bootContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.11,
+      delayChildren: 0.08
+    }
+  }
+};
+
+const bootItemVariants = {
+  hidden: { opacity: 0, y: 22, filter: 'blur(4px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+};
+
 const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+
+  // Advanced multi-layer scroll transforms
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.82]);
+
+  // Background parallax layers
+  const glow1Y = useTransform(scrollYProgress, [0, 1], [0, -130]);
+  const glow1Scale = useTransform(scrollYProgress, [0, 1], [1, 1.25]);
+  const glow1Opacity = useTransform(scrollYProgress, [0, 0.9], [0.8, 0.25]);
+  const glow2Y = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  // Left editorial column kinetic float
+  const leftColumnY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const leftColumnOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.6]);
+
+  // Right card depth parallax (floats up faster with subtle 3D tilt)
+  const rightCardY = useTransform(scrollYProgress, [0, 1], [0, -70]);
+  const rightCardRotate = useTransform(scrollYProgress, [0, 1], [0, -1.6]);
+  const rightCardScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+
   return (
     <motion.section 
+      ref={heroRef}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
       className="relative overflow-hidden bg-[#120400] text-stone-100 pt-32 sm:pt-40 pb-20 sm:pb-28 border-b border-orange-950/40 origin-center"
     >
-      {/* Ambient Flame & Molten Orange Glow Overlays */}
-      <div 
+      {/* Ambient Flame & Molten Orange Glow Overlays with Parallax */}
+      <motion.div 
+        style={{ y: glow1Y, scale: glow1Scale, opacity: glow1Opacity }}
         aria-hidden="true" 
-        className="pointer-events-none absolute -top-40 right-[-10%] w-[650px] h-[650px] rounded-full bg-gradient-to-br from-[#ff3d00]/25 via-[#ff8a1f]/15 to-transparent blur-3xl opacity-80" 
+        className="pointer-events-none absolute -top-40 right-[-10%] w-[650px] h-[650px] rounded-full bg-gradient-to-br from-[#ff3d00]/25 via-[#ff8a1f]/15 to-transparent blur-3xl" 
       />
-      <div 
+      <motion.div 
+        style={{ y: glow2Y }}
         aria-hidden="true" 
         className="pointer-events-none absolute top-1/2 left-[-15%] w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-[#ff3d00]/15 via-[#ff7700]/10 to-transparent blur-3xl opacity-60" 
       />
       
-      {/* Background Subtle Radial Grid Pattern */}
-      <div 
+      {/* Background Subtle Radial Grid Pattern with Scroll Drift */}
+      <motion.div 
+        style={{ y: gridY }}
         className="absolute inset-0 opacity-[0.035] pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, #ff8a1f 1px, transparent 0)`,
@@ -35,16 +90,20 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
       />
 
       <motion.div 
-        initial={{ opacity: 0, scale: 0.94 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.9, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-        className="relative max-w-6xl mx-auto px-6 sm:px-8 origin-center"
+        initial="hidden"
+        animate="visible"
+        variants={bootContainerVariants}
+        whileHover={{ 
+          scale: 1.02, 
+          boxShadow: "0 25px 60px -15px rgba(255, 61, 0, 0.25), 0 0 45px rgba(255, 61, 0, 0.12)" 
+        }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        style={{ opacity: heroOpacity }}
+        className="relative max-w-6xl mx-auto px-6 sm:px-8 origin-center rounded-3xl transition-shadow duration-500 cursor-default"
       >
-        {/* Top Eyebrow: "Hub support..." over hairline rule with flame dot */}
+        {/* Stage 01: System Status Initialization & Telemetry Eyebrow */}
         <motion.div 
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          variants={bootItemVariants}
           className="flex items-center gap-3 mb-8"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-950/40 border border-orange-500/20 text-orange-200 text-xs font-mono backdrop-blur-md">
@@ -52,7 +111,7 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff5500] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff3d00]"></span>
             </span>
-            <span>SYSTEM TELEMETRY &bull; AI / QUANT / MLOPS</span>
+            <span>SYSTEM TELEMETRY &bull; AI / QUANT / MLOPS &bull; ONLINE</span>
           </div>
           <div className="hidden sm:block h-px flex-1 bg-gradient-to-r from-orange-500/25 via-orange-500/10 to-transparent" />
           <span className="hidden md:inline-block text-[11px] font-mono tracking-widest uppercase text-stone-400">
@@ -64,18 +123,17 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* Left Column: 4-Line Display Headline + Lede + Pill CTA + Social Proof Avatars */}
           <motion.div 
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            style={{ y: leftColumnY, opacity: leftColumnOpacity }}
             className="lg:col-span-7 space-y-6 sm:space-y-8"
           >
-            <div className="space-y-2">
+            {/* Stage 02: Identity Handshake & Subtitle */}
+            <motion.div variants={bootItemVariants} className="space-y-2">
               <div className="text-xs sm:text-sm font-mono tracking-widest text-[#ff8a1f] font-semibold flex items-center gap-2 uppercase">
                 <Flame size={14} className="text-[#ff3d00]" />
                 <span>Sourish Dey — Portfolio &amp; Resume</span>
               </div>
               
-              {/* Display Headline with custom Instrument Serif italic accent for "Machines" */}
+              {/* Stage 03: Primary Display Headline with custom italic accent */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.08]">
                 <span>Technology</span><br />
                 <span className="bg-gradient-to-r from-white via-stone-100 to-stone-400 bg-clip-text text-transparent">
@@ -87,15 +145,21 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
                 </span>
                 <span className="text-[#ff3d00]">.</span>
               </h1>
-            </div>
+            </motion.div>
 
-            {/* Professional Lede (Grounded in Sourish Dey's exact experience & metrics) */}
-            <p className="text-base sm:text-lg text-stone-300 max-w-xl leading-relaxed font-normal">
+            {/* Stage 04: Description & Quantitative Telemetry */}
+            <motion.p 
+              variants={bootItemVariants}
+              className="text-base sm:text-lg text-stone-300 max-w-xl leading-relaxed font-normal"
+            >
               Computer Science undergraduate at KIIT with research and project internship experience across Python, SQL, statistical modeling, and machine learning. Built scalable data pipelines and predictive models for datasets exceeding <strong className="text-white font-semibold">100K+ records</strong>, reducing research latency by <strong className="text-orange-300 font-semibold">40%</strong> across anomaly detection, time-series forecasting, and portfolio optimization.
-            </p>
+            </motion.p>
 
-            {/* CTAs: Flame-gradient "Get Started" Pill CTA with Arrow Tile + Resume Button */}
-            <div className="flex flex-wrap items-center gap-4 pt-1">
+            {/* Stage 05: Interface Readiness & Interactive CTAs */}
+            <motion.div 
+              variants={bootItemVariants}
+              className="flex flex-wrap items-center gap-4 pt-1"
+            >
               {/* Flame-gradient primary pill CTA */}
               <a
                 href="#projects"
@@ -124,10 +188,13 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
                 <span>Let's connect</span>
                 <span>&rarr;</span>
               </a>
-            </div>
+            </motion.div>
 
-            {/* Trust Banner: Overlapping Tinted Avatar Dots + Metrics */}
-            <div className="pt-2 sm:pt-4 flex flex-wrap items-center gap-4 border-t border-white/10">
+            {/* Stage 06: Institutional Markers & Verification */}
+            <motion.div 
+              variants={bootItemVariants}
+              className="pt-2 sm:pt-4 flex flex-wrap items-center gap-4 border-t border-white/10"
+            >
               <div className="flex -space-x-2 overflow-hidden">
                 <div className="inline-block h-8 w-8 rounded-full ring-2 ring-[#120400] bg-gradient-to-tr from-[#ff3d00] to-[#ff8a1f] flex items-center justify-center text-[10px] font-bold text-white shadow-xs">
                   KIIT
@@ -147,15 +214,14 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
                 <span className="font-semibold text-white block">100K+ Data Points Analyzed</span>
                 <span className="text-stone-400 text-[11px] font-mono">4+ Publications &bull; 3 Granted Patents &bull; 40% Latency Drop</span>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Right Column: Visual Frame + Glass Stat Cards + Interactive Ghost Analytics Card */}
+          {/* Stage 07: Visual Frame + Glass Stat Cards + Interactive Ghost Analytics Card with Depth Parallax */}
           <motion.div 
-            initial={{ opacity: 0, y: 28, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative"
+            variants={bootItemVariants}
+            style={{ y: rightCardY, rotateZ: rightCardRotate, scale: rightCardScale }}
+            className="lg:col-span-5 relative will-change-transform"
           >
             {/* Visual Glass Frame for Sourish Dey */}
             <div className="relative rounded-3xl border border-orange-500/20 bg-gradient-to-b from-stone-900/80 to-[#1b0800]/90 p-3 sm:p-4 backdrop-blur-xl shadow-2xl shadow-orange-950/50">
@@ -190,6 +256,12 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* Kinetic Scroll Telemetry Progress Rail along base */}
+      <motion.div 
+        style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#ff3d00] to-[#ff8a1f] shadow-[0_0_8px_#ff3d00] opacity-80 pointer-events-none"
+      />
     </motion.section>
   );
 };

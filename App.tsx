@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, Menu, X, ArrowUpRight, FileText, Phone, Layers } from 'lucide-react';
 import FluxoraHero from './components/FluxoraHero';
-import ThinkingEngine from './components/ThinkingEngine';
 import EditorialProjects from './components/EditorialProjects';
 import EditorialExperience from './components/EditorialExperience';
 import PositionOfResponsibility from './components/PositionOfResponsibility';
@@ -64,9 +63,6 @@ const App: React.FC = () => {
 
           {/* Center/Right Desktop Navigation (Pill container) */}
           <nav className="hidden lg:flex items-center gap-6 px-6 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-lg text-xs font-medium text-stone-300 shadow-inner">
-            <a href="#about" className="hover:text-white transition-colors">
-              About
-            </a>
             <a href="#education" className="hover:text-white transition-colors">
               Education
             </a>
@@ -124,13 +120,6 @@ const App: React.FC = () => {
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-[#120400] border-b border-orange-900/40 px-6 py-4 space-y-3 text-sm font-medium text-stone-300">
-            <a
-              href="#about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-white"
-            >
-              About
-            </a>
             <a
               href="#education"
               onClick={() => setMobileMenuOpen(false)}
@@ -206,28 +195,13 @@ const App: React.FC = () => {
       <SectionDivider />
 
       {/* 3. Trust / Snapshot Telemetry Strip */}
-      <motion.section 
-        className="bg-gradient-to-r from-[#140501] via-[#1b0800] to-[#140501] relative overflow-hidden"
-        initial={{ opacity: 0, y: 32 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <section className="bg-gradient-to-r from-[#140501] via-[#1b0800] to-[#140501] relative overflow-hidden">
         <motion.div 
           className="max-w-6xl mx-auto px-6 sm:px-8 py-10 sm:py-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.05
-              }
-            }
-          }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
@@ -238,15 +212,10 @@ const App: React.FC = () => {
             ].map((stat, i) => (
               <motion.div
                 key={i}
-                variants={{
-                  hidden: { opacity: 0, y: 24, scale: 0.94 },
-                  visible: { 
-                    opacity: 1, 
-                    y: 0, 
-                    scale: 1,
-                    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
-                  }
-                }}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -3, transition: { duration: 0.2 } }}
                 className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-orange-500/40 backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5),0_0_15px_rgba(255,61,0,0.06)] hover:shadow-[0_0_20px_rgba(255,61,0,0.2)] transition-all duration-300"
               >
@@ -260,106 +229,11 @@ const App: React.FC = () => {
             ))}
           </div>
         </motion.div>
-      </motion.section>
+      </section>
 
       <SectionDivider />
 
-      {/* 4. About Section (Split Editorial Layout) */}
-      <motion.section 
-        id="about" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.15, delayChildren: 0.05 }
-          }
-        }}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Heading */}
-          <motion.div 
-            className="lg:col-span-4"
-            variants={{
-              hidden: { opacity: 0, x: -28 },
-              visible: { 
-                opacity: 1, 
-                x: 0, 
-                transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } 
-              }
-            }}
-          >
-            <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-              01 &bull; PERSPECTIVE
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-              Professional Summary
-            </h2>
-          </motion.div>
-
-          {/* Right Professional Introduction & Metadata Block */}
-          <motion.div 
-            className="lg:col-span-8 space-y-8"
-            variants={{
-              hidden: { opacity: 0, y: 32 },
-              visible: { 
-                opacity: 1, 
-                y: 0, 
-                transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } 
-              }
-            }}
-          >
-            <div className="space-y-4 text-base sm:text-lg text-stone-300 leading-relaxed font-normal">
-              <p>
-                Computer Science undergraduate specializing in <strong className="text-white font-semibold">data science, machine learning, and analytics engineering</strong>. Built Python/SQL ETL pipelines, anomaly-detection and forecasting systems, and RAG tools processing 100K+ records.
-              </p>
-              <p>
-                Achieved <strong className="text-orange-300 font-semibold">92% transaction-anomaly precision</strong> and <strong className="text-orange-300 font-semibold">94% IoT anomaly-detection accuracy</strong>. Reduced query and aggregation latency by <strong className="text-white font-semibold">40–45%</strong> using Scikit-learn, LangChain, Streamlit, Docker, and CI/CD across analytics and IoT-security projects.
-              </p>
-            </div>
-
-            {/* Secondary Metadata Block */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/10">
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-orange-400 block mb-1">
-                  Education
-                </span>
-                <span className="text-sm font-semibold text-white block">
-                  Computer Science @ KIIT
-                </span>
-                <span className="text-xs text-stone-400">Jul 2023 – Jul 2027 (Expected)</span>
-              </div>
-
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-orange-400 block mb-1">
-                  Core Specialization
-                </span>
-                <span className="text-sm font-semibold text-white block">
-                  Data Science / ML / Analytics
-                </span>
-                <span className="text-xs text-stone-400">Quantitative Systems &amp; RAG</span>
-              </div>
-
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-orange-400 block mb-1">
-                  Location &amp; Availability
-                </span>
-                <span className="text-sm font-semibold text-white block">
-                  Bhubaneswar, India
-                </span>
-                <span className="text-xs text-emerald-400">Open to Global Opportunities</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      <SectionDivider />
-
-      {/* 5. Education Section */}
+      {/* 4. Education Section */}
       <motion.section 
         id="education" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
@@ -370,7 +244,7 @@ const App: React.FC = () => {
       >
         <div className="mb-12">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            02 &bull; ACADEMIC FOUNDATIONS
+            01 &bull; ACADEMIC FOUNDATIONS
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Education
@@ -385,20 +259,7 @@ const App: React.FC = () => {
 
       <SectionDivider />
 
-      {/* 6. Interactive Thinking Framework */}
-      <motion.section 
-        className="py-12 max-w-6xl mx-auto px-6 sm:px-8"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <ThinkingEngine />
-      </motion.section>
-
-      <SectionDivider />
-
-      {/* 7. Experience Section */}
+      {/* 5. Experience Section */}
       <motion.section 
         id="experience" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
@@ -409,7 +270,7 @@ const App: React.FC = () => {
       >
         <div className="mb-12">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            03 &bull; CAREER PATH
+            02 &bull; CAREER PATH
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Professional Experience
@@ -424,7 +285,7 @@ const App: React.FC = () => {
 
       <SectionDivider />
 
-      {/* 8. Position of Responsibility Section */}
+      {/* 6. Position of Responsibility Section */}
       <motion.section 
         id="responsibilities" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
@@ -435,7 +296,7 @@ const App: React.FC = () => {
       >
         <div className="mb-12">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            04 &bull; LEADERSHIP & IMPACT
+            03 &bull; LEADERSHIP & IMPACT
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Leadership Experience
@@ -450,7 +311,7 @@ const App: React.FC = () => {
 
       <SectionDivider />
 
-      {/* 9. Technical Projects Section */}
+      {/* 7. Technical Projects Section */}
       <section 
         id="projects" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
@@ -464,7 +325,7 @@ const App: React.FC = () => {
         >
           <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
             <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block">
-              05 &bull; CODE &amp; SYSTEMS
+              04 &bull; CODE &amp; SYSTEMS
             </span>
             <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-orange-950/60 border border-orange-500/30 text-orange-300 flex items-center gap-1.5 shadow-sm shadow-orange-950/40">
               <Layers size={12} className="text-[#ff3d00]" />
@@ -484,7 +345,7 @@ const App: React.FC = () => {
 
       <SectionDivider />
 
-      {/* 10. Research & Patents Section */}
+      {/* 8. Research & Patents Section */}
       <motion.section 
         id="research" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
@@ -495,7 +356,7 @@ const App: React.FC = () => {
       >
         <div className="mb-14">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            06 &bull; INTELLECTUAL WORK
+            05 &bull; INTELLECTUAL WORK
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Achievements, Patents &amp; Publications
@@ -510,7 +371,7 @@ const App: React.FC = () => {
 
       <SectionDivider />
 
-      {/* 11. Technical Skills Section — Pinned Sticky Horizontal Scroll Showcase */}
+      {/* 9. Technical Skills Section — Pinned Sticky Horizontal Scroll Showcase */}
       <section 
         id="skills" 
         className="relative w-full scroll-mt-20"
@@ -520,7 +381,7 @@ const App: React.FC = () => {
 
       <SectionDivider />
 
-      {/* 12. Certifications Section — Pinned Sticky Horizontal Scroll Gallery */}
+      {/* 10. Certifications Section — Pinned Sticky Horizontal Scroll Gallery */}
       <section 
         id="certifications" 
         className="relative w-full scroll-mt-20"
@@ -530,7 +391,7 @@ const App: React.FC = () => {
 
       <SectionDivider />
 
-      {/* 13. Contact Section */}
+      {/* 11. Contact Section */}
       <motion.section 
         id="contact" 
         className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
@@ -541,7 +402,7 @@ const App: React.FC = () => {
       >
         <div className="max-w-2xl space-y-6">
           <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block">
-            08 &bull; DIALOGUE
+            06 &bull; DIALOGUE
           </span>
           <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
             Have an interesting problem?

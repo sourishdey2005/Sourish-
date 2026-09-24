@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
 
-      const sections = ['home', 'about', 'experience', 'leadership', 'quant', 'projects', 'snippets', 'terminal', 'skills', 'contact'];
+      const sections = ['home', 'education', 'experience', 'leadership', 'quant', 'projects', 'snippets', 'terminal', 'skills', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
   };
 
   const navLinks = [
-    { name: 'About', href: '#about', id: 'about' },
+    { name: 'Education', href: '#education', id: 'education' },
     { name: 'Experience', href: '#experience', id: 'experience' },
     { name: 'Leadership', href: '#leadership', id: 'leadership' },
     { name: 'Quant Fin', href: '#quant', id: 'quant' },

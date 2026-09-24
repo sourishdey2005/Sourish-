@@ -50,7 +50,7 @@ const EditorialEducation: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline">
             {/* Left: Duration and Location */}
             <div className="md:col-span-3 space-y-1">
-              <span className="text-xs font-mono text-orange-400 font-semibold block flex items-center gap-1.5">
+              <span className="text-xs font-mono text-orange-400 font-semibold flex items-center gap-1.5">
                 <Calendar size={12} /> {edu.duration}
               </span>
               <span className="text-[11px] font-mono text-stone-500 flex items-center gap-1">
