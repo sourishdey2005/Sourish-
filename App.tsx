@@ -13,6 +13,17 @@ import EditorialEducation from './components/EditorialEducation';
 import ResumeModal from './components/ResumeModal';
 import { PERSONAL_INFO } from './constants';
 
+const SectionDivider: React.FC<{ className?: string }> = ({ className = '' }) => (
+  <div className={`relative w-full flex items-center justify-center pointer-events-none px-6 sm:px-8 ${className}`} aria-hidden="true">
+    <div className="relative w-full max-w-6xl h-[1px]">
+      {/* Crisp 1px subtle orange-to-transparent gradient line */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/40 to-transparent" />
+      {/* Subtle ambient warm bloom */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#ff8a1f]/20 to-transparent blur-[1px]" />
+    </div>
+  </div>
+);
+
 const App: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -192,77 +203,115 @@ const App: React.FC = () => {
       {/* 2. Fluxora — Warm Ember Hero Section */}
       <FluxoraHero onOpenResume={() => setResumeModalOpen(true)} />
 
+      <SectionDivider />
+
       {/* 3. Trust / Snapshot Telemetry Strip */}
       <motion.section 
-        className="border-y border-orange-950/40 bg-gradient-to-r from-[#140501] via-[#1b0800] to-[#140501]"
-        initial={{ opacity: 0, y: 24 }}
+        className="bg-gradient-to-r from-[#140501] via-[#1b0800] to-[#140501] relative overflow-hidden"
+        initial={{ opacity: 0, y: 32 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 py-10 sm:py-12">
+        <motion.div 
+          className="max-w-6xl mx-auto px-6 sm:px-8 py-10 sm:py-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.05
+              }
+            }
+          }}
+        >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-mono">
-                4+
-              </div>
-              <div className="text-xs font-mono uppercase tracking-wider text-orange-300/80 mt-1">
-                Research Publications
-              </div>
-            </div>
-
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-mono">
-                5
-              </div>
-              <div className="text-xs font-mono uppercase tracking-wider text-orange-300/80 mt-1">
-                Granted Indian Patents
-              </div>
-            </div>
-
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-mono">
-                100K+
-              </div>
-              <div className="text-xs font-mono uppercase tracking-wider text-orange-300/80 mt-1">
-                Telemetry Records Handled
-              </div>
-            </div>
-
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-mono">
-                40%
-              </div>
-              <div className="text-xs font-mono uppercase tracking-wider text-orange-300/80 mt-1">
-                Latency Reduction
-              </div>
-            </div>
+            {[
+              { val: '4+', label: 'Research Publications' },
+              { val: '5', label: 'Granted Indian Patents' },
+              { val: '100K+', label: 'Telemetry Records Handled' },
+              { val: '40%', label: 'Latency Reduction' },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                variants={{
+                  hidden: { opacity: 0, y: 24, scale: 0.94 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1,
+                    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+                  }
+                }}
+                whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-orange-500/40 backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5),0_0_15px_rgba(255,61,0,0.06)] hover:shadow-[0_0_20px_rgba(255,61,0,0.2)] transition-all duration-300"
+              >
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-mono">
+                  {stat.val}
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider text-orange-300/80 mt-1">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </div>
+        </motion.div>
       </motion.section>
+
+      <SectionDivider />
 
       {/* 4. About Section (Split Editorial Layout) */}
       <motion.section 
         id="about" 
         className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15, delayChildren: 0.05 }
+          }
+        }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Heading */}
-          <div className="lg:col-span-4">
+          <motion.div 
+            className="lg:col-span-4"
+            variants={{
+              hidden: { opacity: 0, x: -28 },
+              visible: { 
+                opacity: 1, 
+                x: 0, 
+                transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } 
+              }
+            }}
+          >
             <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
               01 &bull; PERSPECTIVE
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
               Professional Summary
             </h2>
-          </div>
+          </motion.div>
 
           {/* Right Professional Introduction & Metadata Block */}
-          <div className="lg:col-span-8 space-y-8">
+          <motion.div 
+            className="lg:col-span-8 space-y-8"
+            variants={{
+              hidden: { opacity: 0, y: 32 },
+              visible: { 
+                opacity: 1, 
+                y: 0, 
+                transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } 
+              }
+            }}
+          >
             <div className="space-y-4 text-base sm:text-lg text-stone-300 leading-relaxed font-normal">
               <p>
                 Computer Science undergraduate specializing in <strong className="text-white font-semibold">data science, machine learning, and analytics engineering</strong>. Built Python/SQL ETL pipelines, anomaly-detection and forecasting systems, and RAG tools processing 100K+ records.
@@ -304,14 +353,16 @@ const App: React.FC = () => {
                 <span className="text-xs text-emerald-400">Open to Global Opportunities</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
+
+      <SectionDivider />
 
       {/* 5. Education Section */}
       <motion.section 
         id="education" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
@@ -332,6 +383,8 @@ const App: React.FC = () => {
         <EditorialEducation />
       </motion.section>
 
+      <SectionDivider />
+
       {/* 6. Interactive Thinking Framework */}
       <motion.section 
         className="py-12 max-w-6xl mx-auto px-6 sm:px-8"
@@ -343,10 +396,12 @@ const App: React.FC = () => {
         <ThinkingEngine />
       </motion.section>
 
+      <SectionDivider />
+
       {/* 7. Experience Section */}
       <motion.section 
         id="experience" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
@@ -367,10 +422,12 @@ const App: React.FC = () => {
         <EditorialExperience />
       </motion.section>
 
+      <SectionDivider />
+
       {/* 8. Position of Responsibility Section */}
       <motion.section 
         id="responsibilities" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
@@ -391,10 +448,12 @@ const App: React.FC = () => {
         <PositionOfResponsibility />
       </motion.section>
 
+      <SectionDivider />
+
       {/* 9. Technical Projects Section */}
       <section 
         id="projects" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
       >
         <motion.div 
           className="mb-14 sm:mb-16"
@@ -423,10 +482,12 @@ const App: React.FC = () => {
         <EditorialProjects />
       </section>
 
+      <SectionDivider />
+
       {/* 10. Research & Patents Section */}
       <motion.section 
         id="research" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
@@ -447,26 +508,32 @@ const App: React.FC = () => {
         <EditorialResearch />
       </motion.section>
 
+      <SectionDivider />
+
       {/* 11. Technical Skills Section — Pinned Sticky Horizontal Scroll Showcase */}
       <section 
         id="skills" 
-        className="relative w-full border-t border-white/10 scroll-mt-20"
+        className="relative w-full scroll-mt-20"
       >
         <EditorialSkills />
       </section>
 
+      <SectionDivider />
+
       {/* 12. Certifications Section — Pinned Sticky Horizontal Scroll Gallery */}
       <section 
         id="certifications" 
-        className="relative w-full border-t border-white/10 scroll-mt-20"
+        className="relative w-full scroll-mt-20"
       >
         <EditorialCertifications />
       </section>
 
+      <SectionDivider />
+
       {/* 13. Contact Section */}
       <motion.section 
         id="contact" 
-        className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 border-t border-white/10 scroll-mt-20"
+        className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
@@ -528,9 +595,11 @@ const App: React.FC = () => {
         </div>
       </motion.section>
 
+      <SectionDivider />
+
       {/* 13. Minimal Dark Footer */}
       <motion.footer 
-        className="border-t border-white/10 py-8 bg-[#0a0200]"
+        className="py-8 bg-[#0a0200]"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}

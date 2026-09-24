@@ -9,7 +9,12 @@ interface FluxoraHeroProps {
 
 const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
   return (
-    <section className="relative overflow-hidden bg-[#120400] text-stone-100 pt-32 sm:pt-40 pb-20 sm:pb-28 border-b border-orange-950/40">
+    <motion.section 
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden bg-[#120400] text-stone-100 pt-32 sm:pt-40 pb-20 sm:pb-28 border-b border-orange-950/40 origin-center"
+    >
       {/* Ambient Flame & Molten Orange Glow Overlays */}
       <div 
         aria-hidden="true" 
@@ -29,7 +34,12 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-6 sm:px-8">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.94 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.9, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+        className="relative max-w-6xl mx-auto px-6 sm:px-8 origin-center"
+      >
         {/* Top Eyebrow: "Hub support..." over hairline rule with flame dot */}
         <motion.div 
           initial={{ opacity: 0, y: 16 }}
@@ -179,8 +189,8 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
             </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 
