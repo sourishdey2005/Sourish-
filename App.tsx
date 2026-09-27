@@ -359,10 +359,10 @@ const App: React.FC = () => {
             05 &bull; INTELLECTUAL WORK
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Achievements, Patents &amp; Publications
+            Achievements &amp; Granted Patents
           </h2>
           <p className="text-sm text-stone-400 mt-1 max-w-xl">
-            5 Indian utility patents granted and 4 peer-reviewed research publications.
+            5 Indian utility patents granted across IoT, robotics, and machine learning systems.
           </p>
         </div>
 
