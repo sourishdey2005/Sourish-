@@ -7,7 +7,7 @@ export const PERSONAL_INFO = {
   phone: "+91 9064648823",
   github: "https://github.com/sourishdey2005",
   linkedin: "https://www.linkedin.com/in/sourish-dey-20b170206",
-  resumeUrl: "https://drive.google.com/file/d/1COO61ckd2xejY17DrjsTEeDYx_w0XhoW/view?usp=sharing",
+  resumeUrl: "https://drive.google.com/file/d/1KCLYSZnAoIFJuc5ZZdoHIzx6GuISTiaL/view?usp=sharing",
   location: "Bhubaneswar, India",
   university: "Kalinga Institute of Industrial Technology (KIIT)"
 };
@@ -333,6 +333,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "FastAPI", "React", "LangChain", "PostgreSQL", "Docker"],
     domain: "ML",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
     demo: "https://biz-sight-ai-business-intelligence.vercel.app/",
     github: "https://github.com/sourishdey2005",
     chartData: [
@@ -351,6 +353,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "PyTorch", "Transformers", "CUDA", "FlashAttention", "NVIDIA T4"],
     domain: "NLP",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'P99 Latency', value: 92 },
       { name: 'Cache Reuse', value: 85 },
@@ -367,6 +371,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "Hugging Face", "Scikit-learn", "Matplotlib", "Adversarial NLP"],
     domain: "NLP",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Attack Det', value: 96 },
       { name: 'Bypass Rate', value: 12 },
@@ -383,6 +389,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "LangChain", "Pinecone", "OpenAI", "FAISS", "Streamlit"],
     domain: "NLP",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Context Acc', value: 91 },
       { name: 'Response Time', value: 78 },
@@ -399,6 +407,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "Hugging Face", "SpaCy", "PyTorch", "Matplotlib"],
     domain: "NLP",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Precision', value: 94 },
       { name: 'F1-Score', value: 92 },
@@ -415,6 +425,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "Transformers", "NLTK", "Scikit-learn"],
     domain: "NLP",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Summarization', value: 89 },
       { name: 'Extraction', value: 93 },
@@ -431,6 +443,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "FastText", "Pandas", "Scikit-learn", "Matplotlib", "Seaborn"],
     domain: "NLP",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Accuracy', value: 97 },
       { name: 'Latencies', value: 12 },
@@ -447,6 +461,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "LDA", "Sentence Transformers", "Plotly", "NLTK"],
     domain: "NLP",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'LDA Coh', value: 88 },
       { name: 'Embedding', value: 91 },
@@ -462,6 +478,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "Econometrics", "Pandas", "Plotly"],
     domain: "Finance",
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Accuracy', value: 92 },
       { name: 'Recall', value: 88 },
@@ -477,6 +495,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "Plotly", "Seaborn", "Pandas"],
     domain: "ML",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Consistency', value: 85 },
       { name: 'Growth', value: 94 },
@@ -492,6 +512,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["UiPath", "AWS", "RPA", "Terraform"],
     domain: "Cloud",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Efficiency', value: 98 },
       { name: 'Speed', value: 95 },
@@ -507,6 +529,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "Machine Learning", "StatsModels", "Pandas"],
     domain: "ML",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Churn Acc', value: 91 },
       { name: 'Price Opt', value: 84 },
@@ -522,6 +546,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Python", "OpenCV", "MediaPipe"],
     domain: "ML",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'FPS', value: 95 },
       { name: 'Accuracy', value: 92 },
@@ -537,6 +563,8 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Deep Learning", "CNN", "LSTM", "Bioinformatics"],
     domain: "IoT",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80",
+    banner: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80",
     chartData: [
       { name: 'Accuracy', value: 98 },
       { name: 'Compactness', value: 96 },

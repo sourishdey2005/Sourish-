@@ -36,81 +36,82 @@ const EDUCATION_ENTRIES: EducationItem[] = [
 
 const EditorialEducation: React.FC = () => {
   return (
-    <div id="education-content" className="border-t border-white/10 divide-y divide-white/5">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {EDUCATION_ENTRIES.map((edu, idx) => (
-        <motion.div
-          key={idx}
-          id={`education-item-${idx}`}
-          initial={{ opacity: 0, y: 30 }}
+        <motion.article
+          key={edu.institution}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-          className="py-8 sm:py-10 transition-all duration-300 group rounded-xl px-4 sm:px-6 hover:bg-white/5 hover:border hover:border-orange-500/20"
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: idx * 0.07, ease: [0.16, 1, 0.3, 1] }}
+          className="group relative rounded-2xl border border-white/[0.08] bg-white/[0.02] hover:border-[#ff4d00]/35 hover:bg-[#100502] transition-all duration-300 p-6 sm:p-7"
         >
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline">
-            {/* Left: Duration and Location */}
-            <div className="md:col-span-3 space-y-1">
-              <span className="text-xs font-mono text-orange-400 font-semibold flex items-center gap-1.5">
-                <Calendar size={12} /> {edu.duration}
+          <div className="flex items-start justify-between gap-3 mb-4">
+            <div className="flex items-center gap-2.5">
+              <span className="w-9 h-9 rounded-xl bg-[#ff4d00]/10 border border-[#ff4d00]/25 flex items-center justify-center text-[#ff8a3d] group-hover:bg-[#ff4d00]/15 transition-colors">
+                <GraduationCap size={17} />
               </span>
-              <span className="text-[11px] font-mono text-stone-500 flex items-center gap-1">
-                <MapPin size={11} /> {edu.location}
+              <span className="font-condensed text-[10px] uppercase tracking-[0.2em] text-stone-500">
+                {String(idx + 1).padStart(2, '0')} / Academic
               </span>
-              {edu.statusBadge && (
-                <span className="inline-flex items-center gap-1 mt-2 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
-                  <CheckCircle2 size={10} /> {edu.statusBadge}
-                </span>
-              )}
             </div>
+            {edu.statusBadge && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/[0.07] border border-emerald-500/25 font-condensed text-[9px] uppercase tracking-[0.14em] text-emerald-400 whitespace-nowrap">
+                <CheckCircle2 size={9} /> {edu.statusBadge}
+              </span>
+            )}
+          </div>
 
-            {/* Center: Institution & Degree */}
-            <div className="md:col-span-5 space-y-2">
-              <div className="flex items-center gap-2">
-                <GraduationCap size={16} className="text-orange-400 shrink-0" />
-                <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-orange-300 transition-colors">
-                  {edu.institution}
-                </h3>
-              </div>
-              <h4 className="text-sm font-medium text-stone-300">
-                {edu.degree}
-              </h4>
-              {edu.details && (
-                <p className="text-xs text-stone-400 leading-relaxed pt-1">
-                  {edu.details}
-                </p>
-              )}
-            </div>
+          <h3 className="font-display uppercase text-white text-xl sm:text-2xl leading-[1.05] tracking-[0.01em] group-hover:text-[#ffb07a] transition-colors">
+            {edu.institution}
+          </h3>
+          <p className="mt-2 text-[13px] text-stone-400 leading-snug">
+            {edu.degree}
+          </p>
 
-            {/* Right: Academic Performance Badges */}
-            <div className="md:col-span-4 flex flex-wrap gap-2 md:justify-end items-center">
-              {edu.scores ? (
-                edu.scores.map((score, sIdx) => (
-                  <div
-                    key={sIdx}
-                    className="p-3 rounded-xl bg-white/5 border border-white/10 text-right min-w-[120px] backdrop-blur-sm group-hover:border-orange-500/30 transition-colors"
-                  >
-                    <span className="text-[10px] font-mono text-stone-400 block uppercase">
-                      {score.label}
-                    </span>
-                    <span className="text-base sm:text-lg font-bold text-white font-mono flex items-center justify-end gap-1 text-orange-300">
-                      <Award size={13} className="text-[#ff8a1f]" />
-                      {score.value}
-                    </span>
-                  </div>
-                ))
-              ) : (
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-right min-w-[130px] backdrop-blur-sm">
-                  <span className="text-[10px] font-mono text-stone-400 block uppercase">
-                    DEGREE STATUS
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 font-condensed text-[10px] uppercase tracking-[0.16em] text-stone-500">
+            <span className="flex items-center gap-1.5">
+              <Calendar size={11} className="text-[#ff6a1f]" /> {edu.duration}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <MapPin size={11} className="text-[#ff6a1f]" /> {edu.location}
+            </span>
+          </div>
+
+          {edu.details && (
+            <p className="mt-4 pt-4 border-t border-white/[0.07] text-xs text-stone-400 leading-relaxed">
+              {edu.details}
+            </p>
+          )}
+
+          {edu.scores ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {edu.scores.map((score) => (
+                <div
+                  key={score.label}
+                  className="px-3.5 py-2 rounded-xl bg-white/[0.03] border border-white/[0.08] group-hover:border-[#ff4d00]/25 transition-colors"
+                >
+                  <span className="font-condensed text-[9px] uppercase tracking-[0.14em] text-stone-500 block">
+                    {score.label}
                   </span>
-                  <span className="text-sm font-bold text-white font-mono text-orange-300">
-                    B.Tech In Progress
+                  <span className="mt-0.5 font-display text-lg text-[#ffb07a] flex items-center gap-1.5 leading-none">
+                    <Award size={12} className="text-[#ff8a1f]" />
+                    {score.value}
                   </span>
                 </div>
-              )}
+              ))}
             </div>
-          </div>
-        </motion.div>
+          ) : (
+            <div className="mt-4 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#ff4d00]/[0.06] border border-[#ff4d00]/20">
+              <span className="font-condensed text-[9px] uppercase tracking-[0.14em] text-stone-500">
+                Degree status
+              </span>
+              <span className="font-display text-sm text-[#ffb07a] leading-none">
+                B.Tech in progress
+              </span>
+            </div>
+          )}
+        </motion.article>
       ))}
     </div>
   );

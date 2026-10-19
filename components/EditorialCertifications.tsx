@@ -1,13 +1,8 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import gsap from 'gsap';
 import { 
-  Award, 
   ExternalLink, 
   X, 
-  CheckCircle2, 
-  Sparkles,
-  ArrowRight,
   ZoomIn,
   Play,
   Pause
@@ -333,16 +328,10 @@ export const CERTIFICATES_DATA: CertificateItem[] = [
   }
 ];
 
-// Double the credentials to form a seamless infinite loop track
-const INFINITE_CERTS = [...CERTIFICATES_DATA, ...CERTIFICATES_DATA];
-
 const EditorialCertifications: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const tweenRef = useRef<gsap.core.Tween | null>(null);
-
   const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [isHoverPaused, setIsHoverPaused] = useState<boolean>(false);
 
   // Close modal on Escape key press
   useEffect(() => {
@@ -359,115 +348,56 @@ const EditorialCertifications: React.FC = () => {
     };
   }, [selectedCert]);
 
-  useLayoutEffect(() => {
-    let ctx: gsap.Context | null = null;
-    let timer: NodeJS.Timeout | null = null;
-
-    timer = setTimeout(() => {
-      if (!trackRef.current) return;
-
-      ctx = gsap.context(() => {
-        const track = trackRef.current;
-        if (!track) return;
-
-        // Half width represents exactly one complete set of 40 cards
-        const singleSetWidth = track.scrollWidth / 2;
-
-        // Continuous silky smooth infinite horizontal loop
-        const loopTween = gsap.to(track, {
-          x: -singleSetWidth,
-          duration: 110, // Leisurely, high-end museum-gallery pace
-          ease: 'none',
-          repeat: -1,
-          modifiers: {
-            x: gsap.utils.unitize((x) => parseFloat(x) % singleSetWidth)
-          }
-        });
-
-        tweenRef.current = loopTween;
-
-        // Continuous subtle 3D parallax float wave across all card items
-        const cards = gsap.utils.toArray<HTMLElement>('.cert-auto-card');
-        cards.forEach((card, idx) => {
-          const isEven = idx % 2 === 0;
-          gsap.to(card, {
-            y: isEven ? -14 : 14,
-            rotateZ: isEven ? 1.2 : -1.2,
-            duration: 3 + (idx % 3) * 0.7,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut',
-            delay: (idx % 8) * 0.25
-          });
-        });
-      }, containerRef);
-    }, 120);
-
-    return () => {
-      if (timer) clearTimeout(timer);
-      if (ctx) ctx.revert();
-    };
-  }, []);
-
   const togglePlayback = () => {
-    if (!tweenRef.current) return;
-    if (isPlaying) {
-      tweenRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      tweenRef.current.play();
-      setIsPlaying(true);
-    }
+    setIsPlaying((prev) => !prev);
   };
 
-  return (
-    <div ref={containerRef} className="relative w-full py-20 sm:py-28 overflow-hidden bg-[#0d0200]">
-      {/* Subtle Warm Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-orange-600/10 blur-[130px] pointer-events-none rounded-full" />
+  const isMarqueePaused = !isPlaying || isHoverPaused;
 
-      {/* Section Header */}
-      <motion.div 
+  return (
+    <div className="relative w-full py-20 sm:py-28 overflow-hidden bg-[#070201]">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#ff4d00]/[0.07] blur-[130px] pointer-events-none rounded-full" />
+
+      <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-7xl mx-auto px-6 sm:px-12 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6 relative z-10"
+        className="max-w-7xl mx-auto px-6 sm:px-10 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6 relative z-10"
       >
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#ff3d00] animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400">
-              08 &bull; LICENSES &amp; CERTIFICATIONS
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <span className="font-condensed text-[11px] uppercase tracking-[0.32em] text-[#ff6a1f]">
+              08 / Credentials
             </span>
-            <span className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-orange-950/80 text-orange-300 border border-orange-500/30">
-              Infinite Marquee &bull; {CERTIFICATES_DATA.length} Verified Assets
+            <span className="h-px w-12 bg-[#ff4d00]/50" />
+            <span className="px-2.5 py-0.5 rounded-full font-condensed text-[9px] uppercase tracking-[0.16em] bg-[#ff4d00]/10 text-[#ff8a3d] border border-[#ff4d00]/25">
+              {CERTIFICATES_DATA.length} verified assets
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <span>Licenses &amp; Certifications</span>
-            <Award className="text-orange-500" size={30} />
+          <h2 className="font-display uppercase leading-[0.95] text-white text-[clamp(2rem,4.4vw,3.4rem)] tracking-[0.01em] flex items-center gap-3">
+            <span>Licenses &amp; certifications</span>
           </h2>
-          <p className="text-xs sm:text-sm text-stone-400 mt-2 max-w-2xl leading-relaxed">
-            Autonomous parallax stream of verified industry accreditations. Seamlessly looping in real-time — click any certificate to view high-resolution proof.
+          <p className="text-xs sm:text-sm text-stone-400 mt-3 max-w-2xl leading-relaxed">
+            A continuous stream of verified industry accreditations. Click any certificate to view high-resolution proof.
           </p>
         </div>
 
-        {/* Play/Pause & Interactivity Toggle */}
         <div className="flex items-center gap-3 self-start sm:self-auto shrink-0">
           <button
             onClick={togglePlayback}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-stone-300 hover:text-white backdrop-blur-md transition-all cursor-pointer shadow-lg"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 font-condensed text-[10px] uppercase tracking-[0.18em] text-stone-300 hover:text-white backdrop-blur-md transition-all cursor-pointer"
             title={isPlaying ? "Pause infinite loop" : "Resume infinite loop"}
           >
             {isPlaying ? (
               <>
-                <Pause size={13} className="text-orange-400" />
-                <span>Pause Stream</span>
+                <Pause size={12} className="text-[#ff8a3d]" />
+                <span>Pause stream</span>
               </>
             ) : (
               <>
-                <Play size={13} className="text-orange-400" />
-                <span>Resume Stream</span>
+                <Play size={12} className="text-[#ff8a3d]" />
+                <span>Resume stream</span>
               </>
             )}
           </button>
@@ -482,47 +412,53 @@ const EditorialCertifications: React.FC = () => {
         transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         className="relative w-full overflow-hidden py-6"
         style={{ perspective: '1200px' }}
-        onMouseEnter={() => tweenRef.current?.pause()}
-        onMouseLeave={() => {
-          if (isPlaying) tweenRef.current?.play();
-        }}
+        onMouseEnter={() => setIsHoverPaused(true)}
+        onMouseLeave={() => setIsHoverPaused(false)}
       >
-        {/* Left & Right Edge Vignette Fades for Seamless Infinite Horizon Effect */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-r from-[#0d0200] via-[#0d0200]/80 to-transparent z-20 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-l from-[#0d0200] via-[#0d0200]/80 to-transparent z-20 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-r from-[#070201] via-[#070201]/80 to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-l from-[#070201] via-[#070201]/80 to-transparent z-20 pointer-events-none" />
 
-        {/* Continuous Looping Ribbon */}
-        <div 
-          ref={trackRef} 
-          className="flex items-center gap-6 px-4 w-max will-change-transform"
+        <div
+          className={`flex items-center w-max will-change-transform cert-marquee ${
+            isMarqueePaused ? 'cert-marquee-paused' : ''
+          }`}
         >
-          {INFINITE_CERTS.map((cert, index) => {
-            const originalIndex = (index % CERTIFICATES_DATA.length) + 1;
-
-            return (
-              <div
-                key={`${cert.id}-loop-${index}`}
-                onClick={() => setSelectedCert(cert)}
-                className="cert-auto-card group relative w-[300px] sm:w-[360px] h-[220px] sm:h-[260px] rounded-2xl bg-[#140501] border border-white/10 hover:border-orange-500/70 p-2 sm:p-2.5 shrink-0 shadow-2xl shadow-black/90 hover:shadow-orange-950/60 transition-all duration-500 cursor-pointer overflow-hidden transform-gpu"
-              >
-                {/* Certificate Image Frame */}
-                <div className="relative w-full h-full rounded-xl overflow-hidden bg-black/80 border border-white/10 group-hover:border-orange-500/40">
+          {[0, 1].map((setIndex) => (
+            <div
+              key={`cert-set-${setIndex}`}
+              className="flex items-center gap-5 pr-5"
+              aria-hidden={setIndex === 1}
+            >
+              {CERTIFICATES_DATA.map((cert, index) => {
+                return (
+                  <div
+                    key={`${cert.id}-set-${setIndex}`}
+                    onClick={() => setSelectedCert(cert)}
+                    className="cert-float group relative w-[300px] sm:w-[360px] h-[220px] sm:h-[260px] rounded-2xl bg-[#0f0402] border border-white/[0.09] hover:border-[#ff4d00]/60 p-2 sm:p-2.5 shrink-0 shadow-2xl shadow-black/90 transition-all duration-500 cursor-pointer overflow-hidden transform-gpu"
+                    style={{
+                      animationDuration: `${3.1 + (index % 3) * 0.7}s`,
+                      animationDelay: `-${(index % 8) * 0.35}s`,
+                      animationDirection: index % 2 === 0 ? 'alternate' : 'alternate-reverse'
+                    }}
+                  >
+                <div className="relative w-full h-full rounded-xl overflow-hidden bg-black/80 border border-white/[0.08] group-hover:border-[#ff4d00]/35">
                   <img
                     src={cert.imageUrl}
                     alt={cert.title}
                     loading="lazy"
                     className="w-full h-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  {/* Hover Overlay with Clean Zoom Indicator */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#ff3d00] text-white text-xs font-mono font-medium backdrop-blur-sm shadow-xl">
-                      <ZoomIn size={13} /> View Credential
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#ff4d00] text-white font-condensed text-[10px] uppercase tracking-[0.16em] shadow-xl">
+                      <ZoomIn size={12} /> View credential
                     </span>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </motion.div>
 

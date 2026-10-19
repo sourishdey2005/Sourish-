@@ -1,7 +1,5 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import { motion, useScroll, useSpring, useTransform, useVelocity } from 'framer-motion';
 import { 
   Database, 
   Brain, 
@@ -14,8 +12,6 @@ import {
   ShieldCheck,
   Flame
 } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface SkillCategory {
   id: string;
@@ -468,186 +464,204 @@ const SkillLogo: React.FC<{ name: string }> = ({ name }) => {
   }
 };
 
+interface SkillsLayout {
+  top: number;
+  vh: number;
+  travel: number;
+}
+
 const EditorialSkills: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const triggerRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
 
+  const [layout, setLayout] = useState<SkillsLayout>(() => ({
+    top: 0,
+    vh: typeof window === 'undefined' ? 0 : window.innerHeight,
+    travel: 0
+  }));
+
   useLayoutEffect(() => {
-    let ctx: gsap.Context | null = null;
-    let timer: NodeJS.Timeout | null = null;
+    const measure = () => {
+      const section = sectionRef.current;
+      const track = trackRef.current;
+      if (!section || !track) return;
 
-    // Small delay ensures DOM renders, fonts load, and dimensions are fully established
-    timer = setTimeout(() => {
-      if (!triggerRef.current || !trackRef.current) return;
+      const vh = window.innerHeight;
+      const travel = Math.max(track.scrollWidth - window.innerWidth, 0);
+      const top = section.getBoundingClientRect().top + window.scrollY;
 
-      ctx = gsap.context(() => {
-        const track = trackRef.current;
-        const trigger = triggerRef.current;
-        if (!track || !trigger) return;
-
-        // Dynamic horizontal scroll calculation
-        const getDistance = () => track.scrollWidth - window.innerWidth;
-
-        gsap.to(track, {
-          x: () => -getDistance(),
-          ease: 'none',
-          scrollTrigger: {
-            id: 'skills-horizontal-scroll',
-            trigger: trigger,
-            pin: true,
-            scrub: 1,
-            start: 'top top',
-            end: () => `+=${Math.max(getDistance(), 600)}`,
-            invalidateOnRefresh: true,
-            anticipatePin: 1
-          }
-        });
-      }, triggerRef);
-
-      // Force a calculation refresh across all active ScrollTriggers
-      ScrollTrigger.refresh();
-    }, 150);
-
-    const onResize = () => {
-      ScrollTrigger.refresh();
+      setLayout((prev) =>
+        prev.vh === vh && prev.travel === travel && Math.abs(prev.top - top) < 1
+          ? prev
+          : { top, vh, travel }
+      );
     };
-    window.addEventListener('resize', onResize);
+
+    measure();
+    const settleTimer = window.setTimeout(measure, 450);
+    const fontsReady = document.fonts ? document.fonts.ready : null;
+    if (fontsReady) {
+      fontsReady.then(() => measure()).catch(() => undefined);
+    }
+
+    // Keep the pan range in sync as async content above the section settles
+    const layoutObserver = new ResizeObserver(measure);
+    layoutObserver.observe(document.documentElement);
+
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
 
     return () => {
-      if (timer) clearTimeout(timer);
-      window.removeEventListener('resize', onResize);
-      if (ctx) ctx.revert();
+      window.clearTimeout(settleTimer);
+      layoutObserver.disconnect();
+      window.removeEventListener('resize', measure);
+      window.removeEventListener('load', measure);
     };
   }, []);
 
+  const { scrollY } = useScroll();
+  const progress = useTransform(
+    scrollY,
+    [layout.top, layout.top + Math.max(layout.travel, 1)],
+    [0, 1],
+    { clamp: true }
+  );
+
+  // Critically damped spring keeps the pan buttery and scroll-velocity aware
+  const smoothProgress = useSpring(progress, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.35,
+    restDelta: 0.001
+  });
+
+  const trackX = useTransform(smoothProgress, [0, 1], [0, -layout.travel]);
+  const trackVelocity = useVelocity(smoothProgress);
+  const trackSkew = useTransform(trackVelocity, [-2.5, 2.5], [2.2, -2.2], { clamp: true });
+  const panScale = useTransform(smoothProgress, [0, 1], [0.015, 1]);
+
   return (
-    <div ref={sectionRef} className="relative w-full">
-      {/* 
-        Sticky GSAP Horizontal Section:
-        Vertical scroll is locked, translating the track horizontally to showcase skills & certifications
-      */}
-      <div 
-        ref={triggerRef} 
-        className="relative h-screen w-full overflow-hidden flex flex-col justify-center bg-[#0d0300] border-y border-orange-950/60"
+    <div
+      ref={sectionRef}
+      className="relative w-full"
+      style={{ height: layout.vh ? layout.vh + layout.travel : undefined }}
+    >
+      <div
+        className="sticky top-0 w-full overflow-hidden flex flex-col justify-center bg-[#080201] border-y border-white/[0.07]"
+        style={{ height: layout.vh || undefined }}
       >
-        {/* Top Sticky Header inside pinned canvas */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-7xl w-full mx-auto px-6 sm:px-10 pt-8 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4 shrink-0"
+          className="max-w-7xl w-full mx-auto px-6 sm:px-10 pt-20 sm:pt-24 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4 shrink-0"
         >
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="w-2 h-2 rounded-full bg-[#ff3d00] animate-pulse" />
-              <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400">
-                07 &bull; INTERACTIVE COMPETENCY GALLERY
+            <div className="flex items-center gap-3 mb-3">
+              <span className="font-condensed text-[11px] uppercase tracking-[0.32em] text-[#ff6a1f]">
+                07 / Capabilities
               </span>
+              <span className="h-px w-12 bg-[#ff4d00]/50" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
-              <span>Technical Skills </span>
+            <h2 className="font-display uppercase leading-[0.95] text-white text-[clamp(2rem,4.4vw,3.4rem)] tracking-[0.01em]">
+              Technical skills
             </h2>
-            <p className="text-xs sm:text-sm text-stone-400 mt-1 max-w-xl">
-              Scroll down to travel through core programming, ML architectures, LLM systems, and industry accreditations.
+            <p className="text-xs sm:text-sm text-stone-400 mt-2 max-w-xl">
+              Scroll to travel through core programming, ML architectures, LLM systems, and industry accreditations.
             </p>
           </div>
 
-          {/* Horizontal Scroll Progress Prompt */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-stone-400 backdrop-blur-md self-start sm:self-auto">
-            <span>Scroll vertically to pan</span>
-            <ArrowRight size={13} className="text-orange-400 animate-bounce-x" />
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10 font-condensed text-[10px] uppercase tracking-[0.18em] text-stone-400 backdrop-blur-md self-start sm:self-auto">
+            <span>Scroll to pan</span>
+            <ArrowRight size={12} className="text-[#ff6a1f]" />
           </div>
         </motion.div>
 
-        {/* Horizontal Track Container */}
         <div className="relative flex-1 flex items-center overflow-visible py-4">
-          <div 
-            ref={trackRef} 
-            className="flex items-stretch gap-6 pl-6 sm:pl-12 pr-16 w-max will-change-transform"
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-16 z-10 bg-gradient-to-r from-[#080201] via-[#080201]/70 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-16 z-10 bg-gradient-to-l from-[#080201] via-[#080201]/70 to-transparent" />
+
+          <motion.div
+            ref={trackRef}
+            style={{ x: trackX, skewX: trackSkew }}
+            className="flex items-stretch gap-5 pl-6 sm:pl-12 pr-16 w-max will-change-transform"
           >
-            {/* 1. Introductory Overview Card */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[320px] sm:w-[380px] shrink-0 p-7 rounded-2xl bg-gradient-to-br from-[#200800] to-[#120400] border border-orange-500/40 shadow-2xl shadow-black/80 flex flex-col justify-between"
+              className="w-[320px] sm:w-[380px] shrink-0 p-7 rounded-2xl bg-gradient-to-br from-[#180602] to-[#0c0301] border border-[#ff4d00]/35 shadow-2xl shadow-black/80 flex flex-col justify-between"
             >
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-orange-400 bg-orange-950/80 px-2.5 py-1 rounded-full border border-orange-500/30 inline-block mb-4">
-                  COMPREHENSIVE CAPABILITIES
+                <span className="font-condensed text-[10px] uppercase tracking-[0.2em] text-[#ff8a3d] bg-[#ff4d00]/10 px-2.5 py-1 rounded-full border border-[#ff4d00]/25 inline-block mb-4">
+                  Comprehensive capabilities
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-3">
-                  Production Engineering Stack
+                <h3 className="font-display uppercase text-white text-2xl sm:text-3xl leading-[1.02] mb-3">
+                  Production engineering stack
                 </h3>
-                <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-stone-400 leading-relaxed">
                   Engineered across quantitative finance, large-scale statistical pipelines, deep learning vision models, zero-hallucination RAG frameworks, and distributed enterprise CI/CD.
                 </p>
 
-                <div className="mt-6 pt-5 border-t border-white/10 space-y-2">
-                  <div className="flex items-center gap-2 text-xs font-mono text-stone-400">
-                    <CheckCircle2 size={13} className="text-emerald-400" />
-                    <span>Python &bull; SQL &bull; R &bull; C</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs font-mono text-stone-400">
-                    <CheckCircle2 size={13} className="text-emerald-400" />
-                    <span>FAISS &bull; LangChain &bull; LoRA</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs font-mono text-stone-400">
-                    <CheckCircle2 size={13} className="text-emerald-400" />
-                    <span>AWS &bull; GCP &bull; Oracle &bull; Docker</span>
-                  </div>
+                <div className="mt-6 pt-5 border-t border-white/[0.08] space-y-2">
+                  {['Python • SQL • R • C', 'FAISS • LangChain • LoRA', 'AWS • GCP • Oracle • Docker'].map((line) => (
+                    <div key={line} className="flex items-center gap-2 font-condensed text-[11px] uppercase tracking-[0.14em] text-stone-400">
+                      <CheckCircle2 size={12} className="text-emerald-400" />
+                      <span>{line}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-stone-400">
-                <span>6 Core Disciplines</span>
-                <span className="text-orange-400 font-semibold flex items-center gap-1">
-                  Pan Right <ArrowRight size={12} />
+              <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between font-condensed text-[10px] uppercase tracking-[0.18em] text-stone-500">
+                <span>6 core disciplines</span>
+                <span className="text-[#ff8a3d] flex items-center gap-1">
+                  Pan right <ArrowRight size={11} />
                 </span>
               </div>
             </motion.div>
 
-            {/* 2. Six Detailed Skill Domain Cards */}
             {CATEGORIES.map((cat, idx) => {
               const Icon = cat.icon;
 
               return (
-                <div 
+                <motion.div
                   key={cat.id}
-                  className="w-[360px] sm:w-[450px] shrink-0 p-7 rounded-2xl bg-[#140501] border border-white/10 hover:border-orange-500/40 shadow-xl shadow-black/80 flex flex-col justify-between group transition-all duration-300"
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.6, delay: Math.min(idx * 0.05, 0.25), ease: [0.16, 1, 0.3, 1] }}
+                  className="w-[360px] sm:w-[440px] shrink-0 p-7 rounded-2xl bg-[#0d0402] border border-white/[0.08] hover:border-[#ff4d00]/40 shadow-xl shadow-black/80 flex flex-col justify-between group transition-colors duration-300"
                 >
                   <div>
-                    {/* Card Header */}
                     <div className="flex items-center justify-between gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 group-hover:scale-105 transition-transform">
-                        <Icon size={20} />
+                      <div className="w-10 h-10 rounded-xl bg-[#ff4d00]/10 border border-[#ff4d00]/20 flex items-center justify-center text-[#ff8a3d] group-hover:scale-105 transition-transform">
+                        <Icon size={19} />
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/5 text-stone-300 border border-white/10">
+                        <span className="font-condensed text-[9px] uppercase tracking-[0.16em] px-2.5 py-1 rounded-full bg-white/[0.04] text-stone-400 border border-white/[0.08]">
                           {cat.badge}
                         </span>
-                        <span className="text-xs font-mono text-stone-400">
+                        <span className="font-display text-lg text-white/25">
                           0{idx + 1}
                         </span>
                       </div>
                     </div>
 
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-orange-300 transition-colors">
+                    <h3 className="font-display uppercase text-white text-lg sm:text-xl leading-tight mb-2 group-hover:text-[#ffb07a] transition-colors">
                       {cat.title}
                     </h3>
                     <p className="text-xs text-stone-400 leading-relaxed mb-5">
                       {cat.note}
                     </p>
 
-                    {/* Skill Pill Grid with logos */}
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {cat.skills.map((skill) => (
                         <div
                           key={skill}
-                          className="flex items-center gap-2 text-[11px] font-mono px-2.5 py-1.5 rounded-lg bg-black/60 text-stone-200 border border-white/10 group-hover:border-orange-500/25 hover:border-orange-400/50 hover:bg-white/5 transition-all shadow-sm"
+                          className="flex items-center gap-2 font-condensed text-[10px] uppercase tracking-[0.08em] px-2.5 py-1.5 rounded-md bg-black/50 text-stone-300 border border-white/[0.08] group-hover:border-[#ff4d00]/20 hover:border-[#ff8a3d]/50 hover:bg-white/[0.04] transition-all"
                         >
                           <span className="w-3.5 h-3.5 shrink-0 flex items-center justify-center">
                             <SkillLogo name={skill} />
@@ -658,70 +672,78 @@ const EditorialSkills: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Highlight Footer */}
-                  <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
-                    <span className="text-stone-400">Benchmark:</span>
-                    <span className="text-orange-300 font-semibold flex items-center gap-1">
-                      <Flame size={12} className="text-[#ff3d00]" />
+                  <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between gap-3 font-condensed text-[10px] uppercase tracking-[0.12em]">
+                    <span className="text-stone-600 shrink-0">Benchmark</span>
+                    <span className="text-[#ffb07a] text-right flex items-center gap-1.5">
+                      <Flame size={11} className="text-[#ff4d00] shrink-0" />
                       {cat.highlight}
                     </span>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
 
-            {/* 3. Industry Certifications Card (End of horizontal gallery) */}
-            <div className="w-[380px] sm:w-[480px] shrink-0 p-7 rounded-2xl bg-gradient-to-br from-[#1f0902] via-[#170601] to-[#100300] border border-orange-500/35 shadow-2xl shadow-black/80 flex flex-col justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="w-[380px] sm:w-[470px] shrink-0 p-7 rounded-2xl bg-gradient-to-br from-[#180602] via-[#100401] to-[#0a0201] border border-[#ff4d00]/30 shadow-2xl shadow-black/80 flex flex-col justify-between"
+            >
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-500/[0.08] border border-emerald-500/20 flex items-center justify-center text-emerald-400">
                     <ShieldCheck size={16} />
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">
-                      VERIFIED ACCREDITATIONS
+                    <span className="font-condensed text-[9px] uppercase tracking-[0.2em] text-emerald-400 font-semibold block">
+                      Verified accreditations
                     </span>
-                    <h4 className="text-lg sm:text-xl font-bold text-white">
-                      Industry Certifications
+                    <h4 className="font-display uppercase text-white text-lg leading-tight">
+                      Industry certifications
                     </h4>
                   </div>
                 </div>
 
-                <p className="text-xs text-stone-400 mb-4">
+                <p className="text-xs text-stone-400 mb-4 leading-relaxed">
                   Rigorous external professional certificates across IBM, DeepLearning.AI, Google Cloud, Oracle Cloud, and TensorFlow.
                 </p>
 
-                <div className="grid grid-cols-1 gap-2 max-h-[320px] overflow-y-auto pr-1">
+                <div className="grid grid-cols-1 gap-1.5 max-h-[300px] overflow-y-auto pr-1">
                   {RESUME_CERTS.map((cert, cIdx) => (
                     <div
                       key={cIdx}
-                      className="flex items-center gap-2 p-2 rounded-xl bg-white/5 border border-white/5 text-xs font-mono text-stone-200 hover:border-orange-500/30 transition-colors"
+                      className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/[0.05] font-condensed text-[10px] uppercase tracking-[0.08em] text-stone-300 hover:border-[#ff4d00]/30 transition-colors"
                     >
-                      <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
+                      <CheckCircle2 size={11} className="text-emerald-400 shrink-0" />
                       <span className="truncate">{cert}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-stone-400">
-                <span>All credentials up-to-date</span>
-                <span className="text-orange-400 font-semibold">&bull; 2024–2026</span>
+              <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between font-condensed text-[10px] uppercase tracking-[0.16em] text-stone-500">
+                <span>All credentials current</span>
+                <span className="text-[#ff8a3d]">2024–2026</span>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
 
-        {/* Bottom Status bar */}
-        <div className="px-6 sm:px-10 py-3 bg-black/40 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-stone-400 shrink-0">
+        <div className="relative h-[2px] w-full shrink-0 bg-white/[0.05]">
+          <motion.div
+            className="absolute inset-y-0 left-0 right-0 origin-left bg-gradient-to-r from-[#ff3d00] via-[#ff6a1f] to-[#ffb347]"
+            style={{ scaleX: panScale }}
+          />
+        </div>
+
+        <div className="px-6 sm:px-10 py-3 bg-black/40 border-t border-white/[0.06] flex items-center justify-between font-condensed text-[10px] uppercase tracking-[0.16em] text-stone-500 shrink-0">
           <div className="flex items-center gap-2">
-            <span className="text-orange-400 font-bold">Skills Gallery</span>
-            <span>&bull;</span>
-            <span>Python, SQL, RAG, Scikit-learn, Docker, CI/CD, Microgrid Diagnostics</span>
+            <span className="text-[#ff8a3d] font-semibold">Skills gallery</span>
+            <span className="text-[#ff4d00]">•</span>
+            <span className="hidden sm:inline">Python, SQL, RAG, Scikit-learn, Docker, CI/CD, Microgrid diagnostics</span>
           </div>
-          <div className="hidden sm:block text-stone-400">
-            End of Skills Showcase &rarr;
-          </div>
+          <div className="hidden sm:block">End of showcase &rarr;</div>
         </div>
       </div>
     </div>

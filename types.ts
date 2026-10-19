@@ -18,6 +18,8 @@ export interface Project {
   domain: ProjectDomain;
   github?: string;
   demo?: string;
+  image?: string;
+  banner?: string;
   chartData?: { name: string; value: number }[];
 }
 

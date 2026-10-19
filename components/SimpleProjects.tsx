@@ -45,9 +45,12 @@ const SimpleProjects: React.FC = () => {
           return (
             <div
               key={project.title + idx}
-              className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+              className="rounded-2xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden"
             >
-              <div>
+              {(project.image || project.banner) && (
+                <img src={project.image || project.banner} alt={`${project.title} banner`} className="w-full h-36 object-cover" loading="lazy" />
+              )}
+              <div className="p-5">
                 <div className="flex items-center justify-between gap-2 mb-2.5">
                   <span className="text-[11px] font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">
                     {project.domain}

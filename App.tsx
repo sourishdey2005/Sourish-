@@ -1,514 +1,444 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Download, Menu, X, ArrowUpRight, FileText, Phone, Layers } from 'lucide-react';
+import { Github, Linkedin, Mail, Download, Menu, X, Phone } from 'lucide-react';
 import FluxoraHero from './components/FluxoraHero';
 import EditorialProjects from './components/EditorialProjects';
 import EditorialExperience from './components/EditorialExperience';
 import PositionOfResponsibility from './components/PositionOfResponsibility';
-import EditorialResearch from './components/EditorialResearch';
+import EditorialPatents from './components/EditorialPatents';
+import EditorialPublications from './components/EditorialPublications';
 import EditorialSkills from './components/EditorialSkills';
 import EditorialCertifications from './components/EditorialCertifications';
 import EditorialEducation from './components/EditorialEducation';
-import ResumeModal from './components/ResumeModal';
 import { PERSONAL_INFO } from './constants';
 
+const NAV_ITEMS = [
+  { id: 'home', label: 'Home' },
+  { id: 'education', label: 'Education' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Work' },
+  { id: 'patents', label: 'Patents' },
+  { id: 'research', label: 'Research' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'certifications', label: 'Credentials' },
+  { id: 'contact', label: 'Contact' },
+];
+
 const SectionDivider: React.FC<{ className?: string }> = ({ className = '' }) => (
-  <div className={`relative w-full flex items-center justify-center pointer-events-none px-6 sm:px-8 ${className}`} aria-hidden="true">
-    <div className="relative w-full max-w-6xl h-[1px]">
-      {/* Crisp 1px subtle orange-to-transparent gradient line */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/40 to-transparent" />
-      {/* Subtle ambient warm bloom */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#ff8a1f]/20 to-transparent blur-[1px]" />
-    </div>
+  <div className={`relative w-full px-6 sm:px-10 pointer-events-none ${className}`} aria-hidden="true">
+    <div className="max-w-7xl mx-auto h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
   </div>
+);
+
+interface SectionHeadingProps {
+  index: string;
+  eyebrow: string;
+  title: React.ReactNode;
+  description?: string;
+  aside?: React.ReactNode;
+}
+
+const SectionHeading: React.FC<SectionHeadingProps> = ({ index, eyebrow, title, description, aside }) => (
+  <motion.div
+    className="mb-12 sm:mb-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+    initial={{ opacity: 0, y: 26 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.4 }}
+    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+  >
+    <div>
+      <div className="flex items-center gap-3 mb-4">
+        <span className="font-condensed text-[11px] uppercase tracking-[0.32em] text-[#ff6a1f]">
+          {index} / {eyebrow}
+        </span>
+        <span className="h-px w-12 bg-[#ff4d00]/50" />
+      </div>
+      <h2 className="font-display uppercase leading-[0.95] text-white text-[clamp(2rem,4.4vw,3.4rem)] tracking-[0.01em]">
+        {title}
+      </h2>
+      {description && (
+        <p className="mt-3 max-w-2xl text-sm text-stone-400 leading-relaxed">{description}</p>
+      )}
+    </div>
+    {aside}
+  </motion.div>
 );
 
 const App: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [resumeModalOpen, setResumeModalOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const openResume = () => {
+    window.open(PERSONAL_INFO.resumeUrl, '_blank', 'noopener,noreferrer');
+  };
 
   useEffect(() => {
+    const sectionIds = NAV_ITEMS.map((item) => item.id);
+
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0);
+
+      const marker = window.scrollY + 200;
+      let currentSection = 'home';
+      for (const sectionId of sectionIds) {
+        const element = document.getElementById(sectionId);
+        if (element && marker >= element.offsetTop) currentSection = sectionId;
+      }
+      setActiveSection(currentSection);
     };
+
+    onScroll();
     window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#100300] text-stone-100 font-sans selection:bg-[#ff3d00] selection:text-white antialiased">
-      {/* 1. Transparent Pill / Amber-Tinted Navigation Bar */}
+    <div className="portfolio-noise min-h-screen text-stone-100 font-sans selection:bg-[#ff4d00] selection:text-white antialiased">
+      <div
+        className="fixed top-0 left-0 z-[60] h-[2px] bg-gradient-to-r from-[#ff3d00] via-[#ff8a1f] to-[#ffc46b] shadow-[0_0_12px_rgba(255,77,0,0.7)]"
+        style={{ width: `${scrollProgress}%` }}
+        aria-hidden="true"
+      />
+
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#120400]/95 backdrop-blur-md border-b border-orange-950/70 py-3 shadow-xl shadow-black/50'
+            ? 'bg-[#070201] border-b border-white/[0.07] py-3'
             : 'bg-transparent py-5'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 flex items-center justify-between">
-          {/* Left: Personal Name / Monogram */}
-          <a
-            href="#"
-            className="flex items-center gap-2.5 font-bold tracking-tight text-white text-sm group"
-          >
-            <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#ff3d00] to-[#ff8a1f] text-white flex items-center justify-center font-mono text-xs font-bold shadow-md shadow-orange-950/60 group-hover:scale-105 transition-transform">
-              SD
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between gap-6">
+          <a href="#home" className="flex items-center gap-3 shrink-0 group">
+            <span className="relative w-9 h-9 rounded-xl bg-[#ff4d00] flex items-center justify-center shadow-[0_8px_24px_-6px_rgba(255,77,0,0.8)]">
+              <span className="font-display text-[15px] text-white leading-none tracking-wide">SD</span>
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-white/60 rounded-full" />
             </span>
-            <div className="flex flex-col">
-              <span className="text-white font-semibold leading-tight">Sourish Dey</span>
-              <span className="text-[10px] font-mono text-orange-400/90 leading-none">KIIT &bull; CS 2027</span>
-            </div>
+            <span className="flex flex-col">
+              <span className="font-condensed text-[15px] font-semibold uppercase tracking-[0.14em] text-white leading-none">
+                Sourish Dey
+              </span>
+              <span className="mt-1 font-condensed text-[9px] uppercase tracking-[0.26em] text-stone-500">
+                Data Science &bull; KIIT
+              </span>
+            </span>
           </a>
 
-          {/* Center/Right Desktop Navigation (Pill container) */}
-          <nav className="hidden lg:flex items-center gap-6 px-6 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-lg text-xs font-medium text-stone-300 shadow-inner">
-            <a href="#education" className="hover:text-white transition-colors">
-              Education
-            </a>
-            <a href="#experience" className="hover:text-white transition-colors">
-              Experience
-            </a>
-            <a href="#responsibilities" className="hover:text-white transition-colors">
-              Responsibilities
-            </a>
-            <a href="#projects" className="hover:text-white transition-colors">
-              Projects
-            </a>
-            <a href="#research" className="hover:text-white transition-colors">
-              Research
-            </a>
-            <a href="#skills" className="hover:text-white transition-colors">
-              Skills
-            </a>
-            <a href="#certifications" className="hover:text-white transition-colors">
-              Certifications
-            </a>
-            <a href="#contact" className="hover:text-[#ff8a1f] transition-colors">
-              Contact
-            </a>
+          <nav className="hidden xl:flex items-center gap-6 2xl:gap-7">
+            {NAV_ITEMS.map((navItem) => (
+              <a
+                key={navItem.id}
+                href={`#${navItem.id}`}
+                data-active={activeSection === navItem.id}
+                aria-current={activeSection === navItem.id ? 'page' : undefined}
+                className="portfolio-nav-link font-condensed text-[12px] font-semibold uppercase tracking-[0.2em] text-stone-400 hover:text-white transition-colors"
+              >
+                {navItem.label}
+              </a>
+            ))}
           </nav>
 
-          {/* Right Action: Pill CTA + Resume Trigger */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2.5 shrink-0">
             <button
-              onClick={() => setResumeModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-orange-500/30 bg-orange-950/30 text-xs font-medium text-orange-200 hover:text-white hover:border-orange-500/60 hover:bg-orange-900/40 transition-all backdrop-blur-sm cursor-pointer"
+              onClick={openResume}
+              className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-stone-300 hover:text-white hover:border-[#ff6a1f]/60 transition-all cursor-pointer"
+              aria-label="Open resume"
             >
-              <Download size={13} className="text-orange-400" />
-              <span>Resume (PDF)</span>
+              <Download size={14} />
             </button>
             <a
               href="#contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#ff3d00] to-[#ff8a1f] text-xs font-semibold text-white shadow-md shadow-orange-950/50 hover:brightness-110 transition-all group cursor-pointer"
+              className="group inline-flex items-center gap-2 pl-5 pr-1.5 py-1.5 rounded-full bg-[#ff4d00] hover:bg-[#ff6a1f] text-white text-[11px] font-semibold uppercase tracking-[0.16em] transition-all shadow-[0_8px_28px_-8px_rgba(255,77,0,0.8)]"
             >
-              <span>Connect</span>
-              <span className="transition-transform group-hover:translate-x-0.5">&rarr;</span>
+              <span>Let's talk</span>
+              <span className="w-6 h-6 rounded-full bg-black/25 flex items-center justify-center text-[12px] transition-transform group-hover:translate-x-0.5">
+                &rarr;
+              </span>
             </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-stone-200 hover:text-white rounded-lg bg-white/5 border border-white/10"
+            className="xl:hidden p-2 text-stone-200 hover:text-white rounded-lg bg-white/5 border border-white/10"
             aria-label="Toggle navigation"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
-        {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[#120400] border-b border-orange-900/40 px-6 py-4 space-y-3 text-sm font-medium text-stone-300">
-            <a
-              href="#education"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-white"
-            >
-              Education
-            </a>
-            <a
-              href="#experience"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-white"
-            >
-              Experience
-            </a>
-            <a
-              href="#responsibilities"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-white"
-            >
-              Positions of Responsibility
-            </a>
-            <a
-              href="#projects"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-white"
-            >
-              Projects
-            </a>
-            <a
-              href="#research"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-white"
-            >
-              Research
-            </a>
-            <a
-              href="#skills"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-white"
-            >
-              Skills
-            </a>
-            <a
-              href="#certifications"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-white"
-            >
-              Certifications
-            </a>
+          <div className="xl:hidden bg-[#070201] border-b border-white/10 px-6 py-5 grid grid-cols-2 gap-3 font-condensed text-sm uppercase tracking-[0.16em] text-stone-300">
+            {NAV_ITEMS.map((navItem) => (
+              <a
+                key={navItem.id}
+                href={`#${navItem.id}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 hover:text-white"
+              >
+                {navItem.label}
+              </a>
+            ))}
             <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setResumeModalOpen(true);
-              }}
-              className="flex items-center gap-1.5 text-orange-300 font-medium pt-1 cursor-pointer"
+              onClick={() => { setMobileMenuOpen(false); openResume(); }}
+              className="col-span-2 mt-2 flex items-center gap-2 text-[#ff8a3d] font-semibold"
             >
-              <Download size={14} /> Resume (PDF Viewer) &rarr;
+              <Download size={14} /> Resume PDF
             </button>
-            <a
-              href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-[#ff8a1f] font-semibold"
-            >
-              Let's connect &rarr;
-            </a>
           </div>
         )}
       </header>
 
-      {/* 2. Fluxora — Warm Ember Hero Section */}
-      <FluxoraHero onOpenResume={() => setResumeModalOpen(true)} />
+      <FluxoraHero onOpenResume={openResume} />
 
-      <SectionDivider />
-
-      {/* 3. Trust / Snapshot Telemetry Strip */}
-      <section className="bg-gradient-to-r from-[#140501] via-[#1b0800] to-[#140501] relative overflow-hidden">
-        <motion.div 
-          className="max-w-6xl mx-auto px-6 sm:px-8 py-10 sm:py-12"
-          initial={{ opacity: 0, y: 24 }}
+      {/* Metrics band */}
+      <section className="relative border-y border-white/[0.07] bg-[#080302]">
+        <motion.div
+          className="max-w-7xl mx-auto px-6 sm:px-10 py-8 sm:py-10 grid grid-cols-2 md:grid-cols-4 gap-y-8"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            {[
-              { val: '4+', label: 'Research Publications' },
-              { val: '5', label: 'Granted Indian Patents' },
-              { val: '100K+', label: 'Telemetry Records Handled' },
-              { val: '40%', label: 'Latency Reduction' },
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-orange-500/40 backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.5),0_0_15px_rgba(255,61,0,0.06)] hover:shadow-[0_0_20px_rgba(255,61,0,0.2)] transition-all duration-300"
-              >
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-mono">
-                  {stat.val}
-                </div>
-                <div className="text-xs font-mono uppercase tracking-wider text-orange-300/80 mt-1">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {[
+            { val: '5', label: 'Research publications' },
+            { val: '5', label: 'Granted Indian patents' },
+            { val: '100K+', label: 'Records engineered' },
+            { val: '40%', label: 'Latency reduction' },
+          ].map((stat, i) => (
+            <div
+              key={stat.label}
+              className={`px-0 sm:px-8 ${i !== 0 ? 'md:border-l md:border-white/[0.08]' : ''}`}
+            >
+              <div className="font-display text-3xl sm:text-4xl text-white leading-none">
+                {stat.val}
+              </div>
+              <div className="mt-2 font-condensed text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-stone-500">
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </motion.div>
       </section>
 
-      <SectionDivider />
-
-      {/* 4. Education Section */}
-      <motion.section 
-        id="education" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
-        initial={{ opacity: 0, y: 24 }}
+      <motion.section
+        id="education"
+        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
+        initial={{ opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="mb-12">
-          <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            01 &bull; ACADEMIC FOUNDATIONS
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Education
-          </h2>
-          <p className="text-sm text-stone-400 mt-1 max-w-xl">
-            Undergraduate engineering coursework and verified academic honors.
-          </p>
-        </div>
-
+        <SectionHeading
+          index="01"
+          eyebrow="Academic foundations"
+          title={<>Education</>}
+          description="Undergraduate engineering coursework, verified academic honors, and a foundation in statistical modeling and distributed systems."
+        />
         <EditorialEducation />
       </motion.section>
 
       <SectionDivider />
 
-      {/* 5. Experience Section */}
-      <motion.section 
-        id="experience" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
-        initial={{ opacity: 0, y: 24 }}
+      <motion.section
+        id="experience"
+        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
+        initial={{ opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="mb-12">
-          <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            02 &bull; CAREER PATH
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Professional Experience
-          </h2>
-          <p className="text-sm text-stone-400 mt-1 max-w-xl">
-            High-throughput ETL pipelines, business intelligence, and distributed edge IoT research.
-          </p>
-        </div>
-
+        <SectionHeading
+          index="02"
+          eyebrow="Career path"
+          title={<>Experience</>}
+          description="High-throughput ETL pipelines, business intelligence, quantitative analysis, and distributed edge IoT research."
+        />
         <EditorialExperience />
       </motion.section>
 
       <SectionDivider />
 
-      {/* 6. Position of Responsibility Section */}
-      <motion.section 
-        id="responsibilities" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
-        initial={{ opacity: 0, y: 24 }}
+      <motion.section
+        id="responsibilities"
+        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
+        initial={{ opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="mb-12">
-          <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            03 &bull; LEADERSHIP & IMPACT
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Leadership Experience
-          </h2>
-          <p className="text-sm text-stone-400 mt-1 max-w-xl">
-            Institutional leadership, R&amp;D direction, and community tech mentorship.
-          </p>
-        </div>
-
+        <SectionHeading
+          index="03"
+          eyebrow="Leadership & impact"
+          title={<>Positions of responsibility</>}
+          description="Institutional leadership, R&D direction, and community technology mentorship across KIIT organizations."
+        />
         <PositionOfResponsibility />
       </motion.section>
 
       <SectionDivider />
 
-      {/* 7. Technical Projects Section */}
-      <section 
-        id="projects" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
-      >
-        <motion.div 
-          className="mb-14 sm:mb-16"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 'some' }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
-            <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block">
-              04 &bull; CODE &amp; SYSTEMS
+      <section id="projects" className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24">
+        <SectionHeading
+          index="04"
+          eyebrow="Selected work"
+          title={<>Technical projects</>}
+          description="Quantitative finance engines, order-book terminals, plant-disease vision models, LLM infrastructure, and Bayesian portfolio optimizers."
+          aside={
+            <span className="font-condensed text-[10px] uppercase tracking-[0.24em] text-stone-500 border border-white/10 rounded-full px-4 py-2 self-start lg:self-auto">
+              Scroll to stack &bull; 9 systems
             </span>
-            <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-orange-950/60 border border-orange-500/30 text-orange-300 flex items-center gap-1.5 shadow-sm shadow-orange-950/40">
-              <Layers size={12} className="text-[#ff3d00]" />
-              <span>Stacking Card Deck &bull; Scroll to Stack (7 Systems)</span>
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Technical Projects
-          </h2>
-          <p className="text-sm text-stone-400 mt-1 max-w-xl">
-            Quantitative finance engines, high-frequency order book terminals, ephemeral social architectures, and Bayesian portfolio optimizers.
-          </p>
-        </motion.div>
-
+          }
+        />
         <EditorialProjects />
       </section>
 
       <SectionDivider />
 
-      {/* 8. Research & Patents Section */}
-      <motion.section 
-        id="research" 
-        className="py-24 sm:py-32 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
-        initial={{ opacity: 0, y: 24 }}
+      <motion.section
+        id="patents"
+        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
+        initial={{ opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="mb-14">
-          <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block mb-2">
-            05 &bull; INTELLECTUAL WORK
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Achievements &amp; Granted Patents
-          </h2>
-          <p className="text-sm text-stone-400 mt-1 max-w-xl">
-            5 Indian utility patents granted across IoT, robotics, and machine learning systems.
-          </p>
-        </div>
-
-        <EditorialResearch />
+        <SectionHeading
+          index="05"
+          eyebrow="Intellectual property"
+          title={<>Granted patents</>}
+          description="5 granted Indian patents spanning green energy, industrial IoT, autonomous robotics, predictive maintenance, and smart grids."
+        />
+        <EditorialPatents />
       </motion.section>
 
       <SectionDivider />
 
-      {/* 9. Technical Skills Section — Pinned Sticky Horizontal Scroll Showcase */}
-      <section 
-        id="skills" 
-        className="relative w-full scroll-mt-20"
+      <motion.section
+        id="research"
+        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
+        initial={{ opacity: 0, y: 26 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 'some' }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
+        <SectionHeading
+          index="06"
+          eyebrow="Peer-reviewed research"
+          title={<>Research papers</>}
+          description="5 peer-reviewed journal publications spanning federated learning, neural architecture, urban IoT, and quantum simulation."
+        />
+        <EditorialPublications />
+      </motion.section>
+
+      <SectionDivider />
+
+      <section id="skills" className="relative w-full scroll-mt-24">
         <EditorialSkills />
       </section>
 
       <SectionDivider />
 
-      {/* 10. Certifications Section — Pinned Sticky Horizontal Scroll Gallery */}
-      <section 
-        id="certifications" 
-        className="relative w-full scroll-mt-20"
-      >
+      <section id="certifications" className="relative w-full scroll-mt-24">
         <EditorialCertifications />
       </section>
 
       <SectionDivider />
 
-      {/* 11. Contact Section */}
-      <motion.section 
-        id="contact" 
-        className="py-28 sm:py-36 max-w-6xl mx-auto px-6 sm:px-8 scroll-mt-20"
-        initial={{ opacity: 0, y: 24 }}
+      <motion.section
+        id="contact"
+        className="py-24 sm:py-32 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24 relative overflow-hidden"
+        initial={{ opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="max-w-2xl space-y-6">
-          <span className="text-xs font-mono font-bold tracking-widest uppercase text-orange-400 block">
-            06 &bull; DIALOGUE
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Have an interesting problem?
+        <div className="absolute -top-24 right-0 w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(255,77,0,0.16),transparent_65%)] blur-3xl pointer-events-none" />
+        <div className="relative max-w-3xl">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="font-condensed text-[11px] uppercase tracking-[0.32em] text-[#ff6a1f]">
+              09 / Dialogue
+            </span>
+            <span className="h-px w-12 bg-[#ff4d00]/50" />
+          </div>
+          <h2 className="font-display uppercase leading-[0.92] text-white text-[clamp(2.5rem,6vw,4.6rem)]">
+            Have an interesting
+            <br />
+            <span className="text-[#ff4d00]">problem?</span>
           </h2>
-          <p className="text-lg text-stone-300">
-            Let's engineer something resilient.
+          <p className="mt-5 text-base sm:text-lg text-stone-400 max-w-xl">
+            Let's engineer something resilient. Open to research collaborations,
+            data science roles, and quantitative engineering work.
           </p>
 
-          <div className="flex flex-wrap gap-4 pt-2">
+          <div className="mt-9 flex flex-wrap items-center gap-3.5">
             <a
               href="mailto:sourish713321@gmail.com"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#ff3d00] to-[#ff8a1f] text-white text-xs sm:text-sm font-semibold hover:brightness-110 shadow-lg shadow-orange-950/50 transition-all group cursor-pointer"
+              className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-[#ff4d00] hover:bg-[#ff6a1f] text-white text-xs sm:text-sm font-semibold uppercase tracking-wider shadow-[0_10px_40px_-10px_rgba(255,77,0,0.8)] transition-all"
             >
-              <span>Send an Email</span>
-              <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
+              <span>Send an email</span>
+              <span className="w-8 h-8 rounded-full bg-black/25 flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                &rarr;
+              </span>
             </a>
-
             <button
-              onClick={() => setResumeModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-stone-200 text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
+              onClick={openResume}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-white/15 bg-white/[0.03] hover:bg-white/[0.07] text-stone-200 text-xs sm:text-sm font-medium uppercase tracking-wider transition-colors cursor-pointer"
             >
-              <Download size={14} className="text-orange-400" />
-              <span>Preview &bull; Download Resume PDF</span>
+              <Download size={14} className="text-[#ff8a3d]" />
+              <span>Resume PDF</span>
             </button>
           </div>
 
-          <div className="pt-8 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs text-stone-400 font-mono">
-            <a
-              href="mailto:sourish713321@gmail.com"
-              className="hover:text-white transition-colors"
-            >
+          <div className="mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center gap-x-6 gap-y-3 font-condensed text-[11px] uppercase tracking-[0.18em] text-stone-500">
+            <a href="mailto:sourish713321@gmail.com" className="hover:text-white transition-colors">
               sourish713321@gmail.com
             </a>
-            <span>&bull;</span>
-            <a
-              href="tel:+919064648823"
-              className="hover:text-white transition-colors flex items-center gap-1"
-            >
-              <Phone size={12} /> +91 9064648823
+            <span className="text-[#ff4d00]">&bull;</span>
+            <a href="tel:+919064648823" className="hover:text-white transition-colors flex items-center gap-1.5">
+              <Phone size={11} /> +91 9064648823
             </a>
-            <span>&bull;</span>
-            <a
-              href="https://sourishdeyportfolio.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-orange-300 transition-colors"
-            >
+            <span className="text-[#ff4d00]">&bull;</span>
+            <a href="https://sourishdeyportfolio.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               sourishdeyportfolio.vercel.app
             </a>
           </div>
         </div>
       </motion.section>
 
-      <SectionDivider />
-
-      {/* 13. Minimal Dark Footer */}
-      <motion.footer 
-        className="py-8 bg-[#0a0200]"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-mono">
-          <div>
-            Sourish Dey &bull; Data Scientist &amp; ML Engineer &bull; &copy; 2026
+      <footer className="border-t border-white/[0.07] bg-[#060201]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-5">
+          <div className="flex items-center gap-3">
+            <span className="w-7 h-7 rounded-lg bg-[#ff4d00] flex items-center justify-center">
+              <span className="font-display text-[11px] text-white leading-none">SD</span>
+            </span>
+            <span className="font-condensed text-[11px] uppercase tracking-[0.2em] text-stone-500">
+              Sourish Dey &bull; Data Scientist &amp; ML Engineer &bull; &copy; 2026
+            </span>
           </div>
-
-          <div className="flex items-center gap-6">
-            <button
-              onClick={() => setResumeModalOpen(true)}
-              className="hover:text-orange-300 transition-colors inline-flex items-center gap-1 cursor-pointer"
-            >
-              <Download size={13} /> Resume PDF
+          <div className="flex items-center gap-5">
+            <button onClick={openResume} className="font-condensed text-[11px] uppercase tracking-[0.18em] text-stone-500 hover:text-[#ff8a3d] transition-colors inline-flex items-center gap-1.5 cursor-pointer">
+              <Download size={12} /> Resume
             </button>
-            <a
-              href="https://github.com/sourishdey2005"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors inline-flex items-center gap-1"
-            >
-              <Github size={13} /> GitHub
+            <a href="https://github.com/sourishdey2005" target="_blank" rel="noopener noreferrer" className="font-condensed text-[11px] uppercase tracking-[0.18em] text-stone-500 hover:text-white transition-colors inline-flex items-center gap-1.5">
+              <Github size={12} /> GitHub
             </a>
-            <a
-              href="https://www.linkedin.com/in/sourish-dey-20b170206"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-orange-300 transition-colors inline-flex items-center gap-1"
-            >
-              <Linkedin size={13} /> LinkedIn
+            <a href="https://www.linkedin.com/in/sourish-dey-20b170206" target="_blank" rel="noopener noreferrer" className="font-condensed text-[11px] uppercase tracking-[0.18em] text-stone-500 hover:text-white transition-colors inline-flex items-center gap-1.5">
+              <Linkedin size={12} /> LinkedIn
             </a>
-            <a
-              href="mailto:sourish713321@gmail.com"
-              className="hover:text-white transition-colors inline-flex items-center gap-1"
-            >
-              <Mail size={13} /> Email
+            <a href="mailto:sourish713321@gmail.com" className="font-condensed text-[11px] uppercase tracking-[0.18em] text-stone-500 hover:text-white transition-colors inline-flex items-center gap-1.5">
+              <Mail size={12} /> Email
             </a>
           </div>
         </div>
-      </motion.footer>
-
-      {/* Interactive Resume PDF Modal */}
-      <ResumeModal
-        isOpen={resumeModalOpen}
-        onClose={() => setResumeModalOpen(false)}
-      />
+      </footer>
     </div>
   );
 };
