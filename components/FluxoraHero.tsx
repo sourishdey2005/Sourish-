@@ -104,12 +104,25 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
             style={{ y: textY }}
             className="lg:col-span-6 xl:col-span-6 relative z-20"
           >
-            <motion.h1
-              variants={item}
+            <h1
               className="font-display uppercase leading-[0.92] tracking-[0.01em] text-white text-[clamp(2.9rem,7.4vw,5.6rem)]"
             >
-              SOURISH DEY
-            </motion.h1>
+              {'SOURISH DEY'.split(' ').map((word, i, arr) => (
+                <span
+                  key={word}
+                  className={`inline-block overflow-hidden align-top ${i < arr.length - 1 ? 'mr-[0.18em]' : ''}`}
+                >
+                  <motion.span
+                    className="inline-block will-change-transform"
+                    initial={{ y: '110%' }}
+                    animate={{ y: '0%' }}
+                    transition={{ duration: 0.85, delay: 0.25 + i * 0.13, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
 
             <motion.p
               variants={item}
