@@ -198,36 +198,6 @@ const App: React.FC = () => {
 
       <FluxoraHero onOpenResume={openResume} />
 
-      {/* Metrics band */}
-      <section className="relative border-y border-white/[0.07] bg-[#080302]">
-        <motion.div
-          className="max-w-7xl mx-auto px-6 sm:px-10 py-8 sm:py-10 grid grid-cols-2 md:grid-cols-4 gap-y-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {[
-            { val: '5', label: 'Research publications' },
-            { val: '5', label: 'Granted Indian patents' },
-            { val: '100K+', label: 'Records engineered' },
-            { val: '40%', label: 'Latency reduction' },
-          ].map((stat, i) => (
-            <div
-              key={stat.label}
-              className={`px-0 sm:px-8 ${i !== 0 ? 'md:border-l md:border-white/[0.08]' : ''}`}
-            >
-              <div className="font-display text-3xl sm:text-4xl text-white leading-none">
-                {stat.val}
-              </div>
-              <div className="mt-2 font-condensed text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-stone-500">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-      </section>
-
       <motion.section
         id="education"
         className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
