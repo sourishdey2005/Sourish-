@@ -3,6 +3,12 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'fram
 import { ArrowUpRight, Download, Github, Linkedin, Mail, FileText, ShieldCheck, ChevronDown } from 'lucide-react';
 import { PERSONAL_INFO } from '../constants';
 
+const ResearchGateIcon: React.FC<{ size?: number; className?: string }> = ({ size = 15, className }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M19.5 3h-15A1.5 1.5 0 0 0 3 4.5v15A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5v-15A1.5 1.5 0 0 0 19.5 3zm-8.7 13.9h-1.4v-6.3h1.4v6.3zm-0.7-7.1a0.9 0.9 0 1 1 0-1.8 0.9 0.9 0 0 1 0 1.8zm7.1 7.1h-1.3v-3.3c0-0.9-0.3-1.4-1.1-1.4-0.6 0-1 0.4-1.2 0.8-0.1 0.1-0.1 0.3-0.1 0.5v3.4h-1.3v-4.3c0-0.5 0-0.9-0.1-1.3h1.2l0.1 0.6h0.1c0.4-0.6 1.1-0.8 1.8-0.8 1.3 0 2 0.9 2 2.4v3.4z" />
+  </svg>
+);
+
 interface FluxoraHeroProps {
   onOpenResume?: () => void;
 }
@@ -165,6 +171,7 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
               <div className="flex items-center gap-2">
                 {[
                   { href: PERSONAL_INFO.linkedin, icon: Linkedin, label: 'LinkedIn' },
+                  { href: 'https://www.researchgate.net/profile/Sourish-Dey-3', icon: ResearchGateIcon, label: 'ResearchGate' },
                   { href: PERSONAL_INFO.github, icon: Github, label: 'GitHub' },
                   { href: `mailto:${PERSONAL_INFO.email}`, icon: Mail, label: 'Email' },
                 ].map(({ href, icon: Icon, label }) => (
