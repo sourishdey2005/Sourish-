@@ -63,7 +63,7 @@ const FluxoraHero: React.FC<FluxoraHeroProps> = ({ onOpenResume }) => {
     <section
       id="home"
       ref={heroRef}
-      className="relative overflow-hidden bg-[#050101] text-stone-100 pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 min-h-[100svh] flex flex-col justify-center scroll-mt-24"
+      className="relative overflow-hidden bg-[#050101] text-stone-100 pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-20 min-h-[100svh] flex flex-col justify-center scroll-mt-24"
     >
       {/* Ember atmosphere */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
