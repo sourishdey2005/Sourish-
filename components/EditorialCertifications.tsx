@@ -3,9 +3,7 @@ import { motion } from 'framer-motion';
 import { 
   ExternalLink, 
   X, 
-  ZoomIn,
-  Play,
-  Pause
+  ZoomIn
 } from 'lucide-react';
 
 export interface CertificateItem {
@@ -330,7 +328,6 @@ export const CERTIFICATES_DATA: CertificateItem[] = [
 
 const EditorialCertifications: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isHoverPaused, setIsHoverPaused] = useState<boolean>(false);
 
   // Close modal on Escape key press
@@ -348,11 +345,7 @@ const EditorialCertifications: React.FC = () => {
     };
   }, [selectedCert]);
 
-  const togglePlayback = () => {
-    setIsPlaying((prev) => !prev);
-  };
-
-  const isMarqueePaused = !isPlaying || isHoverPaused;
+  const isMarqueePaused = isHoverPaused;
 
   return (
     <div className="relative w-full py-20 sm:py-28 overflow-hidden bg-[#070201]">
@@ -378,26 +371,6 @@ const EditorialCertifications: React.FC = () => {
           <h2 className="font-display uppercase leading-[0.95] text-white text-[clamp(2rem,4.4vw,3.4rem)] tracking-[0.01em] flex items-center gap-3">
             <span>Licenses &amp; certifications</span>
           </h2>
-        </div>
-
-        <div className="flex items-center gap-3 self-start sm:self-auto shrink-0">
-          <button
-            onClick={togglePlayback}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 font-condensed text-[10px] uppercase tracking-[0.18em] text-stone-300 hover:text-white backdrop-blur-md transition-all cursor-pointer"
-            title={isPlaying ? "Pause infinite loop" : "Resume infinite loop"}
-          >
-            {isPlaying ? (
-              <>
-                <Pause size={12} className="text-[#ff8a3d]" />
-                <span>Pause stream</span>
-              </>
-            ) : (
-              <>
-                <Play size={12} className="text-[#ff8a3d]" />
-                <span>Resume stream</span>
-              </>
-            )}
-          </button>
         </div>
       </motion.div>
 
