@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, type MotionStyle } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, Menu, X, Phone } from 'lucide-react';
 import FluxoraHero from './components/FluxoraHero';
 import EditorialProjects from './components/EditorialProjects';
@@ -56,129 +56,160 @@ interface RevealProps {
 }
 
 const Reveal: React.FC<RevealProps> = ({ variant, amount = 0.15, className = '', children }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+
+  const driftY = useTransform(scrollYProgress, [0, 1], [70, -70]);
+  const driftXLeft = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const driftXRight = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const driftRotate = useTransform(scrollYProgress, [0, 1], [-2, 2]);
+  const driftScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1, 0.96]);
+  const driftRotateX = useTransform(scrollYProgress, [0, 1], [6, -6]);
+
+  let driftStyle: MotionStyle = {};
   switch (variant) {
-    case 'veil':
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, filter: 'blur(16px)', scale: 1.03 }}
-          whileInView={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
-          viewport={{ once: true, amount }}
-          transition={{ duration: 1.15, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {children}
-        </motion.div>
-      );
     case 'rise':
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, y: 64, filter: 'blur(8px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, amount }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {children}
-        </motion.div>
-      );
-    case 'fromLeft':
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, x: -80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {children}
-        </motion.div>
-      );
-    case 'tilt':
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, y: 48, rotate: -2.5 }}
-          whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-          viewport={{ once: true, amount }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {children}
-        </motion.div>
-      );
     case 'pop':
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, y: 36, scale: 0.93 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount }}
-          transition={{ type: 'spring', stiffness: 80, damping: 16, mass: 0.9 }}
-        >
-          {children}
-        </motion.div>
-      );
-    case 'flip':
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, y: 56, rotateX: 14, transformPerspective: 1000 }}
-          whileInView={{ opacity: 1, y: 0, rotateX: 0, transformPerspective: 1000 }}
-          viewport={{ once: true, amount }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {children}
-        </motion.div>
-      );
-    case 'fromRight':
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, x: 80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {children}
-        </motion.div>
-      );
-    case 'zoom':
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, y: 24, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount }}
-          transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {children}
-        </motion.div>
-      );
-    case 'wipe':
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, clipPath: 'inset(0% 100% 0% 0%)' }}
-          whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
-          viewport={{ once: true, amount }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {children}
-        </motion.div>
-      );
     case 'spring':
+      driftStyle = { y: driftY, scale: driftScale };
+      break;
+    case 'fromLeft':
+      driftStyle = { x: driftXLeft, rotate: driftRotate };
+      break;
+    case 'fromRight':
+      driftStyle = { x: driftXRight, rotate: driftRotate };
+      break;
+    case 'tilt':
+      driftStyle = { y: driftY, rotate: driftRotate };
+      break;
+    case 'flip':
+      driftStyle = { y: driftY, rotateX: driftRotateX, transformPerspective: 1000 };
+      break;
     default:
-      return (
-        <motion.div
-          className={className}
-          initial={{ opacity: 0, y: 80, scale: 0.94 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount }}
-          transition={{ type: 'spring', stiffness: 65, damping: 14, mass: 1.05 }}
-        >
-          {children}
-        </motion.div>
-      );
+      driftStyle = {};
   }
+
+  const entrance = () => {
+    switch (variant) {
+      case 'veil':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 1.06, filter: 'blur(24px)' }}
+            whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            viewport={{ once: true, amount }}
+            transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {children}
+          </motion.div>
+        );
+      case 'rise':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 120, scale: 0.94, filter: 'blur(14px)' }}
+            whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            viewport={{ once: true, amount }}
+            transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {children}
+          </motion.div>
+        );
+      case 'fromLeft':
+        return (
+          <motion.div
+            initial={{ opacity: 0, x: -160, rotate: -2 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+            viewport={{ once: true, amount }}
+            transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {children}
+          </motion.div>
+        );
+      case 'tilt':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 90, rotate: -5, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
+            viewport={{ once: true, amount }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {children}
+          </motion.div>
+        );
+      case 'pop':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 70, scale: 0.82 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount }}
+            transition={{ type: 'spring', stiffness: 65, damping: 13, mass: 0.95 }}
+          >
+            {children}
+          </motion.div>
+        );
+      case 'flip':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 100, rotateX: 28, transformPerspective: 900 }}
+            whileInView={{ opacity: 1, y: 0, rotateX: 0, transformPerspective: 900 }}
+            viewport={{ once: true, amount }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {children}
+          </motion.div>
+        );
+      case 'fromRight':
+        return (
+          <motion.div
+            initial={{ opacity: 0, x: 160, rotate: 2 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+            viewport={{ once: true, amount }}
+            transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {children}
+          </motion.div>
+        );
+      case 'zoom':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 60, scale: 0.82 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {children}
+          </motion.div>
+        );
+      case 'wipe':
+        return (
+          <motion.div
+            initial={{ opacity: 0, clipPath: 'inset(0% 100% 0% 0%)' }}
+            whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
+            viewport={{ once: true, amount }}
+            transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {children}
+          </motion.div>
+        );
+      case 'spring':
+      default:
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 130, scale: 0.88, rotate: 1.5 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+            viewport={{ once: true, amount }}
+            transition={{ type: 'spring', stiffness: 55, damping: 12, mass: 1.1 }}
+          >
+            {children}
+          </motion.div>
+        );
+    }
+  };
+
+  return (
+    <div ref={ref} className={className}>
+      <motion.div style={driftStyle}>{entrance()}</motion.div>
+    </div>
+  );
 };
 
 interface SectionHeadingProps {
@@ -252,7 +283,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="portfolio-noise min-h-screen text-stone-100 font-sans selection:bg-[#ff4d00] selection:text-white antialiased">
+    <div className="portfolio-noise min-h-screen overflow-x-clip text-stone-100 font-sans selection:bg-[#ff4d00] selection:text-white antialiased">
       <div
         className="fixed top-0 left-0 z-[60] h-[2px] bg-gradient-to-r from-[#ff3d00] via-[#ff8a1f] to-[#ffc46b] shadow-[0_0_12px_rgba(255,77,0,0.7)]"
         style={{ width: `${scrollProgress}%` }}
