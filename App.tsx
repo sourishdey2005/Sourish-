@@ -45,7 +45,7 @@ type RevealVariant =
   | 'flip'
   | 'fromRight'
   | 'zoom'
-  | 'wipe'
+  | 'swing'
   | 'spring';
 
 interface RevealProps {
@@ -179,13 +179,13 @@ const Reveal: React.FC<RevealProps> = ({ variant, amount = 0.15, className = '',
             {children}
           </motion.div>
         );
-      case 'wipe':
+      case 'swing':
         return (
           <motion.div
-            initial={{ opacity: 0, clipPath: 'inset(0% 100% 0% 0%)' }}
-            whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
+            initial={{ opacity: 0, x: 130, rotateY: -22 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
             viewport={{ once: true, amount }}
-            transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
             {children}
           </motion.div>
@@ -425,7 +425,7 @@ const App: React.FC = () => {
       <SectionDivider />
 
       <section id="projects" className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24">
-        <Reveal variant="pop">
+        <Reveal variant="pop" amount={0.04}>
           <SectionHeading
             index="04"
             eyebrow="Selected work"
@@ -480,7 +480,7 @@ const App: React.FC = () => {
       <SectionDivider />
 
       <section id="certifications" className="relative w-full scroll-mt-24">
-        <Reveal variant="wipe" amount={0.08}>
+        <Reveal variant="swing" amount={0.08}>
           <EditorialCertifications />
         </Reveal>
       </section>
