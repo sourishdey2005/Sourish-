@@ -26,9 +26,160 @@ const NAV_ITEMS = [
 
 const SectionDivider: React.FC<{ className?: string }> = ({ className = '' }) => (
   <div className={`relative w-full px-6 sm:px-10 pointer-events-none ${className}`} aria-hidden="true">
-    <div className="max-w-7xl mx-auto h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+    <motion.div
+      className="max-w-7xl mx-auto h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+      initial={{ scaleX: 0, opacity: 0 }}
+      whileInView={{ scaleX: 1, opacity: 1 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+    />
   </div>
 );
+
+type RevealVariant =
+  | 'veil'
+  | 'rise'
+  | 'fromLeft'
+  | 'tilt'
+  | 'pop'
+  | 'flip'
+  | 'fromRight'
+  | 'zoom'
+  | 'wipe'
+  | 'spring';
+
+interface RevealProps {
+  variant: RevealVariant;
+  amount?: number;
+  className?: string;
+  children: React.ReactNode;
+}
+
+const Reveal: React.FC<RevealProps> = ({ variant, amount = 0.15, className = '', children }) => {
+  switch (variant) {
+    case 'veil':
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, filter: 'blur(16px)', scale: 1.03 }}
+          whileInView={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+          viewport={{ once: true, amount }}
+          transition={{ duration: 1.15, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {children}
+        </motion.div>
+      );
+    case 'rise':
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, y: 64, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, amount }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {children}
+        </motion.div>
+      );
+    case 'fromLeft':
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, x: -80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {children}
+        </motion.div>
+      );
+    case 'tilt':
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, y: 48, rotate: -2.5 }}
+          whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+          viewport={{ once: true, amount }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {children}
+        </motion.div>
+      );
+    case 'pop':
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, y: 36, scale: 0.93 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount }}
+          transition={{ type: 'spring', stiffness: 80, damping: 16, mass: 0.9 }}
+        >
+          {children}
+        </motion.div>
+      );
+    case 'flip':
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, y: 56, rotateX: 14, transformPerspective: 1000 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0, transformPerspective: 1000 }}
+          viewport={{ once: true, amount }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {children}
+        </motion.div>
+      );
+    case 'fromRight':
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, x: 80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {children}
+        </motion.div>
+      );
+    case 'zoom':
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, y: 24, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount }}
+          transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {children}
+        </motion.div>
+      );
+    case 'wipe':
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, clipPath: 'inset(0% 100% 0% 0%)' }}
+          whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
+          viewport={{ once: true, amount }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {children}
+        </motion.div>
+      );
+    case 'spring':
+    default:
+      return (
+        <motion.div
+          className={className}
+          initial={{ opacity: 0, y: 80, scale: 0.94 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount }}
+          transition={{ type: 'spring', stiffness: 65, damping: 14, mass: 1.05 }}
+        >
+          {children}
+        </motion.div>
+      );
+  }
+};
 
 interface SectionHeadingProps {
   index: string;
@@ -196,141 +347,121 @@ const App: React.FC = () => {
         )}
       </header>
 
-      <FluxoraHero onOpenResume={openResume} />
+      <Reveal variant="veil" amount={0.02}>
+        <FluxoraHero onOpenResume={openResume} />
+      </Reveal>
 
-      <motion.section
-        id="education"
-        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
-        initial={{ opacity: 0, y: 26 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <SectionHeading
-          index="01"
-          eyebrow="Academic foundations"
-          title={<>Education</>}
-          description="Undergraduate engineering coursework, verified academic honors, and a foundation in statistical modeling and distributed systems."
-        />
-        <EditorialEducation />
-      </motion.section>
-
-      <SectionDivider />
-
-      <motion.section
-        id="experience"
-        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
-        initial={{ opacity: 0, y: 26 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <SectionHeading
-          index="02"
-          eyebrow="Career path"
-          title={<>Experience</>}
-          description="High-throughput ETL pipelines, business intelligence, quantitative analysis, and distributed edge IoT research."
-        />
-        <EditorialExperience />
-      </motion.section>
-
-      <SectionDivider />
-
-      <motion.section
-        id="responsibilities"
-        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
-        initial={{ opacity: 0, y: 26 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <SectionHeading
-          index="03"
-          eyebrow="Leadership & impact"
-          title={<>Positions of responsibility</>}
-          description="Institutional leadership, R&D direction, and community technology mentorship across KIIT organizations."
-        />
-        <PositionOfResponsibility />
-      </motion.section>
-
-      <SectionDivider />
-
-      <section id="projects" className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24">
-        <SectionHeading
-          index="04"
-          eyebrow="Selected work"
-          title={<>Technical projects</>}
-          description="Quantitative finance engines, order-book terminals, plant-disease vision models, LLM infrastructure, and Bayesian portfolio optimizers."
-          aside={
-            <span className="font-condensed text-[10px] uppercase tracking-[0.24em] text-stone-500 border border-white/10 rounded-full px-4 py-2 self-start lg:self-auto">
-              Scroll to stack &bull; 9 systems
-            </span>
-          }
-        />
-        <EditorialProjects />
+      <section id="education" className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24">
+        <Reveal variant="rise">
+          <SectionHeading
+            index="01"
+            eyebrow="Academic foundations"
+            title={<>Education</>}
+            description="Undergraduate engineering coursework, verified academic honors, and a foundation in statistical modeling and distributed systems."
+          />
+          <EditorialEducation />
+        </Reveal>
       </section>
 
       <SectionDivider />
 
-      <motion.section
-        id="patents"
-        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
-        initial={{ opacity: 0, y: 26 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <SectionHeading
-          index="05"
-          eyebrow="Intellectual property"
-          title={<>Granted patents</>}
-          description="5 granted Indian patents spanning green energy, industrial IoT, autonomous robotics, predictive maintenance, and smart grids."
-        />
-        <EditorialPatents />
-      </motion.section>
+      <section id="experience" className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24">
+        <Reveal variant="fromLeft">
+          <SectionHeading
+            index="02"
+            eyebrow="Career path"
+            title={<>Experience</>}
+            description="High-throughput ETL pipelines, business intelligence, quantitative analysis, and distributed edge IoT research."
+          />
+          <EditorialExperience />
+        </Reveal>
+      </section>
 
       <SectionDivider />
 
-      <motion.section
-        id="research"
-        className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24"
-        initial={{ opacity: 0, y: 26 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <SectionHeading
-          index="06"
-          eyebrow="Peer-reviewed research"
-          title={<>Research papers</>}
-          description="5 peer-reviewed journal publications spanning federated learning, neural architecture, urban IoT, and quantum simulation."
-        />
-        <EditorialPublications />
-      </motion.section>
+      <section id="responsibilities" className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24">
+        <Reveal variant="tilt">
+          <SectionHeading
+            index="03"
+            eyebrow="Leadership & impact"
+            title={<>Positions of responsibility</>}
+            description="Institutional leadership, R&D direction, and community technology mentorship across KIIT organizations."
+          />
+          <PositionOfResponsibility />
+        </Reveal>
+      </section>
+
+      <SectionDivider />
+
+      <section id="projects" className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24">
+        <Reveal variant="pop">
+          <SectionHeading
+            index="04"
+            eyebrow="Selected work"
+            title={<>Technical projects</>}
+            description="Quantitative finance engines, order-book terminals, plant-disease vision models, LLM infrastructure, and Bayesian portfolio optimizers."
+            aside={
+              <span className="font-condensed text-[10px] uppercase tracking-[0.24em] text-stone-500 border border-white/10 rounded-full px-4 py-2 self-start lg:self-auto">
+                Scroll to stack &bull; 9 systems
+              </span>
+            }
+          />
+          <EditorialProjects />
+        </Reveal>
+      </section>
+
+      <SectionDivider />
+
+      <section id="patents" className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24">
+        <Reveal variant="flip">
+          <SectionHeading
+            index="05"
+            eyebrow="Intellectual property"
+            title={<>Granted patents</>}
+            description="5 granted Indian patents spanning green energy, industrial IoT, autonomous robotics, predictive maintenance, and smart grids."
+          />
+          <EditorialPatents />
+        </Reveal>
+      </section>
+
+      <SectionDivider />
+
+      <section id="research" className="py-20 sm:py-28 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24">
+        <Reveal variant="fromRight">
+          <SectionHeading
+            index="06"
+            eyebrow="Peer-reviewed research"
+            title={<>Research papers</>}
+            description="5 peer-reviewed journal publications spanning federated learning, neural architecture, urban IoT, and quantum simulation."
+          />
+          <EditorialPublications />
+        </Reveal>
+      </section>
 
       <SectionDivider />
 
       <section id="skills" className="relative w-full scroll-mt-24">
-        <EditorialSkills />
+        <Reveal variant="zoom" amount={0.08}>
+          <EditorialSkills />
+        </Reveal>
       </section>
 
       <SectionDivider />
 
       <section id="certifications" className="relative w-full scroll-mt-24">
-        <EditorialCertifications />
+        <Reveal variant="wipe" amount={0.08}>
+          <EditorialCertifications />
+        </Reveal>
       </section>
 
       <SectionDivider />
 
-      <motion.section
+      <section
         id="contact"
         className="py-24 sm:py-32 max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24 relative overflow-hidden"
-        initial={{ opacity: 0, y: 26 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 'some' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="absolute -top-24 right-0 w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(255,77,0,0.16),transparent_65%)] blur-3xl pointer-events-none" />
+        <Reveal variant="spring">
         <div className="relative max-w-3xl">
           <div className="flex items-center gap-3 mb-5">
             <span className="font-condensed text-[11px] uppercase tracking-[0.32em] text-[#ff6a1f]">
@@ -381,7 +512,8 @@ const App: React.FC = () => {
             </a>
           </div>
         </div>
-      </motion.section>
+        </Reveal>
+      </section>
 
       <footer className="border-t border-white/[0.07] bg-[#060201]">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-5">
