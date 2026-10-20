@@ -415,7 +415,8 @@ const EditorialCertifications: React.FC = () => {
                   <img
                     src={cert.imageUrl}
                     alt={cert.title}
-                    loading="lazy"
+                    loading={setIndex === 0 && index < 12 ? 'eager' : 'lazy'}
+                    decoding="async"
                     className="w-full h-full object-contain object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
