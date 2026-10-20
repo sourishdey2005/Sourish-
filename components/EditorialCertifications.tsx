@@ -378,9 +378,6 @@ const EditorialCertifications: React.FC = () => {
           <h2 className="font-display uppercase leading-[0.95] text-white text-[clamp(2rem,4.4vw,3.4rem)] tracking-[0.01em] flex items-center gap-3">
             <span>Licenses &amp; certifications</span>
           </h2>
-          <p className="text-xs sm:text-sm text-stone-400 mt-3 max-w-2xl leading-relaxed">
-            A continuous stream of verified industry accreditations. Click any certificate to view high-resolution proof.
-          </p>
         </div>
 
         <div className="flex items-center gap-3 self-start sm:self-auto shrink-0">

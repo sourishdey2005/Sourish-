@@ -9,7 +9,6 @@ import {
   Server, 
   CheckCircle2, 
   ArrowRight,
-  ShieldCheck,
   Flame
 } from 'lucide-react';
 
@@ -104,20 +103,6 @@ const CATEGORIES: SkillCategory[] = [
     icon: Terminal,
     highlight: 'Automated CI/CD & Multi-Cloud Ops'
   }
-];
-
-const RESUME_CERTS = [
-  "IBM Data Science Professional",
-  "IBM Data Analytics",
-  "IBM Business Analyst",
-  "DeepLearning.AI (Neural Networks, Hyperparameter Tuning)",
-  "TensorFlow Deep Learning",
-  "MathWorks Image Processing",
-  "ZTCA Certified",
-  "Google Cloud Fundamentals",
-  "Oracle Cloud Infrastructure Data Science & Cloud",
-  "FreeCodeCamp: Machine Learning with Python",
-  "FreeCodeCamp: Data Analysis with Python"
 ];
 
 // Skill Logo Component rendering dedicated SVG brand logos and domain icons
@@ -572,10 +557,6 @@ const EditorialSkills: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10 font-condensed text-[10px] uppercase tracking-[0.18em] text-stone-400 backdrop-blur-md self-start sm:self-auto">
-            <span>Scroll to pan</span>
-            <ArrowRight size={12} className="text-[#ff6a1f]" />
-          </div>
         </motion.div>
 
         <div className="relative flex-1 flex items-center overflow-visible py-4">
@@ -682,51 +663,6 @@ const EditorialSkills: React.FC = () => {
                 </motion.div>
               );
             })}
-
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[380px] sm:w-[470px] shrink-0 p-7 rounded-2xl bg-gradient-to-br from-[#180602] via-[#100401] to-[#0a0201] border border-[#ff4d00]/30 shadow-2xl shadow-black/80 flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center gap-2.5 mb-4">
-                  <div className="w-9 h-9 rounded-lg bg-emerald-500/[0.08] border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                    <ShieldCheck size={16} />
-                  </div>
-                  <div>
-                    <span className="font-condensed text-[9px] uppercase tracking-[0.2em] text-emerald-400 font-semibold block">
-                      Verified accreditations
-                    </span>
-                    <h4 className="font-display uppercase text-white text-lg leading-tight">
-                      Industry certifications
-                    </h4>
-                  </div>
-                </div>
-
-                <p className="text-xs text-stone-400 mb-4 leading-relaxed">
-                  Rigorous external professional certificates across IBM, DeepLearning.AI, Google Cloud, Oracle Cloud, and TensorFlow.
-                </p>
-
-                <div className="grid grid-cols-1 gap-1.5 max-h-[300px] overflow-y-auto pr-1">
-                  {RESUME_CERTS.map((cert, cIdx) => (
-                    <div
-                      key={cIdx}
-                      className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/[0.05] font-condensed text-[10px] uppercase tracking-[0.08em] text-stone-300 hover:border-[#ff4d00]/30 transition-colors"
-                    >
-                      <CheckCircle2 size={11} className="text-emerald-400 shrink-0" />
-                      <span className="truncate">{cert}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between font-condensed text-[10px] uppercase tracking-[0.16em] text-stone-500">
-                <span>All credentials current</span>
-                <span className="text-[#ff8a3d]">2024–2026</span>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
 
